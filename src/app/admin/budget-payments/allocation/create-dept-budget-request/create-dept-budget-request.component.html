@@ -1,0 +1,136 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+       <app-breadcrumb [items]="breadscrum.items" [active_item]="breadscrum.active">
+       </app-breadcrumb> 
+     </div>
+      <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="header">
+              <h2 class="text-center">{{action === "edit"?'Edit':'Allocate'}} Department Budget</h2>
+            </div>
+            <div class="body">
+              <form class="m-4" [formGroup]="departmentForm">
+                <div class="row">
+                <div class="col-lg-4">
+                  <label
+                    >Department Name<span class="mandatory"
+                      >&nbsp;*</span
+                    ></label
+                  >
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <mat-select formControlName="department" required>
+                      <mat-option
+                        *ngFor="let dept of department"
+                        (click)="onSelectDept($event)"
+                        value="{{ dept.department }}"
+                        >{{ dept.department }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-4">
+                  <label
+                    >Training Budget
+                    <span class="mandatory">&nbsp;*</span></label
+                  >
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <input matInput formControlName="trainingBudget" required />
+                  </mat-form-field>
+                </div>
+
+                <!-- <div class="col-lg-4">
+                  <label
+                    >Head of Department
+                    <span class="mandatory">&nbsp;*</span></label
+                  >
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <input matInput formControlName="hod" required />
+                  </mat-form-field>
+                </div>
+              </div> 
+              <div class="row"> -->
+                <div class="col-lg-4">
+                  <label>Year</label>
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <mat-select formControlName="year">
+                      <mat-option [value]="'2020'"> 2020 </mat-option>
+                      <mat-option [value]="'2021'"> 2021 </mat-option>
+                      <mat-option [value]="'2022'"> 2022 </mat-option>
+                      <mat-option [value]="'2023'"> 2023 </mat-option>
+                      <mat-option [value]="'2024'"> 2024
+                      
+                      
+                      </mat-option>
+                      <mat-option [value]="'2025'"> 2025 </mat-option>
+                      <mat-option [value]="'2026'"> 2026 </mat-option>
+                      <mat-option [value]="'2027'"> 2027 </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <label>Name <span class="mandatory">&nbsp;*</span></label>
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <input matInput formControlName="name" required readonly/>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <label
+                    >Approved Email Id
+                    <span class="mandatory">&nbsp;*</span></label
+                  >
+                  <mat-form-field
+                    class="example-full-width mb-3"
+                    appearance="outline"
+                  >
+                    <input matInput formControlName="approvedEmail" required readonly/>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row" style="float: right;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <button type="button"  class="btn-space" mat-raised-button color="warn" (click)="cancel()">
+                    Cancel
+                  </button>
+                  <button  *ngIf="action !== 'edit'"
+                   
+                    mat-raised-button
+                    id="submit" (click)="onSubmit()"
+                  >
+                    Submit
+                  </button>
+                  <button *ngIf="action === 'edit'"
+                  mat-raised-button
+                 id="submit"
+                 (click)="updateRequest()"
+                >
+                  Update
+                </button>
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

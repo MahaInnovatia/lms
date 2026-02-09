@@ -1,0 +1,128 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~plyr/dist/plyr.css';
+ngx-intl-tel-input input {
+	height: 55px;
+    width: 410px;
+	margin-bottom: 20px;
+	padding: 10px;
+	border: 1px solid black;
+	border-width: 1px;
+	border-color: #7c7e82;
+	border-radius: 4px;
+	font-size: 18px;
+}
+
+// .mat-mdc-snack-bar-container {
+//    --mdc-snackbar-container-color: #b18413;
+//   --mdc-snackbar-supporting-text-color: rgba(255, 255, 255, 0.87);
+//   --mat-snack-bar-button-color: #ff4081;
+// }
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #ffffff;
+ --mdc-snackbar-supporting-text-color: rgba(17, 17, 17, 0.87);
+ --mat-snack-bar-button-color: #ff4081;
+}
+.form-select{
+	width: fit-content;
+  
+  }
+
+
+  label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.example-full-width .mdc-text-field--outlined{
+	--mdc-outlined-text-field-container-shape : 8px;
+	font-style: italic;
+  }
+
+  :host ::ng-deep .ck-editor__editable_inline {
+	--mdc-outlined-text-field-container-shape : 8px;
+	min-height: 150px;
+  }
+
+  .mandatory{
+	color: red;
+  }
+
+  .mat-mdc-form-field-error{
+    margin-left: -16px;
+  }
+
+  #back {
+    margin-left: 35px;
+    margin-bottom: 19px;
+    background: #FFF;
+    border: 1px solid #000000;
+    width: 100px;
+    height: 37px;
+    border-radius: 5px;
+    color: black;
+    font-weight: 700;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #198754;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-red {
+  width: 8px;
+  height: 8px;
+  background-color: #f11541;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-orange {
+  width: 8px;
+  height: 8px;
+  background-color: #e9713d;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #198754;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-red {
+  width: 8px;
+  height: 8px;
+  background-color: #f11541;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-orange {
+  width: 8px;
+  height: 8px;
+  background-color: #e9713d;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+
+.name {
+  color: rgb(255, 60, 0);
+  font-weight: 500;
+}
+
+.no-data-text {
+  font-size: 18px !important;
+  font-weight: 500;
+  color: #5b5a5a !important;
+  text-align: center !important;
+}

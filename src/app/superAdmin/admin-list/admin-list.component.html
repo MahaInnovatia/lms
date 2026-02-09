@@ -1,0 +1,248 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+       
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+      <div class="row">
+            <ng-template mat-tab-label>
+              <i class="material-icons-two-tone psr-3">list_alt</i>
+              List View
+            </ng-template>
+            <div class="mt-4">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                  <div class="materialTableHeader">
+                    <div class="right">
+                      <ul class="tbl-export-btn">
+                        <li>
+                          <ul class="header-buttons-left ms-0">
+                            <li class="tbl-search-box">
+                              <label for="search-input"
+                                ><i class="material-icons search-icon"
+                                  >search</i
+                                ></label
+                              >
+                              <input
+                                placeholder="Search"
+                                type="text"
+                                #filter
+                                class="browser-default search-field text"
+                                aria-label="Search box"
+                                [(ngModel)]="filterName"
+                                (input)="performSearch()"
+                              />
+                            </li>
+                          </ul>
+                        </li>
+                        <li class="tbl-header-btn">
+                          <div class="m-l-10" matTooltip="ADD">
+                            <button
+                              mat-raised-button
+                              id="submit" (click)="createAdmin()"
+                            >
+                              Create
+                            </button>
+                          </div>
+                        </li>
+                        <li class="tbl-header-btn">
+                          <div
+                            class="m-l-10"
+                            [hidden]="!selection.hasValue()"
+                            matTooltip="DELETE"
+                          >
+                            <button
+                              mat-mini-fab
+                              color="warn"
+                             
+                            >
+                              <mat-icon class="col-white">delete </mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                        <li class="export-label">
+                            <span class="export-as-label">Export As</span>
+                        </li>
+
+                        <li>
+                          <div
+                            class="export-button m-l-10"
+                            matTooltip="XLSX"
+                            (click)="exportExcel()"
+                          >
+                            <img src="assets/excel.svg" alt="" />
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="export-button m-l-10"
+                            matTooltip="PDF"
+                            (click)="generatePdf()"
+                          >
+                            <img src="assets/pdf (1).svg" alt="" />
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="body overflow-auto">
+                    <div class="responsive_table">
+                      <table
+                        mat-table
+                        matSort
+                        [dataSource]="dataSource"
+                        class="mat-cell advance-table"
+                      >
+                        <ng-container matColumnDef="Company">
+                          <mat-header-cell *matHeaderCellDef 
+                           >Company</mat-header-cell
+                          >
+                          <mat-cell
+                            *matCellDef="let row"
+                            class="name"
+                             >
+                            <span class="mobile-label">Company:</span
+                            >{{ row?.company | capitalizeFirstLetter }}</mat-cell
+                          >
+                        </ng-container>  
+                        <ng-container matColumnDef="Name">
+                          <mat-header-cell *matHeaderCellDef 
+                           >Name</mat-header-cell
+                          >
+                          <mat-cell
+                            *matCellDef="let row"
+                            
+                            (click)="editAdmin(row.id)" >
+                            <span class="mobile-label">Name:</span
+                            >{{ row.name | capitalizeFirstLetter }}</mat-cell
+                          >
+                        </ng-container>
+                        <ng-container matColumnDef="Website">
+                          <mat-header-cell class="mat_col" *matHeaderCellDef >
+                           Company Website</mat-header-cell>
+                          
+                          <mat-cell
+                            *matCellDef="let row"
+                            
+                            (click)="editAdmin(row.id)" >
+                            <span class="mobile-label">Name:</span
+                            >{{ row.website  }}</mat-cell
+                          >
+                        </ng-container>  
+                        <ng-container matColumnDef="User Type">
+                          <mat-header-cell *matHeaderCellDef 
+                            >Role
+                          </mat-header-cell>
+                          <mat-cell
+                            *matCellDef="let row"
+                            (click)="editAdmin(row.id)" 
+                          >
+                            <span class="mobile-label">User Role:</span
+                            >{{ row.type | titlecase }}</mat-cell
+                          >
+                        </ng-container>
+                        <ng-container matColumnDef="Mobile">
+                          <mat-header-cell *matHeaderCellDef 
+                            >Mobile
+                          </mat-header-cell>
+                          <mat-cell
+                            *matCellDef="let row"
+                           
+                          >
+                            <span class="mobile-label">Mobile:</span
+                            >{{ row.mobile }}</mat-cell
+                          >
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="Email">
+                          <mat-header-cell *matHeaderCellDef 
+                            >Email</mat-header-cell
+                          >
+                          <mat-cell
+                            *matCellDef="let row" (click)="editAdmin(row.id)" 
+                          >
+                            <span class="mobile-label">Email:</span>
+                            <img
+                              src="assets/images/gmail.png"
+                              alt="Email Icon"
+                              class="email-icon"
+                            />
+                            <span class="email-address"> {{ row.email }}</span>
+                          </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="Status">
+                          <mat-header-cell *matHeaderCellDef 
+                            >Status
+                          </mat-header-cell>
+                          <mat-cell
+                            *matCellDef="let row" (click)="editAdmin(row.id)" 
+                            
+                          >
+                            <span class="mobile-label">Status:</span
+                            ><span
+                              [class]="
+                                row?.Active
+                                  ? 'badge badge-solid-green'
+                                  : 'badge badge-solid-red'
+                              "
+                            >
+                              <span
+                                [class]="
+                                  row?.Active ? 'status-dot' : 'status-red'
+                                "
+                              ></span>
+                              {{ row.Active ? "Active" : "Inactive" }}
+                            </span>
+                          </mat-cell>
+                        </ng-container>
+                        <mat-header-row
+                          *matHeaderRowDef="displayedColumns"
+                        ></mat-header-row>
+                        <mat-row
+                          *matRowDef="let row; columns: displayedColumns"
+                          [style.cursor]="'pointer'"
+                          matRipple
+                        >
+                        </mat-row>
+                      </table>
+                      <div *ngIf="!isLoading && (!dataSource || dataSource.length === 0)" class="text-center py-3 no-data-text">
+                        No data found
+                      </div>
+                      <!-- Loading spinner -->
+                      <div class="tbl-spinner">
+                        <mat-progress-spinner
+                          *ngIf="isLoading"
+                          color="primary"
+                          [diameter]="40"
+                          mode="indeterminate"
+                        >
+                        </mat-progress-spinner>
+                      </div>
+  
+                      <!-- <mat-paginator
+                        #paginator
+                        [length]="totalItems"
+                        (page)="pageSizeChange($event)"
+                        [pageSizeOptions]="pageSizeArr"
+                        aria-label="select pagination option"
+                      >
+                      </mat-paginator> -->
+                      <mat-paginator
+                #paginator
+                [length]="totalItems"
+                (page)="pageSizeChange($event)"
+                [pageSizeOptions]="pageSizeArr"
+                aria-label="select pagination option"
+              >
+              </mat-paginator>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </section>

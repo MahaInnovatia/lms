@@ -1,0 +1,210 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-static-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-static-breadcrumb>
+    </div>
+    <div class="row">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="material-icons-two-tone psr-3">list_alt</i>
+            List View
+          </ng-template>
+          <div class="mt-3">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <div class="materialTableHeader">
+                  <div class="right">
+                    <ul class="tbl-export-btn">
+                      <li>
+                        <ul class="header-buttons-left ms-0">
+                          <!-- <li class="tbl-search-box">
+                            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                            <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                              aria-label="Search box">
+                          </li> -->
+                          <li class="tbl-search-box">
+                            <label for="search-input"
+                              ><i class="material-icons search-icon"
+                                >search</i
+                              ></label
+                            >
+                            <input
+                              placeholder="Search"
+                              type="text"
+                              #filter
+                              class="browser-default search-field text"
+                              aria-label="Search box"
+                              [(ngModel)]="searchTerm"
+                              (input)="performSearch()"
+                            />
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="tbl-header-btn">
+                        <div class="m-l-10" matTooltip="ADD">
+                        </div>
+                      </li>
+                      <li class="tbl-header-btn">
+                        <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
+                          <button mat-mini-fab color="warn" (click)="removeSelectedRows()">
+                            <mat-icon class="col-white">delete
+                            </mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                      <li>
+                        <span style="font-weight: bold">Export as</span>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX"(click)="exportExcel()">
+                          <img src="assets/excel.svg" alt="" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="PDF" (click)="generatePdf()">
+                          <img src="assets/pdf (1).svg" alt=""  />
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="body overflow-auto">
+                  <div class="responsive_table">
+                    <table mat-table [dataSource]="typesList" matSort class="mat-cell advance-table">
+
+                      <ng-container matColumnDef="User Role">
+                        <mat-header-cell *matHeaderCellDef 
+                          style="margin-right: -15%;">Role</mat-header-cell>
+                        <mat-cell *matCellDef="let row" [routerLink]="['/student/settings/role-user/',row.typeName]"
+                          style="margin-right: -15%;">
+                          <span class="mobile-label">Role:</span> <span class="name" >{{row?.typeName | capitalizeFirstLetter}} </span></mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="Accessbility Module">
+                        <mat-header-cell *matHeaderCellDef >Module</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="isEdit ? edit(row.id) : null">
+                          <span class="mobile-label">Module:</span>
+                          <ng-container *ngIf="row.menuItems && row.menuItems.length; else noModule">
+                            <ng-container *ngFor="let menu of row.menuItems; let last = last" style="width:fit-content">
+                              {{ menu?.title | capitalizeFirstLetter }}{{ !last ? ', ' : '' }}
+                            </ng-container>
+                          </ng-container>
+                          <ng-template #noModule>--</ng-template>
+                        </mat-cell>
+                      </ng-container>
+                      
+                      <ng-container matColumnDef="Sub Module">
+                        <mat-header-cell *matHeaderCellDef >Sub Module</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="isEdit ? edit(row.id) : null">
+                          <span class="mobile-label">Sub Module:</span>
+                          <ng-container *ngIf="row.menuItems && row.menuItems.length; else noSubModule">
+                            <ng-container *ngFor="let menu of row.menuItems; let last = last;">
+                              <ng-container *ngIf="menu?.children[0]?.title">
+                              {{ menu?.children[0]?.title | capitalizeFirstLetter }}<ng-container *ngIf="!last">, </ng-container>
+                           </ng-container>
+                            </ng-container>
+                          </ng-container>
+                          <ng-template #noSubModule>--</ng-template>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- <ng-container matColumnDef="Sub Module">
+                        <mat-header-cell *matHeaderCellDef>Sub Module</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="isEdit ? edit(row.id) : null">
+                          <span class="mobile-label">Sub Module:</span>
+                          <ng-container *ngIf="row.menuItems && row.menuItems.length; else noSubModule">
+                            <ng-container *ngFor="let menu of row.menuItems; let last = last;">
+                              <ng-container *ngIf="menu?.children[0]?.title">
+                                {{ menu?.children[0]?.title | capitalizeFirstLetter }}
+                                <ng-container *ngIf="!last">, </ng-container>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                          <ng-template #noSubModule>--</ng-template>
+                        </mat-cell>
+                      </ng-container> -->
+                      
+                      
+                      <ng-container matColumnDef="Status">
+                        <mat-header-cell *matHeaderCellDef  style="
+                    margin-right: -15%;">Status</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="isEdit ? edit(row.id) : null" style="
+                    margin-right: -15%;"> <span class="mobile-label">Status:</span><span
+                            [class]="row?.status == 'active' ? 'badge badge-solid-green' : 'badge badge-solid-red'">
+                            <span [class]="row?.status == 'active' ? 'status-dot' : 'status-red'"></span>
+                            {{row.status == 'active'?'Active':'Inactive' }}
+                          </span>
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
+                      </mat-row>
+                    </table>
+                    <div *ngIf="!typesList || typesList.length === 0" class="text-center py-3 no-data-text">
+                      No data found
+                    </div>
+                    
+                    <mat-paginator #paginator [length]="totalItems" (page)="pageSizeChange($event)"
+                      [pageSizeOptions]="pageSizeArr" aria-label="select pagination option">
+                    </mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="material-icons-two-tone psr-3">grid_on</i>
+            Grid View
+          </ng-template>
+          <div class="row mt-5">
+            <div class="col-md-9 ">
+            </div>
+            <div class="col-md-3">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card" *ngFor="let types of typesList let j = index">
+                <div class="materialTableHeader">
+                  <div class="left" style="cursor: pointer;" (click)="edit(types.id)">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="tbl-title" [routerLink]="['/student/settings/role-user/',types.typeName]">
+                        <h2 style="font-weight: 600;">{{types?.typeName | capitalizeFirstLetter}}
+                          <span class="ms-2 border border-success fw-normal rounded-4 px-2 text-success">{{types.status
+                            == 'active'?'Active':'Inactive' }}</span>
+                        </h2>
+
+
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="body overflow-auto" style="cursor: pointer;" (click)="edit(types.id)">
+                  <div class="responsive_table">
+                    <ng-container>
+                      <h5 class="card-title text-center">Module</h5>
+                      <div class="row mt-4" style="margin-left: 155px;">
+                        <div class="col-md-4 items" *ngFor="let menu of types.menuItems ">
+                          <p class="menu"><img src="assets/tick.svg">{{menu?.title | capitalizeFirstLetter}}</p>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <mat-paginator class="bg-transparent" #paginator [length]="totalItems" (page)="pageSizeChange($event)"
+            [pageSizeOptions]="pageSizeArr" aria-label="select pagination option">
+          </mat-paginator>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</section>

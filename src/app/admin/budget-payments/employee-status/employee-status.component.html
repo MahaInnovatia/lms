@@ -1,0 +1,165 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+     <app-breadcrumb [items]="breadscrum.items" [active_item]="breadscrum.active">
+     </app-breadcrumb> 
+   </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+              <div class="materialTableHeader">
+                <div class="right">
+                  <ul class="tbl-export-btn">
+                    <li class="tbl-header-btn">
+                      <div class="m-l-10" matTooltip="ADD" (click)="createReq()">
+                        <button mat-raised-button id="submit">
+                          Create
+                        </button>
+                      </div>
+                    </li>
+                    <li class="tbl-header-btn">
+                      <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
+                        <button mat-mini-fab color="warn">
+                          <mat-icon class="col-white">delete
+                          </mat-icon>
+                        </button>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="export-button m-l-10" matTooltip="XLSX" (click)="exportExcel()">
+                        <img src="assets/excel.svg" alt="" />
+                      </div>
+                    </li>
+                    <li>
+                      <div class="export-button m-l-10" matTooltip="PDF" (click)="generatePdf()">
+                        <img src="assets/pdf (1).svg" alt="" />
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="body overflow-auto">
+                <div class="responsive_table">
+                  <table mat-table [dataSource]="dataSource" matSort class="mat-cell advance-table">
+                    <ng-container matColumnDef="ID">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>REQUEST-ID</mat-header-cell>
+                      <mat-cell *matCellDef="let row" class="name" [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label">REQUEST-ID:</span>{{row.requestId}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="course">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Course</mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label">HOD:</span>{{row.courseName | titlecase}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="payment">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Payment</mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label">Payment:</span><span>$</span> {{row.courseCost||0}}.00
+                      </mat-cell>
+                    </ng-container>
+                    <!-- approval on -->
+    
+                    <ng-container matColumnDef="created at">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Created At
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label">Created At:</span>{{row?.createdAt| date }}
+                      </mat-cell>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="ro approved on">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Approver 1
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label">Approver 1:</span>{{row?.roApprovedOn| date }}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="director approved on">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header> Approver 2
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label"> Approver 2:</span>{{row?.directorApprovedOn| date }}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="trainingadmin approved on">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Approver 3
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]">
+                        <span class="mobile-label">Approver 3:</span>{{row?.trainingadminApprovedOn| date}}
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="approval stage">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Approval Stages
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]" class="approval-stages-cell">
+                        <span class="mobile-label">Approval Stages:</span>
+                        <div class="approval-stage mt-3">Approver 1</div>
+                        <div class="approval-stage mt-3 mb-2">Approver 2</div>
+                        <div class="approval-stage my-2">Approver 3</div>
+                      </mat-cell>
+                    </ng-container>
+                    
+                    <!-- approval stage -->
+                    <ng-container matColumnDef="status">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Status
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]" class="approval-stages-cell">
+                        <span class="mobile-label">Status:</span>
+                        <div class="approval-reason mt-3" ><span
+                          [class]="row?.roApproval === 'Approved' ? 'badge badge-solid-green' : row?.roApproval === 'Pending' ? 'badge badge-solid-orange' :  (row?.roApproval === 'Rejected' ? 'badge badge-solid-red' : '') ">
+                          <span
+                            [class]="row?.roApproval === 'Approved' ? 'status-dot' : row?.roApproval === 'Pending' ? 'status-orange' :  (row?.roApproval === 'Rejected' ? 'status-red' : '') "></span>
+                          {{row.roApproval }}
+                        </span></div>
+                        <div class="approval-reason"><span
+                          [class]="row?.directorApproval === 'Approved' ? 'badge badge-solid-green' : row?.directorApproval === 'Pending' ? 'badge badge-solid-orange' :  (row?.directorApproval === 'Rejected' ? 'badge badge-solid-red' : '') ">
+                          <span
+                            [class]="row?.directorApproval === 'Approved' ? 'status-dot' : row?.directorApproval === 'Pending' ? 'status-orange' :  (row?.directorApproval === 'Rejected' ? 'status-red' : '') "></span>
+                          {{row.directorApproval }}
+                        </span></div>
+                        <div class="approval-reason"><span
+                          [class]="row?.trainingAdminApproval === 'Approved' ? 'badge badge-solid-green' : row?.trainingAdminApproval === 'Pending' ? 'badge badge-solid-orange' :  (row?.trainingAdminApproval === 'Rejected' ? 'badge badge-solid-red' : '') ">
+                          <span
+                            [class]="row?.trainingAdminApproval === 'Approved' ? 'status-dot' : row?.trainingAdminApproval === 'Pending' ? 'status-orange' :  (row?.trainingAdminApproval === 'Rejected' ? 'status-red' : '') "></span>
+                          {{row.trainingAdminApproval }}
+                        </span></div>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="reason">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header
+                        >Reason
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let row"  [routerLink]="['/admin/budgets/view-training-request', row.id]" class="approval-stages-cell">
+                        <span class="mobile-label">Reason:</span>
+                        <div class="approval-reason mt-3"> {{row?.roReason}}</div>
+                        <div class="approval-reason ">{{row?.directorReason}}</div>
+                        <div class="approval-reason ">{{row?.trainingAdminReason}}</div>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns">
+                    </mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
+                    </mat-row>
+                  </table>
+
+                  <mat-paginator class="paginator rounded-5" #paginator [length]="totalItems"
+                    (page)="pageSizeChange($event)" [pageSizeOptions]="pageSizeArr"
+                    aria-label="select pagination option">
+                  </mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

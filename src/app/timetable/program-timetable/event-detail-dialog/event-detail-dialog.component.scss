@@ -1,0 +1,43 @@
+.container {
+    position: relative;
+    z-index: 1;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: fadeInAnimation ease 1s;
+    animation-fill-mode: forwards;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #34495e;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #2980b9;
+    font-weight: bold;
+}
+
+button {
+    background-color: #2980b9;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2471a3;
+}

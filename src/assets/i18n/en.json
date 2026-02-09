@@ -1,0 +1,183 @@
+{
+  "LOGIN": {
+    "TITLE": "Welcome to Smart"
+  },
+  "MENUITEMS": {
+    "MAIN": {
+      "TEXT": "Main"
+    },
+    "DASHBOARD": {
+      "TEXT": "Dashboard",
+      "LIST": {
+        "DASHBOARD1": "Dashboard 1",
+        "DASHBOARD2": "Dashboard 2",
+        "TEACHER-DASHBOARD": "Teacher Dashboard",
+        "STUDENT-DASHBOARD": "Student Dashboard"
+      }
+    },
+    "TEACHERS": {
+      "TEXT": "Teachers",
+      "LIST": {
+        "ALL-TEACHERS": "All Teachers",
+        "ADD-TEACHER": "Add Teacher",
+        "EDIT-TEACHER": "Edit Teacher",
+        "ABOUT-TEACHER": "About Teacher"
+      }
+    },
+    "STUDENTS": {
+      "TEXT": "Students",
+      "LIST": {
+        "ALL-STUDENTS": "All Students",
+        "ADD-STUDENT": "Add Student",
+        "EDIT-STUDENT": "Edit Student",
+        "ABOUT-STUDENT": "About Student",
+        "STUDENT-ATTENDANCE": "Student Attendance"
+      }
+    },
+    "COURSES": {
+      "TEXT": "Courses",
+      "LIST": {
+        "ALL-COURSES": "All Courses",
+        "ADD-COURSE": "Add Course",
+        "EDIT-COURSE": "Edit Course",
+        "ABOUT-COURSE": "About Course"
+      }
+    },
+
+    "COURSE": {
+      "TEXT": "Courses",
+      "LIST": {
+        "ALL-COURSES": "Course List",
+        "CREATE-COURSE": "Create Course",
+        "COURSE-APPROVAL": "Course Approval",
+        "COURSE-KIT": "Course Kit",
+        "CATEGORIES": "Categories"
+      }
+    },
+
+    "SCHEDULECLASS": {
+      "TEXT": "Schedule Class",
+      "LIST": {
+        "ALL-CLASS": "Class List",
+        "CREATE-CLASS": "Create Class",
+        "EDIT-CLASS":"Edit Class",
+        "APPROVE-LIST": "Approve List",
+        "COMPLETION-LIST": "Completion List"
+      }
+    },
+    "PROGRAM": {
+      "TEXT": "Program",
+      "LIST": {
+        "ALL-PROGRAM": "All Program",
+        "SCHEDULE-CLASS": "Schedule Class",
+        "CREATE-COURSE":"Create Course",
+        "APPROVE-LIST": "Program Approve List",
+        "PROGRAM-KIT":"Program Kit",
+        "STUDENT-APPROVAL":"Student Approval List",
+        "COMPLETION-LIST": "Completion List"
+      }
+    },
+
+    "SURVEY": {
+      "TEXT": "Survey",
+      "LIST": {
+        "ALL-SURVEY": "Survey List",
+        "LIKERT-CHART": "Likert Chart"
+      }
+    },
+    "BANNER": {
+      "TEXT": "Banners",
+      "LIST": {
+        "INSTRUCTOR": "Instructors Banners",
+        "INSTRUCTOR-BANNER":"Add Instructor Banner",
+        "STUDENT": "Student Banners",
+        "STUDENT-BANNER":"Add Student Banner"
+
+      }
+    },
+
+    "LIBRARY": {
+      "TEXT": "Library",
+      "LIST": {
+        "ALL-LIBRARY": "All Library Assets",
+        "ADD-LIBRARY": "Add Library Asset",
+        "EDIT-LIBRARY": "Edit Library Asset"
+      }
+    },
+    "DEPARTMENTS": {
+      "TEXT": "Departments",
+      "LIST": {
+        "ALL-DEPARTMENT": "All Departments",
+        "ADD-DEPARTMENT": "Add Department",
+        "EDIT-DEPARTMENT": "Edit Department"
+      }
+    },
+    "STAFF": {
+      "TEXT": "Staff",
+      "LIST": {
+        "ALL-STAFF": "All Staff",
+        "ADD-STAFF": "Add Staff",
+        "EDIT-STAFF": "Edit Staff",
+        "ABOUT-STAFF": "About Staff"
+      }
+    },
+    "HOLIDAY": {
+      "TEXT": "Holiday",
+      "LIST": {
+        "ALL-HOLIDAY": "All Holiday",
+        "ADD-HOLIDAY": "Add Holiday",
+        "EDIT-HOLIDAY": "Edit Holiday"
+      }
+    },
+    "FEES": {
+      "TEXT": "Fees",
+      "LIST": {
+        "ALL-FEES": "All Fees",
+        "ADD-FEES": "Add fees",
+        "EDIT-FEES": "Edit fees",
+        "FEE-RECEIPT": "Fee Receipt"
+      }
+    },
+    "ATTENDANCE": {
+      "TEXT": "Attendance",
+      "LIST": {
+        "STAFF": "Staff Attendance",
+        "DETAILS": "Attendance Details",
+        "SHEET": "Attendance Sheet"
+      }
+    },
+
+    "TEACHER": {
+      "TEXT": "Teacher",
+      "LIST": {
+        "DASHBOARD": "Dashboard",
+        "LECTURES": "Lectures",
+        "LEAVE-REQUEST": "Leave Request",
+        "EXAM-SCHEDULE": "Exam Schedule",
+        "SETTINGS": "Settings"
+      }
+    },
+    "STUDENT": {
+      "TEXT": "Student",
+      "LIST": {
+        "DASHBOARD": "Dashboard",
+        "HOMEWORK": "Homework",
+        "LEAVE-REQUEST": "Leave Request",
+        "TIME-TABLE": "Time Table",
+        "SETTINGS": "Settings"
+      }
+    },
+    "APPS": {
+      "TEXT": "Apps"
+    },
+    "CALENDAR": {
+      "TEXT": "Calendar"
+    },
+    "TASK": {
+      "TEXT": "Task"
+    },
+    "CONTACTS": {
+      "TEXT": "Contacts"
+    }
+  }
+}

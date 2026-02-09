@@ -1,0 +1,69 @@
+<div *ngIf ="!isTwoFactor">
+  <!-- Left Sidebar -->
+  <!-- <aside id="leftsidebar" class="sidebar" (mouseenter)="mouseHover()" (mouseleave)="mouseOut()"> -->
+    <aside id="leftsidebar" class="sidebar" >
+    <!-- Menu -->
+    <div class="menu">
+      <ng-scrollbar [style.height]="listMaxHeight + 'px'" visibility="hover">
+        <ul class="list">
+          <li class="sidebar-user-panel">
+            <div class="user-panel">
+              <div class=" image">
+                <img [src]="userProfile || '../../../assets/profile.png'" class="img-circle user-img-circle" alt="User Image" />
+
+              </div>
+            </div>
+            <div class="profile-usertitle">
+              <div class="sidebar-userpic-name">{{userFullName | titlecase}} </div>
+              <div class="profile-usertitle-job ">{{userType | titlecase}} </div>
+            </div>
+          </li>
+          <li *ngFor="let sidebarItem of menuitem"
+          [ngClass]="(router.url.startsWith('/'+sidebarItem.id)) ? (sidebarItem.children.length > 0 ? 'active':'active-top'): ''">
+            <a *ngIf="sidebarItem.children.length !== 0"
+              (click)="callToggleMenu($event, sidebarItem.children.length)"
+              class="menu-top menu-toggle menu-item" (click)="navigateTo(sidebarItem,sidebarItem)">
+              <i class="material-icons-outlined" style=" color: #47484b;font-size: 22px;">{{sidebarItem.icon}}</i>
+              <!-- <img src="{{sidebarItem.icon}}" class="rounded-circle" style="height: 23px; width:23px"> -->
+              <span class="hide-menu" >{{sidebarItem.title | translate}}
+              </span>
+            </a>
+            <a *ngIf="sidebarItem.children.length === 0"
+              (click)="callToggleMenu($event, sidebarItem.children.length)"
+              class="menu-top menu-item"  (click)="navigateToMian(sidebarItem,sidebarItem)">
+              <i class="material-icons-outlined" style=" color: #47484b;font-size: 22px;" >{{sidebarItem.icon}}</i>
+              <!-- <img src="{{sidebarItem.icon}}" class="rounded-circle" style="height: 23px; width:23px"> -->
+              <span class="hide-menu">{{sidebarItem.title | translate}}
+              </span>
+            </a>
+            <ul class="ml-menu" *ngIf="sidebarItem.children.length > 0">
+              <li *ngFor="let sidebarSubItem of sidebarItem.children"
+                [routerLinkActive]="sidebarSubItem.children.length > 0 ? '' : 'active'">
+
+                <a   (click)="callToggleMenu($event, sidebarItem.children.length)"  (click)="navigateTo(sidebarItem,sidebarSubItem)"
+                [routerLink]="sidebarSubItem.children.length > 0 ? null :[sidebarItem.id +'/'+sidebarSubItem.id]"
+                  [ngClass]="sidebarSubItem.class">
+                  {{sidebarSubItem.title}}
+                 </a>
+                 <ul class="ml-menu-2" *ngIf="sidebarSubItem.children.length > 0">
+                  <li *ngFor="let sidebarSubItem2 of sidebarSubItem.children|sideMenuFilter:false"
+                    [routerLinkActive]="sidebarSubItem2.children.length > 0 ? '' : 'active'">
+                    <a
+                      (click)="callToggleMenu($event,sidebarSubItem.children.length)"
+                       (click)="navigateToSubItem2(sidebarItem,sidebarSubItem,sidebarSubItem2)"
+                       [routerLink]="sidebarSubItem2.children.length > 0 ? null :[sidebarItem.id +'/'+sidebarSubItem.id+'/'+sidebarSubItem2.id]"
+                      [ngClass]="sidebarSubItem2.class">
+                      {{sidebarSubItem2.title | translate}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ng-scrollbar>
+    </div>
+    <!-- #Menu -->
+  </aside>
+  <!-- #END# Left Sidebar -->
+</div>

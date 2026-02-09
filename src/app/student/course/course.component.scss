@@ -1,0 +1,83 @@
+.title{
+    height: 40px;
+}
+.text-muted{
+    margin-top: 20px;
+}
+.text{
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+    border-radius: 12px;
+    border: 0;
+    height: 37px;
+    padding: 8px 8px 8px 50px;
+    width: 250px;
+    background: #ffffff;
+    transition: background 0.2s, width 0.2s;  
+    margin-left: -20px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 14px;
+    padding-left: -2px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+  .feeType-ribbon {
+    position: relative;
+    width: fit-content;
+  }
+  
+  .course-card-image {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .feeType-ribbon {
+    position: absolute;
+    top: 3px;
+    left: -18px;
+    width: fit-content;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    z-index: 1;
+  }
+  
+  .feeType {
+    font-family: 'Times New Roman', Times, serif;
+    background: #ff4b2b;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 22px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .course-card {
+    position: relative;
+  }
+.text-size{
+  font-size: 15px;
+
+}
+.show-interest-button {
+  float: left !important;
+  margin-top: 5px !important;
+  width: 100% !important;
+
+}
+
+.text-default1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Standard equivalent does not exist yet */
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  max-height: 3rem; /* Adjust based on font size */
+  
+  /* Standard property (currently not widely supported but added for future compatibility) */
+  line-clamp: 2;
+}
+

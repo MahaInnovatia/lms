@@ -1,0 +1,84 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" *ngFor="let breadscrum of breadscrums">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="card m-auto">
+                    <div class="header">
+                        <h2>SMTP connection parameters</h2>
+                    </div>
+                    <div class="body">
+                        <form [formGroup]="smtpForm">
+                            <div class="example-container">
+                                <div class="row clearfix">
+                                    <div class="col-4">
+                                        <label>Email<span class="mandatory">&nbsp;*</span></label>
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                            <input matInput formControlName="email" required />
+                                            <mat-error
+                                                *ngIf="smtpForm.get('email')?.invalid && smtpForm.get('email')?.touched">
+                                                {{utils.getErrorMessage1(smtpForm.get("email"), "email") }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <label>User Name<span class="mandatory">&nbsp;*</span></label>
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                            <input matInput formControlName="user" required />
+                                            <mat-error
+                                                *ngIf="smtpForm.get('name')?.invalid && smtpForm.get('name')?.touched ">
+                                                {{utils.getErrorMessage1(smtpForm.get("name"), "uname") }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row clearfix">
+                                    <div class="col-4">
+                                        <label>Email Host<span class="mandatory">&nbsp;*</span></label>
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                            <input matInput formControlName="host" required />
+                                            <mat-error
+                                                *ngIf="smtpForm.get('host')?.invalid && smtpForm.get('host')?.touched">
+                                                {{utils.getErrorMessage1(smtpForm.get("host"), "host") }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <label>Port<span class="mandatory">&nbsp;*</span></label>
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                            <input matInput formControlName="port" required />
+                                            <mat-error
+                                                *ngIf="smtpForm.get('port')?.invalid && smtpForm.get('port')?.touched">
+                                                {{utils.getErrorMessage1(smtpForm.get("port"), "port") }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <label>Password<span class="mandatory">&nbsp;*</span></label>
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                            <input matInput formControlName="password" type="password" required />
+                                            <mat-error *ngIf="smtpForm.get('password')?.hasError('required')">
+                                                {{utils.getErrorMessage1(smtpForm.get("password"), "password") }}
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="float: right;">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <button mat-raised-button id="submit" (click)="update()">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,258 @@
+<div class="signin">
+  <div class="signin__shell">
+    <section class="signin__visual" aria-hidden="true">
+      <div class="slideshow">
+        <img
+          *ngFor="let image of images; let i = index"
+          [src]="'' + image"
+          [alt]="'Psa-login' + (i + 1)"
+          [class.active]="i === currentIndex"
+        >
+      </div>
+      <div class="signin__visualOverlay"></div>
+      <div class="signin__visualContent">
+        <div class="signin__badge">
+          <span class="signin__badgeDot"></span>
+          <span class="signin__badgeText">{{ (domain | translate) || 'UGLMS' }}</span>
+        </div>
+        <h1 class="signin__headline">{{ 'Welcome to ' + (domain | translate) }}</h1>
+        <p class="signin__subhead">
+          {{ 'Sign in to continue to your dashboard and manage your learning.' | translate }}
+        </p>
+      </div>
+    </section>
+
+    <section class="signin__panel">
+      <div class="signin__topbar">
+        <div class="signin__lang">
+          <mat-icon class="signin__langIcon" aria-hidden="true">language</mat-icon>
+          <select class="signin__langSelect" (change)="setLanguage($event)" aria-label="Language">
+            <option *ngFor="let item of listLang" [value]="item.lang">
+              {{ item.text }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="signin__card">
+        <div class="signin__cardHeader">
+          <div class="signin__brand">
+            <!-- <div class="signin__brandMark" aria-hidden="true"></div> -->
+            <div class="signin__brandIconWrap">
+              <img src="assets/images/logo/loginLogo.jpg" alt="UGLMS Logo" class="signin__brandIcon" />
+            </div>
+                       
+            <div class="signin__brandText">
+              <div class="signin__brandTitle">{{ (domain | translate)|| 'UGLMS' }}</div>
+              <div class="signin__brandCaption">{{ 'Learning Management' | translate }}</div>
+            </div>
+          </div>
+
+          <div class="signin__ctaRow">
+            <p *ngIf="superadminRegistration" class="signin__signupText">
+              {{ 'Need an account1?' | translate }}
+              <a (click)="signup()" class="signin__link pointer">{{ 'Sign up' | translate }}</a>
+            </p>
+            <p *ngIf="!superadminRegistration" class="signin__signupSpacer"></p>
+          </div>
+
+          <h2 class="signin__title">{{ 'Sign in' | translate }}</h2>
+          <p class="signin__hint">{{ 'Use your email and password to continue.' | translate }}</p>
+        </div>
+
+        <form class="signin__form" [formGroup]="authForm" (ngSubmit)="loginUser()">
+          <div class="signin__field">
+            <label class="signin__label">
+              {{ 'Email' | translate }}<span class="mandatory"> *</span>
+            </label>
+            <mat-form-field class="signin__matField" appearance="outline">
+              <input matInput formControlName="email" [placeholder]="'name@company.com' | translate" autocomplete="username">
+              <mat-icon class="material-icons-two-tone color-icon" matSuffix>mail</mat-icon>
+              <mat-error *ngIf="authForm.get('email')?.hasError('required')">
+                {{ 'Enter Email ' | translate }}
+              </mat-error>
+              <mat-error *ngIf="authForm.get('email')?.hasError('pattern') && authForm.get('email')?.touched">
+                {{ 'Enter a valid email' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="signin__field">
+            <label class="signin__label">
+              {{ 'Password' | translate }} <span class="mandatory"> *</span>
+            </label>
+            <mat-form-field class="signin__matField" appearance="outline">
+              <input
+                matInput
+                [type]="hide ? 'password' : 'text'"
+                formControlName="password"
+                [placeholder]="'Enter your password' | translate"
+                autocomplete="current-password"
+              >
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                class="signin__iconBtn"
+                (click)="hide = !hide"
+                [attr.aria-label]="hide ? ('Show password' | translate) : ('Hide password' | translate)"
+                [attr.aria-pressed]="!hide"
+              >
+                <mat-icon class="material-icons-two-tone color-icon">
+                  {{ hide ? 'visibility_off' : 'visibility' }}
+                </mat-icon>
+              </button>
+              <mat-error *ngIf="authForm.get('password')?.hasError('required')">
+                {{ 'Enter Password' | translate }}
+              </mat-error>
+              <mat-error *ngIf="authForm.get('password')?.hasError('pattern')">
+                {{ 'Enter valid password' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <div class="invalid-text" *ngIf="isSubmitted">
+              {{ email }}
+            </div>
+          </div>
+
+          <div class="signin__row">
+            <a *ngIf="superadminRegistration" class="signin__link pointer" (click)="forgotpassword()">
+              {{ 'Forgot Password?' | translate }}
+            </a>
+          </div>
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="signin__submit"
+            [class.auth-spinner]="loading"
+            [disabled]="loading || !authForm.valid"
+            type="submit"
+          >
+            {{ 'Sign in' | translate }}
+          </button>
+
+          <div class="signin__divider">
+            <span>{{ 'OR' | translate }}</span>
+          </div>
+
+          <div class="signin__social">
+            <button
+              *ngIf="isSingpass"
+              type="button"
+              class="signin__socialBtn signin__socialBtn--singpass"
+              (click)="loginWithSingpass()"
+            >
+              <span class="login-with-text">{{ 'Log in With ' | translate }}</span>
+              <img src="/assets/singpass_logo_button.png" alt="SingPass" class="singpass-inline-logo">
+            </button>
+
+            <button
+              type="button"
+              class="signin__socialBtn signin__socialBtn--linkedin"
+              (click)="loginLinkedIn()"
+            >
+              <img src="assets/images/linkidein.png" alt="LinkedIn">
+              <span class="signin__socialLabel">{{ 'Continue with LinkedIn' | translate }}</span>
+            </button>
+          </div>
+
+          <div class="signin__footer">
+            <div class="signin__footerLeft">
+              <p>&copy;2025 UGLMS.All Rights Reserved</p>
+            </div>
+            <div class="signin__footerMid">
+              <a class="signin__footerLink" href="https://innovatiq.com.sg/terms-conditions/" target="_blank">
+                {{ 'Terms of Use' | translate }}
+              </a>
+              <span class="signin__footerSep">|</span>
+              <a class="signin__footerLink" href="https://innovatiq.com.sg/privacy-policy/" target="_blank">
+                {{ 'Privacy Notice' | translate }}
+              </a>
+            </div>
+            <div class="signin__footerRight">
+              <p>{{ 'Powered by Innovatiq' | translate }}</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+
+<ng-template #profileDialog let-dialogRef="dialogRef" let-data>
+  <h2 mat-dialog-title>Select Profile Details</h2>
+  <div mat-dialog-content>
+    <form [formGroup]="profileForm">
+      <br>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let userType of userTypes" [value]="userType?.typeName">
+                {{userType?.typeName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="dialog-buttons">
+    <button mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="create(dialogRef)">
+      Create
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #companiesDialog let-dialogRef="dialogRef" let-data>
+  <h2 mat-dialog-title  class="bold-title">Select Company</h2>
+  <div mat-dialog-content>
+    <form>
+      <br>
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2">
+          <mat-form-field appearance="outline">
+            <mat-label>Your Companies</mat-label>
+            <mat-select [(ngModel)]="selectedCompany" name="company" (selectionChange)="onCompanyChange($event)">
+              <mat-option *ngFor="let company of companies" [value]="company?.companyId">
+                {{ company?.company }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="dialog-buttons">
+    <!-- <button mat-button color="warn" (click)="dialogRef.close()">Cancel</button> -->
+    <button mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="loginwithCommonURL(dialogRef)">
+      Sign in
+    </button>
+  </div>
+</ng-template>

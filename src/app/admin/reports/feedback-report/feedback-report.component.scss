@@ -1,0 +1,25 @@
+.bg {
+  fill: #000;
+  background-color: #d3cdcd;
+}
+.color{
+  color:#6777ef
+}
+svg {
+  position: absolute;
+  fill: #000;
+  background-color: #d3cdcd;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 10px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+  padding-left: 24px; 
+ }
+ @media (max-width: 600px) {
+   mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+     padding-left: 15px;
+   }
+   }

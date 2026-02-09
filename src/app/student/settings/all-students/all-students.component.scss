@@ -1,0 +1,88 @@
+.bg {
+  fill: #000;
+  background-color: #d3cdcd;
+}
+.color{
+  color:#6777ef
+}
+
+.img-w{
+width: 16%;
+}
+svg {
+  position: absolute;
+  fill: #000;
+  background-color: #d3cdcd;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 10px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #198754;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-red {
+  width: 8px;
+  height: 8px;
+  background-color: #f11541;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.paginator{
+  background: none;
+}
+::ng-deep .mat-mdc-tab-body-content{
+  overflow-x: hidden !important;
+}
+mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+  padding-left: 24px; 
+ }
+ @media (max-width: 600px) {
+   mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+     padding-left: 15px;
+   }
+   }
+
+// .card-grid {
+//   height: 220px;
+//   margin-top: 20px;
+//   cursor: pointer;
+//   padding: 10px;
+//   border-radius: 12px;
+// }
+
+// .custom-card {
+//   transition: background-color 0.3s ease;
+// }
+
+// /* Define pastel colors for different cards */
+// .bg-pastel-blue {
+//   background-color: #a6cde7;
+// }
+
+// .bg-pastel-green {
+//   background-color: #c7e5b4;
+// }
+
+// .bg-pastel-yellow {
+//   background-color: #fcfcfc;
+// }
+
+// .bg-pastel-pink {
+//   background-color: #f7c3c8;
+// }
+
+// .bg-pastel-purple {
+//   background-color: #d3b8e3;
+// }
+
+// .bg-pastel-orange {
+//   background-color: #f7dab9;
+// }

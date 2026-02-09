@@ -1,0 +1,158 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" *ngFor="let breadscrum of breadscrums">
+            <!-- breadcrumb -->
+           <app-breadcrumb [items]="breadscrum.items" [active_item]="breadscrum.active">
+           </app-breadcrumb> 
+         </div>
+        <!-- Widgets -->
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                    <div class="clearfix">
+                        <div class="card-icon-only shadow-primary float-start">
+                            <img src="assets/images/banner/approved.png" alt="">
+                        </div>
+                        <div class="card-right" (click)="onApprovedClick()" type="button" >
+                            <div>
+                                <h6  type="button" class="float-end">Approved</h6>
+                            </div>
+                            <div class="col-green">
+                                <h3 type="button" class="font-weight-bold float-end mb-0">{{approved}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                    <div class="clearfix">
+                        <div class="card-icon-only shadow-primary float-start">
+                            <img src="assets/images/banner/rejected.png" alt="">
+                        </div>
+                        <div  (click)="onRejectedClick()" type="button"class="card-right">
+                            <div>
+                                <h6 type="button"class="float-end">Rejected</h6>
+                            </div>
+                            <div class="col-green">
+                                <h3 class="font-weight-bold float-end mb-0">{{rejected}}</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="card card-statistic-2">
+                    <div class="clearfix">
+                        <div class="card-icon-only shadow-primary float-start">
+                            <img src="assets/images/banner/pending.png" alt="">
+                            <i class="assignment_turned_in float-start"></i>
+                        </div>
+                        <div class="card-right" (click)="onPendingClick()" type="button">
+                            <div>
+                                <h6  class="float-end">Pending</h6>
+                            </div>
+                            <div class="col-green">
+                                <h3 class="font-weight-bold float-end mb-0">{{pending}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2>Department Budget Approval Request</h2>
+          </div>
+          <div class="tableBody">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <!-- <th>#</th> -->
+                    <th>Name</th>
+                    <th>Department Name</th>
+                    <!-- <th>Head of Department</th> -->
+                    <th>Year</th>
+                    <th class="payment">Budget Allocated</th> 
+                    <th>Approval Status</th>
+                    <th *ngIf="pendingCourses">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let request of dataSource">
+                    <td>{{ request?.employeeName }}</td>
+                    <td>{{ request?.departmentName }}</td>
+                    <!-- <td>{{ request?.hod }}</td> -->
+                    <td>{{ request?.year }}</td>
+                    <td class="payment"><span>$</span>{{ request?.trainingBudget ||0}}.00</td>
+                    <td>
+                        <span
+                        [class]="
+                          request?.approval === 'Approved'
+                            ? 'badge badge-solid-green'
+                            : request?.approval === 'Pending'
+                            ? 'badge badge-solid-orange'
+                            : request?.approval === 'Rejected'
+                            ? 'badge badge-solid-red'
+                            : ''
+                        "
+                      >
+                        <span
+                          [class]="
+                            request?.approval === 'Approved'
+                              ? 'status-dot'
+                              : request?.approval === 'Pending'
+                              ? 'status-orange'
+                              : request?.approval === 'Rejected'
+                              ? 'status-red'
+                              : ''
+                          "
+                        ></span>
+                        {{ request.approval }}
+                      </span>
+                    </td>
+                    <td *ngIf="pendingCourses">
+                      <div class="d-flex gap-2">
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary shadow height"
+                          (click)="$event.stopPropagation()"
+                          (click)="approve(request)"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          type="button"
+                          mat-raised-button
+                          color="warn"
+                          (click)="$event.stopPropagation()"
+                          (click)="reject(request)"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <mat-paginator
+                #paginator
+                [length]="totalItems"
+                [pageIndex]="0"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="pageSizeChange($event)"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

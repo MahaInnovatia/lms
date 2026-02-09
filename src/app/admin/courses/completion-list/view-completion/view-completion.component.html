@@ -1,0 +1,629 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-static-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-static-breadcrumb>
+    </div>
+
+    <div class="row clearfix p-2">
+      <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="info-box7 order-info-box7 bg-white">
+          <div class="info-box7-block">
+            <div class="card-container">
+              <div class="card">
+                <mat-tab-group>
+                  <mat-tab>
+                    <ng-template mat-tab-label>
+                      Details
+                    </ng-template>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="project_widget">
+                        <div class="header">
+                          <h2>{{commonRoles?.STUDENT_ROLE}} Details</h2>
+                          <div class="buttons" *ngIf="status && !verify">
+                            <button *ngIf="edit"
+                              (click)="changeStatus(response, 'approved')"
+                              mat-icon-button
+                              matTooltip="approve"
+                              class="tbl-action-btn"
+                            >
+                              <img
+                                class="img-w"
+                                src="/assets/approve.svg"
+                                alt="approve"
+                              />
+                            </button>
+                            <button *ngIf="delete"
+                              mat-icon-button
+                              matTooltip="Withdraw"
+                              class="tbl-action-btn"
+                              (click)="Status(response, 'cancel','approval')"
+                            >
+                              <img
+                                class="img-w"
+                                src="/assets/archive.svg"
+                                alt="approve"
+                              />
+                            </button>
+                          </div>
+                          <div class="buttons" *ngIf="status && verify">
+                            <button *ngIf="edit"
+                              (click)="changeStatus(response, 'verified')"
+                              mat-icon-button
+                              matTooltip="Verify"
+                              class="tbl-action-btn"
+                            >
+                              <img
+                                class="img-w"
+                                src="/assets/approve.svg"
+                                alt="approve"
+                              />
+                            </button>
+                            <button *ngIf="delete"
+                            mat-icon-button
+                            matTooltip="Withdraw"
+                            class="tbl-action-btn"
+                            (click)="Status(response, 'cancel','discountVerification')"
+                          >
+                            <img
+                              class="img-w"
+                              src="/assets/archive.svg"
+                              alt="approve"
+                            />
+                          </button>
+                          </div>
+                        </div>
+                        <div class="body">
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>{{commonRoles.STUDENT_ROLE}}</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>
+                                      {{ response.studentId?.name | titlecase }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-5 col-md-12">
+                                    <h6>Genders</h6>
+                                  </div>
+                                  <div class="col-7">
+                                    <p>
+                                      {{
+                                        response?.studentId?.gender | titlecase
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Mobile</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>{{ response?.studentId?.mobile }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-5 col-md-12">
+                                    <h6>Email</h6>
+                                  </div>
+                                  <div class="col-xl-7 col-md-12">
+                                    <p>{{ response.studentId?.email }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>DOB</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>
+                                      {{
+                                        response.studentId?.dob 
+                                          | date
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-5 col-md-12">
+                                    <h6>Country</h6>
+                                  </div>
+                                  <div class="col-7">
+                                    <p>
+                                      {{
+                                        response.studentId?.country_name
+                                          | titlecase
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Qualification</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>
+                                      {{ response.studentId?.education |titlecase}}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <!-- <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-5">
+                                    <h6>Department</h6>
+                                  </div>
+                                  <div class="col-7">
+                                    <p>
+                                      {{
+                                        response.studentId?.department
+                                          | titlecase
+                                      }}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                        <div   class="header">
+                          <h2>Course Details</h2>
+                        </div>
+
+                        <div   class="body">
+
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Course</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>{{ response.title||response?.courseId?.title | titlecase }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Course Code</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>{{ response.courseId?.courseCode }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <!-- <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Duration</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>
+                                      {{
+                                        response.courseId
+                                          ?.course_duration_in_days
+                                      }}
+                                      Days
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> -->
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Course Fee</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>
+                                      $ {{ response.courseId?.fee || 0 }}.00
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12 col-sm-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Registered</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>{{ response.registeredOn | date }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-12 col-sm-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Course Type</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>{{ response.courseId?.selectedOptionValue.replace('And', ' & ') |titlecase}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-12 col-sm-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Certificate Template</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>{{ response.courseId.certificate_template}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-xl-6 col-md-12 col-sm-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Approval Required</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>{{ response.courseId.approval }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            
+                           
+                          </div>
+                       
+                          <div class="row">
+                            <div
+                              class="col-xl-6 col-md-12"
+                              *ngIf="
+                                !(paramStatus === 'approved') &&
+                                !(paramStatus === 'pending')
+                              "
+                            >
+                              <!-- <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Completed</h6>
+                                  </div>
+                                  <div class="col-xl-5 col-md-12">
+                                    <p>{{ response.updatedAt | date }}</p>
+                                  </div>
+                                </div>
+                              </div> -->
+                            </div>
+                          </div>
+                          <!-- <div class="row m-t-30 px-2">
+                            <h6>Description</h6>
+                            <p
+                              [innerHTML]="
+                              getSafeHtml( response?.courseId?.course_detailed_description
+                                  )
+                              "
+                            ></p>
+                          </div> -->
+                        </div>
+                        <div *ngIf="isDiscount" class="header">
+                          <h2>Discount Details</h2>
+                        </div>
+                        <div *ngIf="isDiscount" class="body">
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Discount</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>{{ discountDetails?.discountTitle }}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Discount value</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>
+                                      {{discountDetails?.value}}{{discountDetails?.discountType =='percentage'? '%':''}}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+  
+                        </div>
+                        <div  *ngIf="isDiscount"  class="row">
+                          <div class="col-10 mx-auto">
+                              <div class="table-wrapper">
+                                  <div class="table-responsive">
+                                      <table class="table table-hover">
+                                          <thead>
+                                              <tr>
+                                                  <th>Item</th>
+                                                  <th style="text-align: center;">Quantity</th>
+                                                  <th style="text-align: right;">Unit Price</th>
+                                                  <th style="text-align: right;">Total</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr style="cursor: pointer">
+                                                  <td style="width: 45%;">{{response.title ||response.courseId.title  | titlecase}}</td>
+                                                  <td style="text-align: center;">1</td>
+                                                  <td>${{ (response.courseId?.fee || 0) + (response.classId.instructorCost || 0) }}.00</td>
+                                                  <td>${{ (response.courseId?.fee || 0) + (response.classId.instructorCost || 0) }}.00</td>
+                                                </tr>
+                                              <tr></tr>
+                                              <tr>
+                                                  <td>
+                                                      <h6>Subtotal</h6>
+                                                  </td>
+                                                  <td colspan="4" class="price">
+                                                    ${{ (response?.courseId?.fee || 0) + (response?.classId?.instructorCost || 0) }}.00
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <h6>Discount({{discountDetails?.value}}{{discountDetails?.discountType =='percentage'? '%':''}} )</h6>
+                                                  </td>
+                                                  <td colspan="4" *ngIf="discountDetails?.discountType == 'fixed'" class="price">
+                                                      - ${{(discountDetails?.value) | number : '1.2-2'}}
+                                                  </td>
+                                                  <td colspan="4" *ngIf="discountDetails?.discountType == 'percentage'" class="price">
+                                                      - ${{( (response.courseId?.fee +  response.classId?.instructorCost||0) * discountDetails?.value / 100) | number : '1.2-2'}}
+                                                  </td>
+                  
+                                              </tr>
+                                              <tr>
+                                                  <td>
+                                                      <h6>Total</h6>
+                                                  </td>
+                                                  <td colspan="4" *ngIf="discountDetails?.discountType == 'fixed'"  class="price">
+                                                      ${{ (response.courseId?.fee + response?.classId?.instructorCost || 0)- discountDetails?.value | number : '1.2-2'}}
+                                                  </td>
+                                                  <td colspan="4" *ngIf="discountDetails?.discountType == 'percentage'" class="price">
+                                                      ${{ (response.courseId?.fee + response?.classId?.instructorCost || 0)- ( response.courseId?.fee* discountDetails?.value / 100) | number : '1.2-2'}}
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div *ngIf="isDiscountType"  class="row">
+                        <div class="col-10 mx-auto">
+                            <div class="table-wrapper">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th style="text-align: center;">Quantity</th>
+                                                <th style="text-align: right;">Unit Price</th>
+                                                <th style="text-align: right;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="cursor: pointer">
+                                                <td style="width: 45%;">{{response.title ||response.courseId.title  | titlecase}}</td>
+                                                <td style="text-align: center;">1</td>
+                                                <td>${{ (response.courseId?.fee || 0) + (response.classId.instructorCost || 0) }}.00</td>
+                                                <td>${{ (response.courseId?.fee || 0) + (response.classId.instructorCost || 0) }}.00</td>
+                                              </tr>
+                                            <tr></tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>Subtotal</h6>
+                                                </td>
+                                                <td colspan="4" class="price">
+                                                  ${{ (response?.courseId?.fee || 0) + (response?.classId?.instructorCost || 0) }}.00
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>Discount(${{discountType || 0}})</h6>
+                                                </td>
+                                                <td colspan="4"  class="price">
+                                                    - ${{discountType || 0}}.00
+                                                </td>
+                                              
+                
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h6>Total</h6>
+                                                </td>
+                                                <td colspan="4"  class="price">
+                                                    ${{ (response.courseId?.fee + response?.classId?.instructorCost || 0) - discountType  }}.00
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                      </div>
+                    </div>
+                  </mat-tab>
+
+                  <mat-tab *ngIf="showTab">
+                    <ng-template mat-tab-label> Score Card </ng-template>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="project_widget">
+                        <div class="header">
+                          <h2>Assessment Test</h2>
+                        </div>
+                        <div class="body">
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Score</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p *ngIf="response?.assessmentAnswer">{{response?.assessmentAnswer?.score}} / {{response?.assessmentAnswer?.totalScore}}</p>
+                                    <p *ngIf="!response?.assessmentAnswer">--</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Submitted at</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>{{response?.assessmentAnswer?.submittedAt  | date: 'MM/dd/yyyy'}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="header">
+                          <h2>Exam</h2>
+                        </div>
+                        <div class="body">
+                          <div class="row">
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Score</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p *ngIf="response?.examAssessmentAnswer">{{response?.examAssessmentAnswer?.score}} / {{response?.examAssessmentAnswer?.totalScore}}</p>
+                                    <p *ngIf="!response?.examAssessmentAnswer">--</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-md-12">
+                              <div class="px-2">
+                                <div class="row">
+                                  <div class="col-xl-6 col-md-12">
+                                    <h6>Submitted at</h6>
+                                  </div>
+                                  <div class="col-xl-6 col-md-12">
+                                    <p>{{response?.examAssessmentAnswer?.submittedAt  | date: 'MM/dd/yyyy'}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
+            </div>
+
+            <h2 class="text-end"><span></span></h2>
+            <p class="m-b-0"></p>
+          </div>
+          <div class="row mx-3">
+            <div class="col-md-10 mb-3" *ngIf="paramStatus === 'pending'">
+              <button
+                mat-raised-button
+                id="back"
+                (click)="back()"
+              >
+                Back
+              </button>
+            </div>
+            <div class="col-md-10 mb-3" *ngIf="paramStatus === 'approved'">
+              <button
+                mat-raised-button
+                id="back"
+                (click)="back()"
+
+              >
+                Back
+              </button>
+            </div>
+            <div class="col-md-10 mb-3" *ngIf="paramStatus === 'completed'">
+              <button
+                mat-raised-button
+                id="back"
+                (click)="back()"
+
+              >
+                Back
+              </button>
+            </div>
+            <div class="col-md-2 mb-3" *ngIf="!response.examAssessmentAnswer&& response.assessmentAnswer && !response.isExamAssigned">
+             <button mat-raised-button id="submit" (click)="assignExam()">
+              Enable Exam
+             </button> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+.thumbnail-img {
+    height: 250px;
+    width: 600px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+.file-drop-area {
+    border: 1px dashed #7c7db3;
+    border-radius: 15px;
+    position: relative;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+.file {
+    text-align: center;
+}
+
+.file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.file-msg {
+    margin-left: 20px;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 500;
+}
+.btn{
+    margin-top: 6px;
+    height: 22px;
+}
+
+h5 {
+    padding-top: 10px;
+}
+
+#editor {
+    font-size: 16px;
+    font-style: italic;
+    padding: 10px;
+}
+
+:host ::ng-deep .ck-editor__editable_inline {
+    --mdc-outlined-text-field-container-shape: 12px;
+    min-height: 150px;
+    min-width: 90%;
+
+}
+
+::ng-deep .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable,
+.ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+    border-radius: var(--ck-border-radius);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    margin: -3px 25px;
+}
+
+::ng-deep .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+    border-radius: var(--ck-border-radius);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    margin: -3px 25px;
+}
+
+
+
+#submit {
+    margin-left: 50px;
+}
+
+.input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.mandatory {
+    color: red;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: .9rem;
+}
+
+.btn {
+    border: none;
+}

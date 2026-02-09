@@ -1,0 +1,58 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="card" style="height: fit-content;">
+            <div class="header d-flex justify-content-between">
+              <h2>Update Department</h2>
+              <button class="icons" *ngIf="isDelete" (click)="deleteDept(id)" alt="Delete" matTooltip="Delete" mat-menu-item>
+                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+            </button>
+            </div>
+            <div class="body">
+                <form [formGroup]="departmentForm">
+                <div class="row">
+                  <div class="col-3">
+                    <label>Department<span class="mandatory ">&nbsp;*</span></label>
+                        <mat-form-field class="example-full-width " appearance="outline">
+                            <input matInput type="text" formControlName="department"
+                            class="form-control" placeholder="Enter New Department"
+                            >           
+                            <mat-error *ngIf="departmentForm.get('department')?.invalid ||departmentForm.get('department')?.touched">
+                              {{ utils.getErrorMessage1(departmentForm.get('department'), 'department') }}
+                            </mat-error>                           
+                        </mat-form-field>
+                  </div>
+                    <div class="col-3">
+                      <label>Description<span class="mandatory ">&nbsp;*</span></label>
+                          <mat-form-field class="example-full-width " appearance="outline">
+                              <input matInput type="text" formControlName="description"
+                              class="form-control" placeholder="Enter Description"
+                              >     
+                              <mat-error *ngIf="departmentForm.get('description')?.invalid ||departmentForm.get('description')?.touched">
+                                {{ utils.getErrorMessage1(departmentForm.get('description'), 'description') }}
+                              </mat-error>                                 
+                          </mat-form-field>
+                    </div>
+                </div>
+                </form>
+                <hr/>
+                <div class="float-end">
+                    <div class="d-grid gap-3 d-md-flex">
+                      <button type="button" id="back" mat-raised-button  (click)="goBack()">
+                        Back
+                      </button>
+                    <button  mat-raised-button  id="submit" (click)="onUpdate()" > Update </button>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,64 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-static-breadcrumb
+        [title]="breadscrum.title"
+        [items]="breadscrum.items"
+        [active_item]="breadscrum.active"
+      >
+      </app-static-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="body">
+            <div class="m-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-2">{{ questionsList.name }}</h5>
+
+                <div class="d-flex">
+                  <!-- <button
+                  alt="Edit"
+                  mat-menu-item
+                  (click)="sendSurvey()"
+                  matTooltip="Send Feedback"
+                >
+                  <app-feather-icons
+                    [icon]="'Send'"
+                    class="tbl-fav-edit"
+                  ></app-feather-icons>
+                </button> -->
+
+                  <button
+                    alt="Edit" *ngIf="edit"
+                    mat-menu-item
+                    [routerLink]="['/student/settings/edit-feedback/', surveyId]"
+                    matTooltip="Edit"
+                  >
+                    <app-feather-icons
+                      [icon]="'edit'"
+                      class="tbl-fav-edit"
+                    ></app-feather-icons>
+                  </button>
+                  <button
+                    alt="Delete" *ngIf="isDelete"
+                    mat-menu-item
+                    (click)="delete()"
+                    matTooltip="Delete"
+                  >
+                    <app-feather-icons
+                      [icon]="'trash-2'"
+                      class="tbl-fav-delete"
+                    ></app-feather-icons>
+                  </button>
+                </div>
+              </div>
+              <app-feedbackcommon [feedbackInfo]="questionsList" [col]="3" [isPreview]="true"></app-feedbackcommon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,107 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="materialTableHeader">
+            
+            <!-- <div class="">
+              <ul class="tbl-export-btn mt-2">
+                <li>
+                  <ul class="header-buttons-left ms-0">
+                    <li class="tbl-search-box">
+                      <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                      <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                        aria-label="Search box" [(ngModel)]="filterName" (input)="performSearch()" />
+                    </li>
+                  </ul>
+                </li>
+                </ul>
+                </div> -->
+            <!-- <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h2>Announcement List</h2>
+                </li>
+              </ul>
+            </div> -->
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li>
+                <ul class="header-buttons-left ms-0">
+                  <li class="tbl-search-box">
+                    <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                    <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                      aria-label="Search box" [(ngModel)]="filterName" (input)="performSearch()" />
+                  </li>
+                </ul>
+              </li>
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="ADD">
+                    <button mat-raised-button *ngIf="isCreate" [routerLink]="['/student/settings/create-announcement']"
+                    id="submit">Create</button>
+                  </div>
+                </li>
+                <li>
+                  <span style="font-weight: bold">Export as</span>
+                </li>
+                <li>
+                  <div class="export-button m-l-10" matTooltip="XLSX" (click)="exportExcel()">
+                    <img src="assets/excel.svg" alt="" />
+                  </div>
+                </li>
+                <li>
+                  <div class="export-button m-l-10" matTooltip="PDF" (click)="generatePdf()">
+                    <img src="assets/pdf (1).svg" alt="" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="body overflow-auto">
+            <div class="responsive_table">
+              <table mat-table matSort [dataSource]="dataSource" class="mat-cell advance-table">
+                <!-- Course Name -->
+                <ng-container matColumnDef="Title">
+                  <mat-header-cell *matHeaderCellDef >Title</mat-header-cell>
+                  <mat-cell *matCellDef="let row" [routerLink]="isView ? ['/student/settings/automation/announcement/view-announcement',row.id] : null">
+                    <span class="mobile-label">Title:</span> <span class="name" >{{row.subject}}</span></mat-cell>
+                </ng-container>
+                <!-- Course Code -->
+                <ng-container matColumnDef="Decription">
+                  <mat-header-cell *matHeaderCellDef >Description
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" class="mt-3" [routerLink]="isView ? ['/student/settings/automation/announcement/view-announcement',row.id] : null">
+                    <span class="mobile-label">Description:</span>
+                    <p [innerHTML]="row.details | bulletPoints | truncate:30"></p>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="User Role">
+                  <mat-header-cell *matHeaderCellDef >Role
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" [routerLink]="isView ? ['/student/settings/automation/announcement/view-announcement',row.id] : null">
+                    <span class="mobile-label">Role:</span>
+                    <p [innerHTML]="row.announcementFor | bulletPoints"></p>
+                  </mat-cell>
+
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </table>
+              <mat-paginator class="paginator rounded-5" #paginator [length]="totalItems"
+              (page)="pageSizeChange($event)" [pageSizeOptions]="pageSizeArr"
+              aria-label="select pagination option">
+            </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

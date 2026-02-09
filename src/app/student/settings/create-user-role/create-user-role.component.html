@@ -1,0 +1,94 @@
+<section class="content" [ngClass]="{'full-width': dialogStatus, 'content': true}">
+ 
+    <div class="content-block">
+      <ng-container *ngIf="!dialogStatus">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+    </ng-container>
+      <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="card" style="height: fit-content;">
+            <div class="header">
+              <h2>Create Role</h2>
+            </div>
+            <div class="body">
+                <form [formGroup]="userTypeFormGroup">
+
+                <div class="row">
+                  <div class="col-3">
+                    <label>Role <span class="mandatory">&nbsp;*</span></label>
+                        <mat-form-field class="example-full-width " appearance="outline">
+                            <input matInput type="text" formControlName="typeName"
+                            class="form-control" placeholder="Enter New Role"
+                            >           
+                            <mat-error *ngIf="userTypeFormGroup.get('typeName')?.invalid ||userTypeFormGroup.get('typeName')?.touched">
+                              {{ utils.getErrorMessage1(userTypeFormGroup.get('typeName'), 'role') }}
+                            </mat-error>                                 
+                        </mat-form-field>
+                  </div>
+                  <div class="col-3">
+                    <label>Description <span class="mandatory">&nbsp;*</span></label>
+                        <mat-form-field class="example-full-width " appearance="outline">
+                            <input matInput type="text" formControlName="description"
+                            class="form-control" placeholder="Enter Description"
+                            >  
+                            <mat-error *ngIf="userTypeFormGroup.get('description')?.invalid ||userTypeFormGroup.get('description')?.touched">
+                              {{ utils.getErrorMessage1(userTypeFormGroup.get('description'), 'description') }}
+                            </mat-error>                                    
+                        </mat-form-field>
+                  </div>
+                </div>
+                </form>
+                <hr/>
+                <div class="float-end d-flex gap-3 align-items-center">
+        
+                    <button *ngIf="dialogStatus" mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
+                
+                    <button  mat-raised-button (click)="createUserType()" *ngIf="isCreate || dialogStatus" id="submit"> Create </button>
+      
+                  </div>
+                  
+                  <div *ngIf="!dialogStatus" class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="header mt-3">
+                        <h2>Roles Listing</h2>
+                      </div>
+                      <div class="table-wrapper">
+                        <div class="table-responsive">
+                          <table class="table table-hover ">
+                            <thead>
+                              <tr>
+                                <th>Role</th>
+                                <th>Description</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr style="cursor: pointer;" *ngFor="let type of userTypeNames" (click)="isEdit ? edit(type.id) : null">
+                                <td>{{ type?.typeName | titlecase }}</td>
+                                <td>
+                                    {{type?.description | titlecase}}
+
+                                </td>
+                               
+    
+    
+                              </tr>
+    
+                            </tbody>
+                          </table>
+                        </div>
+                        <div *ngIf="!userTypeNames || userTypeNames.length===0" class="text-center py-3 no-data-text">
+                          No data found
+                        </div>
+                        
+                      </div>
+                  </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,28 @@
+﻿/*
+ *  Document   : _buttons.scss
+ *  Author     : RedStar Template
+ *  Description: This scss file for button style classes
+ */
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+.btn:focus,
+.btn.focus {
+  box-shadow: none;
+}
+
+.btn-space {
+  margin-right: 10px !important;
+}
+
+.example-button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1; /* Pushes the Save button to the right */
+}
