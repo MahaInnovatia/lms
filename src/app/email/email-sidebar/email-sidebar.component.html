@@ -1,0 +1,37 @@
+<div id="mail-nav">
+  <button type="button" (click)="compose()" class="btn btn-success waves-effect m-b-15">COMPOSE</button>
+  <ul class="" id="mail-folders">
+    <li routerLinkActive="active">
+      <a routerLink="/email/inbox" title="Inbox" routerLinkActive="active">Inbox
+        <span class="badge bg-orange">{{totalItems}} </span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/email/sent" title="Sent" routerLinkActive="active">Sent
+        <span class="badge bg-orange">{{totalSentItems}}</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/email/draft" title="Draft" routerLinkActive="active">Draft
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/email/bin" title="Bin" routerLinkActive="active">Bin
+        <span class="badge bg-orange">{{totalDeletedItems}}</span>
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/email/important" title="Important" routerLinkActive="active">Important
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/email/starred" title="Starred" routerLinkActive="active">Starred
+      </a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/email/spam" title="Spam" routerLinkActive="active">Spam
+      </a>
+    </li>
+
+  </ul>
+</div>

@@ -1,0 +1,58 @@
+svg {
+    position: absolute;
+    fill: #000;
+    background-color: #d3cdcd;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-radius: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+// modal-box styling
+::ng-deep .mat-mdc-menu-content {
+        margin: 0;
+        padding: 8px 20px;
+        border-radius: 10px;
+        list-style-type: none;
+       
+}
+// modal-box curving
+::ng-deep .mat-mdc-menu-panel{
+    --mat-menu-container-shape: 12px;
+}
+.menu-text{
+    padding-left: 20px;
+}
+.card-statistic-2{
+    width: 100%;
+}
+#submit {
+    width: 140px;
+     padding: 5px 13px 5px 13px;
+   }
+   #issued{
+     width: 140px;
+     padding: 5px 13px 5px 11px;
+   }
+   .red-text {
+    color: red;
+  }
+  
+  .green-text {
+    color: green;
+  }
+   ::ng-deep .mat-mdc-tab-body-content{
+    overflow-x: hidden !important;
+  }
+
+  .announcement-board .card,
+.reschedule-list .card {
+    height: 100%;
+    min-height: 400px; /* Adjust as needed */
+}
+
+@media (max-width: 768px) {
+  .reschedule-list {
+    margin-top: 25px; /* Add spacing between tables */
+  }
+}

@@ -1,0 +1,153 @@
+<section class="content">
+    <div class="content-block" #proctoringDiv>
+      <div class="card border shadow card-height border-radius mb-5 mt-5">
+        <ng-container *ngIf="!isQuizCompleted">
+          <div class="row p-3 d-flex justify-content-between">
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3">
+              <div class="text-left font-weight-bold">
+                <div class="custom-style">Test: Exam</div>
+                <div class="text-primary mb-1">{{ user_name }}</div>
+                <div class="text-primary">Total Questions: {{ questionList?.length }}</div>
+                <div>Attend Questions: {{ attendedQuestions() }}</div>
+                <div>Remaining Questions: {{ questionList.length - attendedQuestions() }}</div>
+              </div>
+            </div>
+  
+            <div *ngIf="isEnableProtector" #draggable id="proctoring-system" (mousedown)="onMouseDown($event, draggable)"
+              class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3 text-center draggable-div"
+              style="position: fixed; top: 10%; right: 50px; width: 300px; z-index: 999;">
+              <div class="video-container mb-3">
+  
+                <app-object-detection (MobilePhone)="handleMobilePhoneDetected()"
+                  (ProhibitedObject)="handleProhibitedObjectDetected()" (FaceNotVisible)="handleFaceNotVisible()"
+                  (MultipleFacesVisible)="handleMultipleFacesDetected()" (FaceMatchDetect)="handleFaceMatchDetected(true)"
+                  (FaceMisMatchDetect)="handleFaceMatchDetected(false)" (FaceMatchError)="handleFaceMatchError()"
+                  (FaceMatchMsg)="handleMessage($event)" (LookAway)="handleLookingAwayDetected()"
+                  (StopExam)="handleStopExam()" [profilePic]="userProfilePic"></app-object-detection>
+                <!-- <video #videoElement autoplay class="w-100 border rounded"></video> -->
+              </div>
+              <div id="warnings" class="mt-3"></div>
+            </div>
+  
+            <div class="col-lg-4 col-md-12 col-sm-12 col-12 mt-3 d-flex justify-content-end align-items-center"
+              *ngIf="!answerId">
+              <mat-icon class="material-icons text-primary me-2"
+                style="font-size: 25px; margin-top: 2px">schedule</mat-icon>
+              <span class="m-0 h3" [style.color]="totalTime <= 10 ? 'red' : ''">
+                {{ minutes > 9 ? minutes : '0' + minutes }} :
+                {{ seconds > 9 ? seconds : '0' + seconds }}
+              </span>
+            </div>
+          </div>
+  
+  
+  
+  
+  
+          <hr>
+          <div class="row p-3 d-flex justify-content-between">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+              <div>
+                <div *ngFor="let question of getPaginatedQuestions().slice(0, 20); let i=index">
+                  <div class="text-black p-3 rounded bg-light mb-4">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h6 class="ml-5 m-0">{{ i + 1 + skip }}. {{ question.questionText }}</h6>
+                      <span class="text-muted font-weight-bold me-3">Score: {{ question.questionscore }}</span>
+                    </div>
+                    <div *ngIf="question.questionType === 'file' && question.fileAnswer?.length > 0" class="ml-5 mb-2">
+                      <span class="text-primary font-weight-bold">Document: </span>
+                      <a *ngFor="let file of question.fileAnswer" [href]="file.documentLink" target="_blank"
+                        class="text-decoration-none">
+                        <mat-icon class="ms-1" style="vertical-align: middle;">visibility</mat-icon>
+                        {{ file.documentName }}
+                      </a>
+                    </div>
+  
+                    <mat-radio-group *ngIf="question.questionType === 'mcq' || question.questionType === 'radio'"
+                      [(ngModel)]="answers[i + skip].selectedOptionText" (change)="handleRadioChange(i + skip)">
+                      <div *ngFor="let option of question.options; let k = index">
+                        <mat-radio-button [value]="option.text">
+                          {{ optionsLabel[k] }} {{ option.text }}
+                        </mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+  
+                    <mat-radio-group *ngIf="question.questionType === 'trueFalse'"
+                      [(ngModel)]="answers[i + skip].selectedOptionText" (change)="handleRadioChange(i + skip)">
+                      <mat-radio-button value="true">True</mat-radio-button>
+                      <mat-radio-button value="false">False</mat-radio-button>
+                    </mat-radio-group>
+  
+                    <input *ngIf="['text', 'fillBlanks', 'number'].includes(question.questionType)"
+                      class="form-control mt-2" [type]="question.questionType === 'number' ? 'number' : 'text'"
+                      [(ngModel)]="answers[i + skip].selectedOptionText" (input)="handleRadioChange(i + skip)" />
+  
+                    <textarea *ngIf="question.questionType === 'textarea'" class="form-control mt-2" rows="3"
+                      [(ngModel)]="answers[i + skip].selectedOptionText" (input)="handleRadioChange(i + skip)"></textarea>
+  
+                    <div *ngIf="question.questionType === 'file'" class="mt-2">
+                      <label class="form-label">Type your answer:</label>
+                      <textarea class="form-control mb-2" rows="3" [(ngModel)]="answers[i + skip].selectedOptionText"
+                        [disabled]="answers[i + skip].fileName" (input)="handleTextChange(i + skip)"></textarea>
+  
+                      <div class="text-center my-2 text-muted">— or —</div>
+  
+                      <label class="form-label">Upload your answer file: {{ question.fileSize }} MB</label>
+                      <input type="file" class="form-control"
+                        accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.mp3,.mp4,.wav,.avi,image/*"
+                        [disabled]="answers[i + skip].selectedOptionText" (change)="handleFileChange($event, i + skip)" />
+  
+                      <div *ngIf="answers[i + skip].fileName" class="mt-1 text-muted">
+                        Selected File: {{ answers[i + skip].fileName }}
+                        <button class="btn btn-sm btn-link text-danger p-0"
+                          (click)="clearFileAnswer(i + skip)">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+          <div class="row p-3">
+            <div class="col-lg-12">
+              <mat-paginator [length]="totalQuestions" [pageSize]="pageSize"
+                (page)="onPageChange($event)"></mat-paginator>
+            </div>
+          </div>
+          <div class="border-dotted-bottom mt-3 mb-3 text-center"
+            *ngIf="currentPage === getTotalPages() - 1 && !isanswersSubmitted">
+            <button mat-raised-button id="submit" (click)="confirmSubmit()" class="me-2">Submit</button>
+          </div>
+          <div class="border-dotted-bottom mt-3 mb-3 text-center" *ngIf="isanswersSubmitted">
+            <button mat-flat-button color="accent" class="mls-2" (click)="navigate()">Continue</button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="isQuizCompleted">
+          <div class="row d-flex justify-content-between">
+            <img style="width: 30%;" class="img-fluid col-sm-12 mx-auto"
+              src="https://icon-library.com/images/celebration-icon-png/celebration-icon-png-7.jpg" alt="">
+            <div class="result text-center col-md-6 col-sm-12 mt-3">
+              <h3 class="mt-3">Congratulations!! <br>You have completed the quiz. <br>Below is your result:</h3>
+              <p>Total Question Attempted : {{ questionList.length }} </p>
+              <p>Total Correct Answered : {{ correctAnswers(true) }} </p>
+              <p>Total Wrong Answered : {{ correctAnswers(false) }} </p>
+              <p>Your Score : {{ answerResult.score }} Points </p>
+            </div>
+            <div class="border-dotted-bottom mt-3 mb-3 text-center">
+              <button mat-raised-button id="submit" *ngIf="courseDetails.isFeedbackRequired"
+                (click)="submitFeedback(answerAssessmentId)" class="mr-2">Feedback</button>
+  
+              <button mat-raised-button id="submit" *ngIf="!courseDetails.isFeedbackRequired" (click)="routingButton()"
+                class="mr-2">{{ titleRoute() }}</button>
+            </div>
+          </div>
+        </ng-container>
+        <div class="overlay" *ngIf="showOverlay">
+          <div class="overlay-content">
+            <p class="h3">{{overLayMsg}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

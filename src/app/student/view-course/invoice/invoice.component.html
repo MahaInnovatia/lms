@@ -1,0 +1,112 @@
+<div class="container" style="cursor: pointer;">
+    <div class="row my-3">
+        <div class="col-5 m-3">
+            <img src="/assets/images/logo/innovatiq-logo-index.png" style="height: 80px; width: 80px;">
+        </div>
+        <div class="col-6">
+            <h3 style="justify-content: end; display: flex; margin-top: 40px;">INVOICE SUMMARY</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-11 mt-4">
+            <h6 style="justify-content: end; display: flex;">{{data.date | date}}</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <div class="table-wrapper">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th style="text-align: center;">Quantity</th>
+                                <th style="text-align: right;">Unit Price</th>
+                                <th style="text-align: right;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="cursor: pointer">
+                                <td style="width: 45%;">{{data.title | titlecase}}</td>
+                                <td style="text-align: center;">1</td>
+                                <td>${{data.courseFee}}.00</td>
+                                <td>${{data.courseFee}}.00</td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <td>
+                                    <h6>Subtotal</h6>
+                                </td>
+                                <td colspan="4" class="price">
+                                    ${{data.courseFee}}.00
+                                </td>
+                            </tr>
+                            <tr *ngIf="isDiscount">
+                                <td>
+                                    <h6 >Discount({{data.discountValue}}{{data.discountType =='percentage'? '%':''}})</h6>
+                                </td>
+                                <td colspan="4" *ngIf="data.discountType == 'fixed'" class="price">
+                                    - ${{(data.discountValue) | number : '1.2-2'}}
+                                </td>
+                                <td colspan="4" *ngIf="data.discountType == 'percentage'" class="price">
+                                    - ${{(data.courseFee * data.discountValue / 100) | number : '1.2-2'}}
+                                </td>
+                                <td colspan="4" *ngIf=!data.discountType class="price">
+                                    - ${{0 | number : '1.2-2'}}
+                                </td>
+
+                            </tr>
+
+                            <tr *ngIf="isDiscounttypeValue">
+                                <td>
+                                    <h6 >Discount(${{this.dicountValueType }})</h6>
+                                </td>
+                                <td colspan="4"  class="price">
+                                    - ${{dicountValueType | number : '1.2-2'}}
+                                </td>
+
+                            </tr>
+
+
+
+
+                            <tr *ngIf="isDiscount">
+                                <td>
+                                    <h6>Total</h6>
+                                </td>
+                                <td colspan="4" *ngIf="data.discountType == 'fixed'"  class="price">
+                                    ${{data.courseFee - data.discountValue | number : '1.2-2'}}
+                                </td>
+                                <td colspan="4" *ngIf="data.discountType == 'percentage'" class="price">
+                                    ${{data.courseFee - (data.courseFee * data.discountValue / 100) | number : '1.2-2'}}
+                                </td>
+                                <td colspan="4" *ngIf=!data.discountType class="price">
+                                    ${{data.courseFee| number : '1.2-2'}}
+                                </td>
+                            </tr>
+
+                            <tr *ngIf="isDiscounttypeValue">
+                                <td>
+                                    <h6>Total</h6>
+                                </td>
+                                <td colspan="4" class="price">
+                                    ${{data.courseFee - dicountValueType | number : '1.2-2'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-4 mx-2" style="float: right;">
+        <div class="col-4">
+            <button mat-raised-button id="submit" (click)="submit()">
+                Next
+            </button>
+        </div>
+    </div>
+</div>

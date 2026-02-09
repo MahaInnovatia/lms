@@ -1,0 +1,36 @@
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #f11541;
+    border-radius: 50%; 
+    display: inline-block;
+    margin-right: 5px; 
+  }
+  .amount{
+    padding-right: 100px !important;
+    white-space: nowrap;
+  }
+  
+  .payment-cell{
+    padding-right: 100px !important;
+  }
+  
+  ::ng-deep .mat-column-registeredDate {
+    white-space: nowrap;
+  }
+  @media (max-width: 768px) {
+    .payment-cell {
+      display: block;
+      justify-content: center;
+      margin-top: 10px;
+      padding-right: 0px !important;
+    }
+  }
+  mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+    padding-left: 24px; 
+   }
+   @media (max-width: 600px) {
+     mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+       padding-left: 15px;
+     }
+     }

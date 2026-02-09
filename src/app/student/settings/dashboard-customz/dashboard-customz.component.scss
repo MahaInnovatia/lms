@@ -1,0 +1,113 @@
+.card-statistic-2{
+    width: 104%;
+}
+
+.marginclass{
+    margin-top: 116px;
+}
+
+@media (min-width: 1299px) {
+    .marginclass {
+        margin-top: 125px;
+    }
+}
+
+// Perfect font styling for dashboard
+.dashboard {
+    h5 {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        line-height: 1.5 !important;
+        letter-spacing: 0.01em !important;
+        color: #333 !important;
+        margin-bottom: 20px !important;
+    }
+
+    // Card headers
+    .header {
+        h2 {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            line-height: 1.5 !important;
+            letter-spacing: 0.01em !important;
+            color: #5b626b !important;
+        }
+    }
+
+    // Statistic cards
+    .card-statistic-2, .card-statistic-3 {
+        h3 {
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.01em !important;
+        }
+
+        p {
+            font-size: 14px !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+            letter-spacing: 0.01em !important;
+            color: #555 !important;
+        }
+
+        .card-content {
+            p {
+                font-size: 13px !important;
+                font-weight: 400 !important;
+                line-height: 1.5 !important;
+                letter-spacing: 0.01em !important;
+            }
+        }
+    }
+
+    // Table styling
+    .tableBody {
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 1.5 !important;
+        letter-spacing: 0.01em !important;
+
+        table {
+            thead {
+                th {
+                    font-size: 14px !important;
+                    font-weight: 600 !important;
+                    line-height: 1.5 !important;
+                    letter-spacing: 0.01em !important;
+                    color: #333 !important;
+                }
+            }
+
+            tbody {
+                td {
+                    font-size: 14px !important;
+                    font-weight: 400 !important;
+                    line-height: 1.5 !important;
+                    letter-spacing: 0.01em !important;
+                    color: #555 !important;
+                }
+            }
+        }
+    }
+
+    // Badge styling
+    .badge {
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        line-height: 1.4 !important;
+        letter-spacing: 0.01em !important;
+        padding: 5px 10px !important;
+    }
+
+    // Media title links
+    .media-title {
+        a {
+            font-size: 14px !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+            letter-spacing: 0.01em !important;
+            color: #555 !important;
+        }
+    }
+}

@@ -1,0 +1,75 @@
+svg {
+    position: absolute;
+    fill: #000;
+    background-color: #d3cdcd;
+    margin-left: -15px;
+    margin-top: -15px;
+    border-radius: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+// modal-box styling
+::ng-deep .mat-mdc-menu-content {
+    margin: 0;
+    padding: 8px 20px;
+    border-radius: 10px;
+    list-style-type: none;
+
+}
+
+// modal-box curving
+::ng-deep .mat-mdc-menu-panel {
+    --mat-menu-container-shape: 12px;
+}
+
+.menu-text {
+    padding-left: 20px;
+}
+.row {
+    --bs-gutter-x: 0.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-0.5 * var(--bs-gutter-x));
+    margin-left: calc(-0.5 * var(--bs-gutter-x));
+  }
+  .height {
+    height: 33px;
+  }
+  .height-select {
+    height: 0px;
+  }
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #198754;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-red {
+  width: 8px;
+  height: 8px;
+  background-color: #f11541;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+.status-orange {
+  width: 8px;
+  height: 8px;
+  background-color: #e9713d;
+  border-radius: 50%; // To make it a circle
+  display: inline-block;
+  margin-right: 5px; // Space between dot and text
+}
+::ng-deep .mat-column-overall-budget {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-left: -50px;
+}
+.payment-cell{
+  padding-right: 35px;
+}

@@ -1,0 +1,235 @@
+<section  class="content">
+    <div class="content-block">
+      <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-4 col-md-12">
+          <div  class="card">
+            <div class="m-b-20">
+              <div class="contact-grid">
+                <div class="profile-header bg-dark">
+                  <div class="user-name">{{classDetails?.courseId?.title}}</div>
+                  <div class="name-center">{{classDetails?.courseId?.courseCode}}</div>
+                </div>
+                <img src="{{classDetails?.courseId?.image_link}}" class="user-img" alt="">
+                <p>
+                {{classDetails?.courseId?.course_description}}
+                </p>
+              
+                <div class="row">
+                  <div class="col-6">
+                    <h5>{{classDetails?.courseId?.duration}}</h5>
+                    <small>Training Hours</small>
+                  </div>
+                  <div class="col-6">
+                    <h5>{{classDetails?.courseId?.courseFee}}$</h5>
+                    <small>Fee</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <mat-tab-group mat-align-tabs="start">
+              <mat-tab label="About">
+                <div class="p-4">
+                  <p class="text-default">{{classDetails?.courseId?.course_detailed_description}}</p>
+                
+                  <ul class="list-group list-group-unbordered">
+                    <li class="list-group-item">
+                      <b>Delivery </b>
+                      <div class="profile-desc-item float-end">{{classDetails?.classDeliveryType | titlecase}}</div>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Program Created </b>
+                      <div class="profile-desc-item float-end">{{classDetails?.createdAt | date}}</div>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Program Run </b>
+                      <div class="profile-desc-item float-end">{{classDetails?.isGuaranteedToRun == true?'Yes':'No'}}</div>
+                    </li>
+                  </ul>
+                </div>
+              </mat-tab>
+            
+            </mat-tab-group>
+          </div>
+        </div>
+  
+        <div class="col-lg-8 col-md-12">
+          <div class="card">
+            <mat-tab-group>
+              <mat-tab>
+                <ng-template mat-tab-label>
+                 Classes
+                </ng-template>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="project_widget">
+                  
+                    <div class="body">
+                        <table mat-table [dataSource]="dataSource" >
+                          
+                            <ng-container matColumnDef="position">
+                              <th mat-header-cell *matHeaderCellDef> Instructor </th>
+                              <td mat-cell *matCellDef="let element"> {{element?.instructorId?.name}} {{element?.instructorId?.last_name}} </td>
+                            </ng-container>
+                          
+                            <ng-container matColumnDef=" Class Start Date ">
+                              <th mat-header-cell *matHeaderCellDef>  Class Start Date  </th>
+                              <td mat-cell *matCellDef="let element"> {{element?.sessionStartDate | date}} </td>
+                            </ng-container>
+                                                      <ng-container matColumnDef=" Class End Date ">
+                              <th mat-header-cell *matHeaderCellDef>  Class End Date  </th>
+                              <td mat-cell *matCellDef="let element"> {{element?.sessionEndDate | date}} </td>
+                            </ng-container>
+                          
+                            <ng-container matColumnDef="action">
+                              <th mat-header-cell *matHeaderCellDef> Action </th>
+                              <td mat-cell *matCellDef="let element">  
+                                <button *ngIf="!isRegistered && !isStatus && !isApproved && !isCancelled && !isCompleted"class="btn btn-primary"
+                                (click)="registerProgram(element._id)">
+                                Register
+                            </button>
+                                
+                            <span  class="badge badge-solid-orange mx-2"*ngIf="isRegistered || isStatus">Registered</span>
+                            <span class="badge badge-solid-green mx-2" *ngIf="isApproved">Approved</span>
+                            <span class="badge badge-solid-red mx-2" *ngIf="isCancelled">Cancelled</span>
+                            <span class="badge badge-solid-green mx-2" *ngIf="isCompleted">Completed</span>
+  
+
+                          </td>
+                            </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="p-4">
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                          <b class="badge badge-solid-orange">Core Course </b>
+                        </li>
+                        <li class="list-group-item"  style="cursor: pointer;" [routerLink]="['/student/view-programcourse', core.coreProgramName.id]"*ngFor="let core of programDetails?.coreprogramCourse">{{core.coreProgramName.title | titlecase}}</li>
+                        <li class="list-group-item">
+                          <b class="badge badge-solid-blue">Elective Course </b>
+                        </li>
+                        <li class="list-group-item" style="cursor: pointer;"  [routerLink]="['/student/view-programcourse', elective.electiveProgramName.id]" *ngFor="let elective of programDetails?.electiveprogramCourse">{{elective?.electiveProgramName?.title | titlecase}}</li>
+
+                      </ul>
+                  </div>
+                <div class="p-4">
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                          <b>Skill Connect Code </b>
+                          <div class="profile-desc-item float-end">{{classDetails?.courseId?.skill_connect_code}}</div>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Minimum Enrollment </b>
+                          <div class="profile-desc-item float-end">{{classDetails?.minimumEnrollment}}</div>
+                        </li>
+                        <li class="list-group-item">
+                          <b>Maximum Enrollment </b>
+                          <div class="profile-desc-item float-end">{{classDetails?.maximumEnrollment}}</div>
+                        </li>
+                      </ul>
+                  </div>
+              </mat-tab>
+  
+              <mat-tab *ngIf="isApproved || isCompleted" >
+                <ng-template mat-tab-label>
+                  Program
+                </ng-template>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="project_widget">
+                    
+                      <div class="body">
+                      <div class="responsive_table">
+                        <table class="table table-hover js-basic-example contact_list">
+                          <thead>
+                            <tr>
+                              <th class="center">Core Course </th>
+                              <th class="center"> Completed </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of courseCompletedDetails" style="cursor: pointer;" class="odd gradeX" [routerLink]="['/student/view-programcourse', item?.id]">
+                              <td class="center">{{item?.title | titlecase}}</td>
+                              <td [ngClass]="{'red-text': item.playbackTime< 50, 'green-text': item.playbackTime>= 50}">{{item?.playbackTime?.toFixed(2) || 0}}%</td>
+                              </tr>
+                              </tbody>
+                              </table>
+                              <table class="table table-hover js-basic-example contact_list">
+                                <thead>
+                                  <tr>
+                                    <th class="center">Elective Course </th>
+                                    <th class="center"> Completed </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let item of electivecourseCompletedDetails" style="cursor: pointer;" class="odd gradeX" [routerLink]="['/student/view-programcourse', item?.id]">
+                                    <td class="center">{{item?.electivetitle | titlecase}}</td>
+                                    <td [ngClass]="{'red-text': item.electiveplaybackTime< 50, 'green-text': item.electiveplaybackTime>= 50}">{{item?.electiveplaybackTime?.toFixed(2) || 0}}%</td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+      
+                              </div>
+                              <h5 class="text">Program Completed : <span [ngClass]="{'red-text': completedProgramPercentage< 50, 'green-text':completedProgramPercentage>= 50}" >{{completedProgramPercentage.toFixed(2) || 0}}%</span></h5>
+
+                      </div>
+  
+                    </div>
+                  </div>
+              </mat-tab>
+              <mat-tab *ngIf="isCompleted && certificateIssued">
+                <ng-template mat-tab-label>
+                  Certificate
+                </ng-template>  
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="project_widget">
+  
+                    <div class="body">
+                      <table mat-table [dataSource]="dataSource">  
+                        <ng-container matColumnDef="position">
+                          <th mat-header-cell *matHeaderCellDef> Instructor </th>
+                          <td mat-cell *matCellDef="let element"> {{element?.instructorId?.name}}
+                            {{element?.instructorId?.last_name ? element?.instructorId?.last_name:''}} </td>
+                        </ng-container>
+  
+                        <ng-container matColumnDef=" Class Start Date ">
+                          <th mat-header-cell *matHeaderCellDef> Class Start Date </th>
+                          <td mat-cell *matCellDef="let element"> {{element?.sessionStartDate | date}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef=" Class End Date ">
+                          <th mat-header-cell *matHeaderCellDef> Class End Date </th>
+                          <td mat-cell *matCellDef="let element"> {{element?.sessionEndDate | date}} </td>
+                        </ng-container>
+  
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef> Download </th>
+                          <td mat-cell *matCellDef="let element">
+                            <a href="{{studentClassDetails?.certificateUrl}}" target="_blank"><mat-icon>download</mat-icon></a>
+                          </td>
+                        </ng-container>
+  
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
+                    </div>
+  
+                  </div>
+                </div>
+              </mat-tab>
+              </mat-tab-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

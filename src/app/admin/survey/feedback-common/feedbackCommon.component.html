@@ -1,0 +1,106 @@
+<div>
+  <div class="row">
+    <div
+      *ngFor="let question of questionsList; let i = index"
+      [class]="col === 1 ? 'col-md-12' : 'col-md-4'"
+    >
+      <label>
+        <span class="text-muted"> Q{{ i + 1 }}. </span>
+        <span class="question h6">
+          {{ question.questionText }}
+        </span>
+        <span *ngIf="question.isMandatory" class="mandatory">&nbsp;*</span>
+      </label>
+      <ng-container *ngIf="['text', 'numeric'].includes(question.type)">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input
+            class="form-control"
+            [(ngModel)]="question.answer"
+            matInput
+            [type]="question.type === 'numeric' ? 'numeric' : 'text'"
+          />
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="['textarea'].includes(question.type)">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <textarea
+            class="form-control"
+            matInput
+            cdkAutosizeMinRows="1"
+            [(ngModel)]="question.answer"
+            cdkAutosizeMaxRows="5"
+          ></textarea>
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="['select'].includes(question.type)">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-select
+            [(ngModel)]="question.answer"
+          >
+            <mat-option
+              *ngFor="let option of question.options"
+              [value]="option"
+            >
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="['radio'].includes(question.type)">
+        <!-- <mat-form-field class="example-full-width" appearance="outline"> -->
+        <div class="example-full-width">
+          <mat-radio-group
+            aria-label="Select an option"
+            [(ngModel)]="question.answer"
+          >
+            <mat-radio-button
+              *ngFor="let option of question.options"
+              [value]="option"
+              >{{ option }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <!-- </mat-form-field> -->
+      </ng-container>
+
+      <ng-container *ngIf="['datePicker'].includes(question.type)">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            (dateInput)="handleDatePickerInput($event, question, i)"
+            (dateChange)="handleDatePickerInput($event, question, i)"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ng-container>
+
+      <ng-container *ngIf="['rating'].includes(question.type)">
+        <app-star-rating
+          [maxRating]="question.maxRating"
+          [value]="question.answer"
+          (changeEvent)="handleRatingInput($event, question, i)"
+        ></app-star-rating>
+      </ng-container>
+    </div>
+  </div>
+  <div class="border-dotted-bottom mt-3 mb-3 text-center"  >
+    <button class="btn-space" mat-raised-button color="warn" id="skip" *ngIf="showSkip" (click)="skipCallback()">
+      Skip
+    </button>
+    <button
+    *ngIf="!isPreview"
+    mat-raised-button  id="submit"
+      (click)="confirmSubmit()"
+      class="me-2"
+    >
+      Submit
+    </button>
+  </div>
+</div>

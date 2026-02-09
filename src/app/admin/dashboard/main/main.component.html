@@ -1,0 +1,825 @@
+<section class="content" *ngIf="!superAdmin" >
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-static-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-static-breadcrumb>
+    </div>
+
+    
+<mat-tab-group>
+  <ng-container *ngFor="let dashboard of dashboards">
+  <mat-tab *ngIf=" dashboard.id === 'trainee-analytics'">
+    <ng-template mat-tab-label>
+      {{commonRoles.STUDENT_ROLE}} Analytics
+    </ng-template>
+    <div class="row mt-5">
+        <ng-container *ngFor="let component of dashboard.components">
+          <div  *ngIf="component.id === 'total-trainees'" class="col-lg-4 col-md-4 col-sm-12" >
+            <div class="card card-statistic-2">
+              <div class="clearfix">
+                <div class="card-icon-only shadow-primary float-start">
+                  <img src="assets/images/banner/New Students.jpg" alt="" style="margin-left: -21px;">
+                </div>
+                <div class="card-right">
+                  <div>
+                    <h6 class="float-end" style="margin-top: 100px;">Total {{commonRoles.STUDENT_ROLE}}s</h6>
+                  </div>
+                  <div class="col-green" routerLink="/student/settings/all-user/all-students" style="cursor: pointer;">
+                    <h3 class="font-weight-bold float-end mb-0">{{count?.students}}</h3>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card-content msl-4 mb-3">
+                <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">trending_up</i> 10% Higher Than Last Month</p>
+              </div> -->
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+          <div
+          class="col-lg-4 col-md-4 col-sm-12"
+            *ngIf="component.id === 'all-courses'"
+          >
+            <div class="card card-statistic-2" >
+              <div class="clearfix">
+                <div class="card-icon-only shadow-primary float-start">
+                  <img src="assets/images/banner/online-course.png" alt="">
+                </div>
+                <div class="card-right">
+                  <div>
+                    <h6 class="float-end" style="margin-top: 100px;">All Courses</h6>
+                  </div>
+                  <div class="col-green" style="cursor: pointer;" routerLink="/admin/courses/course-name">
+                    <h3 class="font-weight-bold float-end mb-0">{{count?.courses}}</h3>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card-content msl-4 mb-3">
+                <p class="m-b-0 d-flex"><i class="material-icons col-orange psr-2">trending_down</i> 07% Less Than Last Year</p>
+              </div> -->
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+          <div
+          class="col-lg-4 col-md-4 col-sm-12"
+            *ngIf="component.id === 'total-trainers'"
+          >
+            <div class="card card-statistic-2" >
+              <div class="clearfix">
+                <div class="card-icon-only shadow-primary float-start">
+                  <img src="assets/images/banner/img3.png" alt="">
+                </div>
+                <div class="card-right">
+                  <div >
+                    <h6 class="float-end" style="margin-top: 100px;">Total {{commonRoles.INSTRUCTOR_ROLE}}s</h6>
+                  </div>
+                  <div class="col-green" routerLink="/student/settings/all-user/all-instructors">
+                    <h3 class="font-weight-bold float-end mb-0" style="cursor: pointer;">{{count?.instructors}}</h3>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card-content msl-4 mb-3">
+                <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">trending_up</i> 08% Higher Than Last Month</p>
+              </div> -->
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+          <div *ngIf="component.id === 'course-classes'" class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card card-statistic-2">
+              <div class="clearfix">
+                <div class="card-icon-only shadow-primary float-start">
+                  <img src="assets/images/banner/online-course.png" alt="" >
+                </div>
+                <div class="card-right">
+                  <div>
+                    <h6 class="float-end" style="margin-top: 100px;">Course Classes</h6>
+                  </div>
+                  <div class="col-green">
+                    <h3 class="font-weight-bold float-end mb-0">{{docs}}</h3>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card-content msl-4 mb-3">
+                <p class="m-b-0 d-flex"><i class="material-icons col-green psr-2">trending_down</i> 07% Less Then Last
+                  Year</p>
+              </div> -->
+            </div>
+          </div>
+    </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" *ngIf="component.checked && component.id === 'trainer-survey'">
+            <div class="card" >
+              <div class="header mt-3">
+                <h2>
+                  {{commonRoles.STUDENT_ROLE}}s Survey</h2>
+              </div>
+              <!-- <div class="body">
+                <apx-chart [series]="surveyBarChartOptions.series!" [chart]="surveyBarChartOptions.chart!"
+                  [xaxis]="surveyBarChartOptions.xaxis!" [yaxis]="surveyBarChartOptions.yaxis!"
+                  [colors]="surveyBarChartOptions.colors!" [stroke]="surveyBarChartOptions.stroke!"
+                  [legend]="surveyBarChartOptions.legend!" [grid]="surveyBarChartOptions.grid!"
+                  [tooltip]="surveyBarChartOptions.tooltip!" [dataLabels]="surveyBarChartOptions.dataLabels!"></apx-chart>
+              </div> -->
+              <div class="body">
+                <div *ngIf="isSurveyDataAvailable; else noData">
+                  <apx-chart 
+                    [series]="surveyBarChartOptions.series!" 
+                    [chart]="surveyBarChartOptions.chart!"
+                    [xaxis]="surveyBarChartOptions.xaxis!" 
+                    [yaxis]="surveyBarChartOptions.yaxis!"
+                    [colors]="surveyBarChartOptions.colors!" 
+                    [stroke]="surveyBarChartOptions.stroke!"
+                    [legend]="surveyBarChartOptions.legend!" 
+                    [grid]="surveyBarChartOptions.grid!"
+                    [tooltip]="surveyBarChartOptions.tooltip!" 
+                    [dataLabels]="surveyBarChartOptions.dataLabels!">
+                  </apx-chart>
+                </div>
+                <ng-template #noData>
+                  <div class="text-center py-5 no-data-text">
+                    <h6>No Data Found</h6>
+                  </div>
+                </ng-template>
+              </div>
+              
+    
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngFor="let component of dashboard.components">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" *ngIf="component.checked && component.id === 'users'">
+            <div class="card" >
+              <div class="header mt-3">
+                <h2>Users</h2>
+              </div>
+              <div class="float-start ms-3 me-3" *ngIf="isUserDataAvailable;">
+                <h6>{{count?.users }}{{ count?.users > 1 ? ' Users(All)' : ' User(All)' }} <span class="text-muted font-12"></span></h6>
+              </div>
+              <!-- <div class="body" style="cursor: pointer;" >
+                <apx-chart [series]="polarChartOptions.series2!" [chart]="polarChartOptions.chart!"
+                  [labels]="polarChartOptions.labels!" [title]="polarChartOptions.title!" [theme]="polarChartOptions.theme!"
+                  [fill]="polarChartOptions.fill!" [yaxis]="polarChartOptions.yaxis!" [stroke]="polarChartOptions.stroke!"
+                  [legend]="polarChartOptions.legend!" [plotOptions]="polarChartOptions.plotOptions!"
+                  [colors]="polarChartOptions.colors!"></apx-chart>
+              </div> -->
+              <div class="body" style="cursor: pointer;">
+                <div *ngIf="isUserDataAvailable; else noData">
+                  <apx-chart [series]="polarChartOptions.series2!" 
+                             [chart]="polarChartOptions.chart!"
+                             [labels]="polarChartOptions.labels!" 
+                             [title]="polarChartOptions.title!" 
+                             [theme]="polarChartOptions.theme!"
+                             [fill]="polarChartOptions.fill!" 
+                             [yaxis]="polarChartOptions.yaxis!" 
+                             [stroke]="polarChartOptions.stroke!"
+                             [legend]="polarChartOptions.legend!" 
+                             [plotOptions]="polarChartOptions.plotOptions!"
+                             [colors]="polarChartOptions.colors!">
+                  </apx-chart>
+                </div>
+                <ng-template #noData>
+                  <div class="text-center py-5 no-data-text">
+                    <h6>No Data Found</h6>
+                  </div>
+                </ng-template>
+              </div>
+              
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngIf="component.checked && component.id === 'trainers-list'">
+            <div class="card" >
+              <div class="header mt-3">
+                <h2>{{commonRoles.INSTRUCTOR_ROLE}}s List</h2>
+    
+              </div>
+              <div class="tableBody">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>{{commonRoles.INSTRUCTOR_ROLE}}</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let instructor of instructors" (click)="aboutInstructor(instructor.id)">
+                        <td class="table-img" style="cursor: pointer;">
+                          <img src="{{instructor.avatar|| 'assets/profile.png'}}" alt="">
+                        </td>
+                        <td style="cursor: pointer;">
+                          <div class="media-title" ><a> {{instructor?.name | titlecase}}
+                            </a></div>
+                          <div class="text-job font-11">({{instructor?.education}})</div>
+                        </td>
+                        <td style="cursor: pointer;" >
+                          <div [class]="instructor?.Active ? 'badge badge-solid-green' : 'badge badge-solid-red'">
+                            <span
+                            [class]="instructor?.Active ? 'status-dot' : 'status-red'"></span>
+                            {{instructor?.Active == true?"Active":"Inactive"}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="component.checked && component.id === 'classes-list'">
+            <div class="card" >
+              <div class="header mt-3">
+                <h2>Classes List</h2>
+    
+              </div>
+              <div class="tableBody">
+                <div class="table-responsive">
+                  <table class="table table-hover ">
+                    <thead>
+                      <tr>
+                        <!-- <th>#</th> -->
+                        <th>Course</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status </th>
+                        <!-- <th>Actions </th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="classesList?.length == 0">
+                        <td colspan="5" class="text-center py-3 no-data-text">No Data Found</td>
+                      </tr>
+                      <tr *ngFor="let class of classesList " style="cursor: pointer;"
+                        [routerLink]="['/admin/courses/class-list/view-class/',class.id]">
+                        <!-- <td class="table-img">
+                    <img src="{{class?.courseId?.image_link}}" alt="course">
+                  </td> -->
+                        <td>{{class?.courseId?.title | titlecase }}</td>
+                        <td> {{class?.sessions[0]?.sessionStartDate | date}} </td>
+                        <td> {{class?.sessions[0]?.sessionEndDate | date}}</td>
+                        <td>
+                          <div class="badge col-green">{{class?.status == 'open'?'Active':'Inactive'}}</div>
+                        </td>
+    
+                      </tr>
+    
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      
+      
+    
+        <ng-container *ngFor="let component of dashboard.components">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="component.checked && component.id === 'new-trainees-list'">
+            <div class="card" >
+              <div class="header mt-3">
+                <h2>New {{commonRoles.STUDENT_ROLE}} List</h2>
+              </div>
+              <div class="tableBody">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>{{commonRoles.STUDENT_ROLE}}</th>
+                        <th>Qualification</th>
+                        <th>Joining Date</th>
+                        <th>Mobile</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="students.length === 0">
+                        <td colspan="5" class="text-center py-3 no-data-text">No Data Found</td>
+                      </tr>
+                      <tr *ngFor="let student of students" style="cursor: pointer;" (click)="aboutStudent(student.id)">
+                        <td class="table-img">
+                          <img src="{{student?.avatar || 'assets/profile.png'}}" alt="">
+                        </td>
+                        <td>{{student?.name | titlecase}}</td>
+                        <td>{{student?.qualifications[0]?.description}}</td>
+                        <td>{{student?.createdAt | date}}</td>
+                        <td>{{student?.mobile}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Latest Enrolled Courses Section -->
+            <div *ngIf="component.checked && component.id === 'latest-enrolled-courses'" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="card">
+                <div class="header">
+                  <h2>Latest Enrolled Courses</h2>
+                </div>
+                <div class="tableBody">
+                  <ng-scrollbar style="height: 300px" visibility="hover">
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Course</th>
+                            <th>Duration</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Meeting URL</th>
+                            <th>Enrolled Participants</th>
+                            <th>Completed</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let course of classListSample">
+                            <td>{{course?.courseId?.title | titlecase}}</td>
+                            <td>
+                              {{ course?.duration ? (course?.duration + ' Hour') : '\u00A0' }}
+                            </td>
+                            <td>{{course?.sessions[0]?.sessionStartDate | date}}</td>
+                            <td>{{course?.sessions[0]?.sessionEndDate | date}}</td>
+                            <td>
+                              <ng-container *ngIf="course?.meetingUrl; else noUrl">
+                                <a [href]="course?.meetingUrl" target="_blank" style="color: rgb(7, 7, 7);">
+                                  Join Meeting
+                                </a>
+                              </ng-container>
+                              <ng-template #noUrl style="color: rgb(133, 127, 127);">
+                              </ng-template>
+                            </td>
+                            <td>{{ course?.registeredUsers?.length > 0 ? course.registeredUsers.length - 1 : 0 }}</td>
+
+                            <td [ngClass]="{'red-text': course?.playbackTime?.toFixed(2) < 50, 'green-text': course?.playbackTime?.toFixed(2) >= 50}">
+                              {{course?.playbackTime?.toFixed(2) || 0}}%
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </ng-scrollbar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngFor="let component of dashboard.components">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="component.checked && component.id === 'exam-list'">
+            <div class="card" >
+              <div class="header mt-3">
+                <h2>Exam List</h2>
+              </div>
+              <div class="tableBody">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Course</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="coursExameData.length === 0">
+                        <td colspan="3" class="text-center py-3 no-data-text">No Data Found</td>
+                      </tr>
+                      <tr *ngFor="let course of coursExameData" style="cursor: pointer;" [routerLink]="['/admin/courses/exam/trainees/', course._id]">
+                        <td>{{course?.title | titlecase}}</td>
+                        <td>{{course?._sessionStart | date}}</td>
+                        <td>{{course?._sessionEnd | date}}</td>
+                      </tr>
+                      <tr *ngIf="coursExameData.length">
+                        <td colspan="3" class="text-center py-3 no-data-text cursor-pointer" routerLink="/admin/courses/student-courses/exam-scores">View more</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+    </div>
+
+  </mat-tab>
+
+  <mat-tab *ngIf="dashboard.id === 'trainer-analytics'">
+    <ng-template mat-tab-label>
+      {{commonRoles.INSTRUCTOR_ROLE}} Analytics
+    </ng-template>
+    <app-dashboard2 [dashboardCpm]="dashboard"></app-dashboard2>
+  </mat-tab>
+
+  <mat-tab *ngIf=" dashboard.id === 'support'">
+    <ng-template mat-tab-label>
+      <!-- <mat-icon class="example-tab-icon msr-2">face</mat-icon> -->
+      Support
+    </ng-template>
+    <app-support [dashboardCpm]="dashboard"></app-support>
+  </mat-tab>
+</ng-container>
+</mat-tab-group>
+  </div>
+
+  <ng-container *ngFor="let dashboard of dashboards">
+    <div *ngIf=" dashboard.id === 'traineedashboard'" class="content-block">
+      <!-- <div class="block-header" *ngFor="let breadscrum of breadscrums">
+        <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+        </app-breadcrumb>
+      </div> -->
+     
+      <div class="row">
+        <ng-container *ngFor="let component of dashboard.components">
+        <div *ngIf="component.id === 'info'" class="col-xl-12 col-lg-12 col-md-14 col-sm-14">
+          <div class="card">
+            <div class="body">
+              <div class="row align-items-center">
+                <div class="col-md-12 mb-0">
+                  <h4>
+                    <div class="weight-600 col-pink pt-1">Good Job, {{studentName}}. Keep Going!! </div>
+                  </h4>
+                  <div class="recent-report__chart" *ngIf="isStudentPie">
+                    <apx-chart [series]="studentPieChartOptions.series!" [chart]="studentPieChartOptions.chart!"
+                      [dataLabels]="studentPieChartOptions.dataLabels!" [labels]="studentPieChartOptions.labels!"
+                      [legend]="studentPieChartOptions.legend!" [fill]="studentPieChartOptions.fill!"
+                      [responsive]="studentPieChartOptions.responsive!">
+                    </apx-chart>
+                  </div>
+                  <!-- <div class="recent-report__chart" *ngIf="isStudentBar">
+                    <apx-chart [series]="studentBarChartOptions.series!" [chart]="studentBarChartOptions.chart!"
+                      [dataLabels]="studentBarChartOptions.dataLabels!" [labels]="studentBarChartOptions.labels!"
+                      [legend]="studentBarChartOptions.legend!" [fill]="studentBarChartOptions.fill!"
+                      [responsive]="studentBarChartOptions.responsive!">
+                    </apx-chart>
+                  </div>
+                  <div class="recent-report__chart" *ngIf="isStudentLine">
+                    <apx-chart [series]="studentLineChartOptions.series!" [chart]="studentLineChartOptions.chart!"
+                      [dataLabels]="studentLineChartOptions.dataLabels!" [labels]="studentLineChartOptions.labels!"
+                      [legend]="studentLineChartOptions.legend!" [fill]="studentLineChartOptions.fill!"
+                      [responsive]="studentLineChartOptions.responsive!">
+                    </apx-chart>
+                  </div> -->
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+        </ng-container>
+      </div>
+  
+  
+  
+      <!-- #END# Widgets -->
+      <ng-container *ngFor="let dashboard of dashboards">
+      <div class="row">
+        <ng-container *ngFor="let component of dashboard.components">
+        <div *ngIf="component.id === 'latest-enrolled-courses'" class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Latest Enrolled Courses</h2>
+            </div>
+            <div class="tableBody">
+              <ng-scrollbar style="height: 300px" visibility="hover">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Course</th>
+                        <th>Duration</th>
+                        <th>End Date</th>
+                        <th>Meeting URL</th>
+                        <th>Recordings</th>
+                        <th>Completed</th>
+                      </tr>
+                    </thead>
+                    <!-- <tbody>
+                      <tr *ngFor="let course of studentApprovedClasses ">
+                        <td>{{course?.classId?.courseId?.title}}</td>
+                        <td>
+                          {{ course?.classId?.occurrences.length > 0 ? course.classId.occurrences.length - 1 : 0 }} Days
+                        </td>
+                        
+                        <td>{{course?.classId?.sessions[0]?.sessionEndDate | date}}
+                        </td>
+                        <td>
+                          <ng-container *ngIf="course?.classId?.meetingUrl; else noUrl">
+                            <a [href]="course?.classId?.meetingUrl" target="_blank" style="color: rgb(7, 7, 7);">
+                              Join Meeting
+                            </a>
+                          </ng-container>
+                          <ng-template #noUrl style="color: rgb(133, 127, 127);">
+                            No Meeting URL
+                          </ng-template>
+                        </td>
+                        <td>
+                          <button (click)="showRecordings(course)" class="btn">Show Recordings</button>
+                        </td>
+                        <td
+                          [ngClass]="{'red-text': course?.playbackTime?.toFixed(2) < 50, 'green-text': course?.playbackTime?.toFixed(2) >= 50}">
+                          {{course?.playbackTime?.toFixed(2) || 0}}%
+                        </td>
+                      </tr>
+                    </tbody> -->
+                    <tbody *ngIf="studentApprovedClasses && studentApprovedClasses.length > 0; else noData">
+                      <tr *ngFor="let course of studentApprovedClasses">
+                        <td>{{course?.classId?.courseId?.title || course?.title}}</td>
+                        <td>
+                          {{ course?.classId?.occurrences?.length > 0 ? course?.classId?.occurrences?.length - 1 : 0 }} Days
+                        </td>
+                        <td>{{course?.classId?.sessions[0]?.sessionEndDate | date}}</td>
+                        <td>
+                          <ng-container *ngIf="course?.classId?.meetingUrl; else noUrl">
+                            <a [href]="course?.classId?.meetingUrl" target="_blank" style="color: rgb(7, 7, 7);">
+                              Join Meeting
+                            </a>
+                          </ng-container>
+                          <ng-template #noUrl>
+                            <span style="color: rgb(133, 127, 127);">No Meeting URL</span>
+                          </ng-template>
+                        </td>
+                        <td>
+                          <button (click)="showRecordings(course)" class="btn">Show Recordings</button>
+                        </td>
+                        <td [ngClass]="{'red-text': course?.playbackTime?.toFixed(2) < 50, 'green-text': course?.playbackTime?.toFixed(2) >= 50}">
+                          {{course?.playbackTime?.toFixed(2) || 0}}%
+                        </td>
+                      </tr>
+                    </tbody>
+                    
+                    <ng-template #noData>
+                      <tbody>
+                        <tr>
+                          <td colspan="6" class="no-data-text">No data found</td>
+                        </tr>
+                      </tbody>
+                    </ng-template>
+                    
+
+                  </table>
+                </div>
+              </ng-scrollbar>
+            </div>
+          </div>
+        </div>
+        </ng-container>
+
+        <ng-container *ngFor="let component of dashboard.components">
+          <div *ngIf="component.id === 'latest-enrolled-courses'" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+              <div class="header">
+                <h2>Student's Progress </h2>
+              </div>
+              <div class="tableBody">
+                <ng-scrollbar style="height: 300px" visibility="hover">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Student Name</th>
+                          <th>Course Title</th>
+                          <th>Department</th>
+                          <th>Course start date</th>
+                          <th>Course end date</th>
+                          <th>Student enrollment date</th>
+                          <th>Student Completed Date</th>
+                          <th>Progress Percentage</th>
+                        </tr>
+                      </thead>
+                     
+                      <tbody *ngIf="courseProgress && this.courseProgress.length > 0; else noData">
+                        <tr *ngFor="let row of courseProgress">
+                          <td>{{
+                            row?.studentId.name | capitalizeFirstLetter }}
+                            {{ row?.studentId?.last_name | capitalizeFirstLetter }}</td>
+                          <td>{{ row?.courseId?.title | titlecase }}</td>
+                          <td>
+                            {{ row?.department | capitalizeFirstLetter }}
+                          </td>
+                          <td>{{row?.classId?.sessions[0]?.sessionStartDate | date}}</td>
+                          <td>
+                            {{row?.courseEndDate | date}}
+                          </td>
+                          <td>{{row?.registeredOn | date}}</td>
+                          <td>
+                            {{ row?.playbackTime === 100 ? (row?.updatedAt | date) : '--' }}
+                          </td>
+                          <td [ngClass]="{'red-text': row?.playbackTime?.toFixed(2) < 50, 'green-text': row?.playbackTime?.toFixed(2) >= 50}">
+                            {{row?.playbackTime?.toFixed(2) || 0}}%
+                          </td>
+                        </tr>
+                        <tr>
+                        <td colspan="8" class="text-center py-3 no-data-text cursor-pointer" routerLink="/admin/courses/student-courses/course-progress">View more</td>
+                      </tr>
+                      </tbody>
+                      
+                      <ng-template #noData>
+                        <tbody>
+                          <tr>
+                            <td colspan="6" class="no-data-text">No data found</td>
+                          </tr>
+                        </tbody>
+                      </ng-template>
+                      
+  
+                    </table>
+                  </div>
+                </ng-scrollbar>
+              </div>
+            </div>
+          </div>
+          </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+        <div *ngIf="component.id === 'upcoming-course-classes'" class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>
+                Upcoming Course Classes
+              </h2>
+            </div>
+            <!-- <div class="card-body">
+              <ng-scrollbar style="height: 270px" visibility="hover">
+                <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder">
+                  <li *ngFor="let upcomingclass of upcomingCourseClasses" class="lecture-list">
+                    <div class="set-flex">
+                      <div class="media-title font-16">{{upcomingclass?.classId?.courseName}}</div>
+                      <div class="text-job text-muted mb-0">{{upcomingclass?.classId?.courseId?.courseCode}}</div>
+                      <div class="text-job text-muted mb-0">{{upcomingclass?.classId?.courseId?.meetingUr}}</div>
+
+                    </div>
+                    <div class="ms-auto">
+                      <div class="media-title font-16">{{upcomingclass?.classId?.sessions[0]?.sessionStartDate | date}}
+                      </div>
+                     
+                    </div>
+                  </li>
+                </ul>
+              </ng-scrollbar>
+            </div> -->
+            <div class="card-body">
+              <ng-scrollbar style="height: 270px" visibility="hover">
+                <ng-container *ngIf="upcomingCourseClasses && upcomingCourseClasses.length > 0; else noData">
+                  <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder">
+                    <li *ngFor="let upcomingclass of upcomingCourseClasses" class="lecture-list">
+                      <div class="set-flex">
+                        <div class="media-title font-16">{{upcomingclass?.classId?.courseName}}</div>
+                        <div class="text-job text-muted mb-0">{{upcomingclass?.classId?.courseId?.courseCode}}</div>
+                        <div class="text-job text-muted mb-0">{{upcomingclass?.classId?.courseId?.meetingUr}}</div>
+                      </div>
+                      <div class="ms-auto">
+                        <div class="media-title font-16">{{upcomingclass?.classId?.sessions[0]?.sessionStartDate | date}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                </ng-container>
+                <ng-template #noData>
+                  <div class="no-data-text">No data found</div>
+                </ng-template>
+              </ng-scrollbar>
+            </div>
+            
+          </div>
+        </div>
+  </ng-container>
+  <ng-container *ngFor="let component of dashboard.components">
+        <!-- <div *ngIf="component.id === 'announcement-board'" class="col-xs-12 col-sm-12 col-md-4 col-lg-4"> -->
+          <div *ngIf="component.id === 'announcement-board'" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 announcement-board">
+
+          <div class="card">
+            <div class="header">
+              <h2>Announcement Board</h2>
+            </div>
+            <!-- <div class="body">
+              <ng-scrollbar style="height: 350px" visibility="hover">
+                <div class="recent-comment">
+                  <div *ngFor="let announcement of announcements.reverse()" class="notice-board">
+                    <div class="notice-body">
+                      <h6 class="notice-heading col-green">{{announcement?.announcementBy?.name}}</h6>
+                      <p [innerHTML]="getSafeHtml(announcement?.details)"></p>
+                      <small class="text-muted float-end">{{announcement?.createdAt | date}}</small>
+                    </div>
+                  </div>
+                </div>
+              </ng-scrollbar>
+            </div> -->
+
+            <div class="body">
+              <ng-scrollbar style="height: 350px" visibility="hover">
+                <ng-container *ngIf="announcements && announcements.length > 0; else noData">
+                  <div class="recent-comment">
+                    <div *ngFor="let announcement of announcements.slice().reverse()" class="notice-board">
+                      <div class="notice-body">
+                        <h6 class="notice-heading col-green">{{announcement?.announcementBy?.name}}</h6>
+                        <p [innerHTML]="getSafeHtml(announcement?.details)"></p>
+                        <small class="text-muted float-end">{{announcement?.createdAt | date}}</small>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #noData>
+                  <div class="no-data-text">No data found</div>
+                </ng-template>
+ 
+              </ng-scrollbar>
+            </div>
+            
+          </div>
+        </div>
+        </ng-container>
+        <ng-container *ngFor="let component of dashboard.components">
+        <!-- <div *ngIf="component.id === 'reschedule-list'"   class="col-xs-12 col-sm-12 col-md-8 col-lg-8"> -->
+          <div *ngIf="component.id === 'reschedule-list'" class="col-xs-12 col-sm-12 col-md-6 col-lg-6 reschedule-list">
+
+          <div class="card">
+            <div class="header">
+              <h2>Reschedule list</h2>
+            </div>
+            <div class="tableBody">
+              <ng-scrollbar style="height: 370px" visibility="hover">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Apply Date</th>
+                        <th>Reschedule Date</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <!-- <tbody>
+                      <tr *ngFor="let leave of approvedLeaves">
+                        <td>{{leave?.className | titlecase}}</td>
+                        <td>{{leave?.applyDate | date}}</td>
+                        <td>{{leave?.toDate | date}}</td>
+                        <td>{{leave?.reason | titlecase}}</td>
+                        <td>
+                          <span
+                          [class]=" leave?.status === 'approved' ? 'badge badge-solid-green' : leave?.status === 'applied' ? 'badge badge-solid-orange' : leave?.status === 'cancelled' ? 'badge badge-solid-red': ''">
+                          <span
+                            [class]=" leave?.status === 'approved' ? 'status-dot' : leave?.status === 'applied' ? 'status-orange' : leave?.status === 'cancelled' ? 'status-red' : '' "></span>
+                          {{ leave?.status  | titlecase}}</span>
+                        </td>
+                      </tr>
+                    </tbody> -->
+
+                    <tbody *ngIf="approvedLeaves && approvedLeaves.length > 0; else noData">
+                      <tr *ngFor="let leave of approvedLeaves">
+                        <td>{{leave?.className | titlecase}}</td>
+                        <td>{{leave?.applyDate | date}}</td>
+                        <td>{{leave?.toDate | date}}</td>
+                        <td>{{leave?.reason | titlecase}}</td>
+                        <td>
+                          <span
+                            [class]=" leave?.status === 'approved' ? 'badge badge-solid-green' : leave?.status === 'applied' ? 'badge badge-solid-orange' : leave?.status === 'cancelled' ? 'badge badge-solid-red': ''">
+                            <span
+                              [class]=" leave?.status === 'approved' ? 'status-dot' : leave?.status === 'applied' ? 'status-orange' : leave?.status === 'cancelled' ? 'status-red' : ''">
+                            </span>
+                            {{ leave?.status  | titlecase}}
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                    
+                    <ng-template #noData>
+                      <tbody>
+                        <tr>
+                          <td colspan="5" class="no-data-text">No data found</td>
+                        </tr>
+                      </tbody>
+                    </ng-template>
+                    
+                  </table>
+                </div>
+              </ng-scrollbar>
+  
+            </div>
+          </div>
+        </div>
+        </ng-container>
+      </div>
+      
+  
+    </ng-container>
+
+    
+    </div>
+</ng-container>
+
+<ng-container *ngFor="let dashboard of dashboards">
+  <app-ceo-dashboard [sharedashboards] = "dashboard" [role]="roles" ></app-ceo-dashboard>
+</ng-container>
+</section>
+
+
+
+
+
+<app-super-admin *ngIf="superAdmin"></app-super-admin>

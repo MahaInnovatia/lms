@@ -1,0 +1,78 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+          <div class="body">
+            <app-email-sidebar></app-email-sidebar>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="card">
+          <div class="boxs mail_listing">
+            <div class="inbox-center table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th colspan="1">
+                      <div class="inbox-header">
+                        Compose New Message
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <form  [formGroup]="composeForm" class="composeForm">
+                  <div class="form-line">
+                    <mat-form-field class="example-full-width to-field" appearance="outline">
+                      <mat-label>TO</mat-label>
+                      <input formControlName="to" matInput id="email_address">
+                      <button mat-button class="cc-button" (click)="toggleCCField()">CC</button>
+                    </mat-form-field>
+                    <div *ngIf="showCCField" class="form-line">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>CC</mat-label>
+                        <input formControlName="cc" matInput id="cc_email_address">
+                      </mat-form-field>
+                    </div>
+                                      </div>
+                  <div class="form-line">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Subject</mat-label>
+                      <input formControlName="subject" matInput id="subject">
+                    </mat-form-field>
+                  </div>
+                  <angular-editor placeholder="Enter text..." formControlName="content" [config]="config"></angular-editor>
+                    <div class="file-drop-area">
+                      <div class="file">
+                      <button mat-raised-button color="primary">Choose File
+                        <input formControlName="attachment" (change)="onFileUpload($event)" class="file-input" type="file">
+                      </button>
+                      <span class="file-msg"><h5>{{uploadedAttachment ? uploadedAttachment : 'Drag and Drop File Here' }}</h5></span>
+                      </div>
+                    </div>
+                </form>
+              </div>
+              <div class="col-lg-12">
+                <div class="m-l-25 m-b-20">
+                  <button mat-flat-button (click)="sendEmail()" color="primary" class="msr-2">Send</button>
+                  <button mat-flat-button   (click)="draftEmail()" color="warn">Discard</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

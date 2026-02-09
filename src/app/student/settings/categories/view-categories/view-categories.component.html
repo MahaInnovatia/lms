@@ -1,0 +1,88 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="breadscrum.title"
+        [items]="breadscrum.items"
+        [active_item]="breadscrum.active"
+      >
+      </app-breadcrumb>
+    </div>
+      <div class="row clearfix p-2">
+        <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="card" style=" height: fit-content;">
+            <div class="p-2">
+              <div class="card-container">
+                <!-- <div class="header">
+                  <h6>Categories</h6>
+                </div> -->
+                <button *ngIf="isEdit"
+                  class="icons"
+                  alt="Edit"
+                  mat-menu-item
+                  (click)="edit(response.id)"
+                >
+                  <app-feather-icons
+                    [icon]="'edit'"
+                    [class]="'tbl-fav-edit'"
+                  ></app-feather-icons>
+                </button>
+                <button *ngIf="isDelete"
+                  class="icons"
+                  alt="Delete"
+                  mat-menu-item
+                  (click)="deleteItem(response)"
+                >
+                  <app-feather-icons
+                    [icon]="'trash-2'"
+                    [class]="'tbl-fav-delete'"
+                  ></app-feather-icons>
+                </button>
+              </div>
+
+              <div class="row m-2 pb-3">
+                <div class="col-3">
+                  <h6>Sub Categories</h6>
+                </div>
+                <div class="col-3">
+                  <h6 class="badge bg-teal">
+                    {{ response?.subCategories?.length }}
+                  </h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="row m-2 pb-3">
+                  <div class="col-4">
+                    <h6>Main Category</h6>
+                  </div>
+                  <div class="col-6">
+                    <p>{{ response?.category_name }}</p>
+                  </div>
+                </div>
+                <div
+                  class="row m-2"
+                  *ngFor="let sub of subCategory; let i = index"
+                >
+                  <div class="col-4">
+                    <h6>Sub Category {{ i + 1 }}</h6>
+                  </div>
+                  <div class="col-6 ">
+                    <p>{{ sub?.category_name }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="text-end"><span></span></h2>
+              <p class="m-b-0"></p>
+            </div>
+            <div class="row mx-2">
+              <div class="col-md-8">
+                  <button mat-raised-button id="back" [routerLink]="['/student/settings/configuration/categories']">Back</button>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>

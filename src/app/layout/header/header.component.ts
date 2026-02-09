@@ -1,0 +1,497 @@
+import { ConfigService } from '../../config/config.service';
+import { DOCUMENT } from '@angular/common';
+import {
+  Component,
+  Inject,
+  ElementRef,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { UnsubscribeOnDestroyAdapter } from '@shared';
+import {
+  LanguageService,
+  RightSidebarService,
+  InConfiguration,
+  Role,
+  AuthService,
+} from '@core';
+import { AuthenService } from '@core/service/authen.service';
+
+import { AnnouncementService } from '@core/service/announcement.service';
+import Swal from 'sweetalert2';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SimpleDialogComponent } from 'app/ui/modal/simpleDialog.component';
+
+import { LogoService } from 'app/student/settings/logo.service';
+import { Subscription } from 'rxjs';
+import { StudentsService } from 'app/admin/students/students.service';
+import { AppConstants } from '@shared/constants/app.constants';
+import { AnyComponent } from '@fullcalendar/core/preact';
+import { AdminService } from '@core/service/admin.service';
+import { CommonService } from '@core/service/common.service';
+import { SettingsService } from '@core/service/settings.service';
+import { forkJoin } from 'rxjs';
+interface Notifications {
+  message: string;
+  time: string;
+  icon: string;
+  color: string;
+  status: string;
+}
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+})
+export class HeaderComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
+  public config!: InConfiguration;
+  userImg?: string;
+  homePage?: string;
+  isNavbarCollapsed = true;
+  flagvalue: string | string[] | undefined;
+  countryName: string | string[] = [];
+  langStoreValue?: string;
+  defaultFlag?: string;
+  isOpenSidebar?: boolean = true;
+  docElement?: HTMLElement;
+  isFullScreen = false;
+  userFullName: any;
+  userType!: any;
+  announcements: any;
+  icon = 'announcement';
+  color = 'nfc-green';
+  userProfile: any;
+  studentId: any;
+  isAdmin: boolean = false;
+  logoTitle: any;
+  logoImage: any;
+  data: any;
+  totalItems: any;
+  subscription!: Subscription;
+  role: string | null;
+  commonRoles: any;
+  settingsItems: any;
+  isTwoFactor: boolean = true;
+  notificationCount = 0;
+  getNotificationList:any;
+  isSettingsDrawerOpen: boolean = false;
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
+    public elementRef: ElementRef,
+    private rightSidebarService: RightSidebarService,
+    private configService: ConfigService,
+    private authService: AuthService,
+    private router: Router,
+    public languageService: LanguageService,
+    private authenService: AuthenService,
+    private translate: LanguageService,
+    private logoService: LogoService,
+    private adminService: AdminService,
+    private commonService: CommonService,
+
+    private announcementService: AnnouncementService,
+    private dialogModel: MatDialog,
+
+    private studentService: StudentsService,
+    private settingService:SettingsService
+  ) {
+    super();
+    this.role = localStorage.getItem('user_type');
+    let urlPath = this.router.url.split('/');
+    this.isTwoFactor = urlPath.includes('two-factor-auth');
+  }
+  simpleDialog?: MatDialogRef<SimpleDialogComponent>;
+  listLang = [
+    { text: 'English', flag: 'assets/images/flags/us.svg', lang: 'en' },
+    { text: 'Chinese', flag: 'assets/images/flags/spain.svg', lang: 'ch' },
+    { text: 'Tamil', flag: 'assets/images/flags/germany.svg', lang: 'ts' },
+  ];
+  callLogo() {
+    let userId = JSON.parse(localStorage.getItem('user_data')!).user.companyId;
+    this.logoService.getLogo(userId).subscribe((data) => {
+      this.logoTitle = data?.data.docs[0].title;
+      this.logoImage = data?.data.docs[0].image;
+    });
+  }
+
+  ngOnInit() {
+    let userId = JSON.parse(localStorage.getItem('user_data')!).user.companyId;
+    this.adminService
+      .getUserTypeList({ allRows: true }, userId)
+      .subscribe((response: any) => {
+        let userType = localStorage.getItem('user_type');
+        let data = response.filter((item: any) => item.typeName === userType);
+        this.settingsItems = data[0].settingsMenuItems;
+      });
+    this.commonRoles = AppConstants;
+    /* getting logo details from logoservice **/
+    this.subscription = this.logoService.currentData.subscribe((data) => {
+      if (data) {
+        this.logoTitle = data?.data.docs[0].title;
+        this.logoImage = data?.data.docs[0].image;
+      } else {
+        this.callLogo();
+      }
+    });
+    this.userProfile = this.authenService.getUserProfile();
+
+    // Subscribe to changes in user profile
+    this.authenService.profileUpdated.subscribe((updatedProfile: any) => {
+      this.userProfile = updatedProfile;
+    });
+    if (this.authenService.currentUserValue) {
+      const userRole = this.authenService.currentUserValue.user.role;
+      this.userFullName = this.authenService.currentUserValue.user.name;
+      this.userImg = this.authenService.currentUserValue.user.avatar;
+      this.student();
+      if (userRole === AppConstants.ADMIN_ROLE) {
+        this.userType = AppConstants.ADMIN_ROLE;
+      } else if (userRole === AppConstants.INSTRUCTOR_ROLE) {
+        this.userType = AppConstants.INSTRUCTOR_ROLE;
+      } else if (userRole === AppConstants.STUDENT_ROLE) {
+        this.userType = AppConstants.STUDENT_ROLE;
+        this.updateLogoForStudent();
+      } else {
+        this.userType = AppConstants.ADMIN_ROLE;
+      }
+    }
+    this.config = this.configService.configData;
+
+    const userRole = this.authService.currentUserValue.role;
+    this.docElement = document.documentElement;
+    this.langStoreValue = localStorage.getItem('lang') as string;
+    const val = this.listLang.filter((x) => x.lang === this.langStoreValue);
+    this.countryName = val.map((element) => element.text);
+    if (val.length === 0) {
+      if (this.flagvalue === undefined) {
+        this.defaultFlag = 'assets/images/flags/us.svg';
+      }
+    } else {
+      this.flagvalue = val.map((element) => element.flag);
+    }
+    // this.getAnnouncementForStudents();
+    // this.getAllNotifications();
+    let role = JSON.parse(localStorage.getItem('user_data')!).user.role;
+    let email=JSON.parse(localStorage.getItem('user_data')!).user.adminEmail;
+    forkJoin({
+      notifications: this.settingService.getNotifications(),
+      announcements: this.announcementService.getAnnouncementList({ announcementFor: role })
+    }).subscribe(({ notifications, announcements }) => {
+      this.getNotificationList = notifications.data.docs.filter(
+              (notification: any) => notification.role === role && notification.email==email
+           );
+      // this.getNotificationList = notifications.data.docs;
+      const announcementsData: any = announcements.results;
+      this.announcements = announcementsData.reverse();
+      this.notificationCount = this.announcements.length;
+      this.calculateNotification();
+    });
+    
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isTwoFactor = this.router.url.includes('two-factor-auth');
+      }
+    });
+  }
+  linkSingpass(){
+    window.location.href = 'https://skillera.innovatiqconsulting.com/api/auth/singpasslogin';
+  }
+  navigateToUserSettings() {
+    this.router.navigate(['/student/settings/users']);
+  }
+  navigateToIntegrateSettings() {
+    this.router.navigate(['/student/settings/integration']);
+  }
+  navigateToAutomateSettings() {
+    this.router.navigate(['/student/settings/automation']);
+  }
+  navigateToCustomsSettings() {
+    this.router.navigate(['/student/settings/customization']);
+  }
+  navigateToProfileSettings() {
+    this.router.navigate([
+      '/student/settings/security/2-factor-authentication',
+    ]);
+  }
+  navigateToLmsSettings() {
+    this.router.navigate(['/student/settings/all-questions']);
+  }
+  navigateToConfigSettings() {
+    this.router.navigate(['/student/settings/config']);
+  }
+
+  
+
+  // getAnnouncementForStudents(filter?: any) {
+  //   let role = JSON.parse(localStorage.getItem('user_data')!).user.role;
+
+  //   let payload = {
+  //     announcementFor:role,
+  //   };
+  //   this.announcementService
+  //     .getAnnouncementList(payload)
+  //     .subscribe((res: { results: { data: any[] }; totalRecords: number }) => {
+  //       console.log("res.results==",res.results)
+  //       const announcementsData: any = res.results;
+  //       this.announcements = announcementsData.reverse();
+  //       this.notificationCount = this.announcements.length;
+  //       this.calculateNotification();
+  //     });
+  // }
+
+  
+  calculateNotification() {
+    const filteredNotifications = this.announcements.filter((announcement: any) => {
+      const announcementRoles = announcement.announcementFor.split('/');
+      return !this.getNotificationList.some((notification: any) =>
+        announcementRoles.includes(notification.role) &&
+        notification.announcementId === announcement.id &&
+        notification.notificationMark === "closed"
+      );
+    });
+  
+    // console.log("Filtered Notifications:", filteredNotifications);
+  
+    this.announcements = filteredNotifications;
+    this.notificationCount = filteredNotifications.length;
+  }
+  
+  showCustomHtml(data: any) {
+    Swal.fire({
+      position: 'top-end',
+      title: 'Notification',
+      html:
+        `<div class="align-left"><h4>Title </h4> <p>${data.subject}</p> </div>` +
+        `<div class="align-left"><h5>Course Detailed Description </h5> <p class='fs-6' >${data.details}</p></div>`,
+      showCloseButton: true,
+      focusConfirm: false,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+    });
+    this.cancel(data.id)
+  }
+ 
+  
+  cancel(id: any) {
+    // console.log("cancle notification")
+    const payload={
+      role:JSON.parse(localStorage.getItem('user_data')!).user.role,
+      userName:JSON.parse(localStorage.getItem('user_data')!).user.adminName,
+      email:JSON.parse(localStorage.getItem('user_data')!).user.adminEmail,
+      announcementId:id,
+      notificationMark:"closed",
+      companyId:JSON.parse(localStorage.getItem('user_data')!).user.companyId
+    }
+    this.settingService.saveNotifications(payload).subscribe((res:any)=>{
+      // console.log("helo")
+    })
+    this.announcements = this.announcements.filter(
+      (res: { id: any }) => res.id !== id
+    );
+    this.notificationCount = this.announcements.length;
+  }
+
+  student() {
+    this.studentId = localStorage.getItem('id');
+    this.studentService.getStudentById(this.studentId).subscribe((res: any) => {
+      this.userProfile = res?.avatar;
+    });
+  }
+
+  callFullscreen() {
+    if (!this.isFullScreen) {
+      if (this.docElement?.requestFullscreen != null) {
+        this.docElement?.requestFullscreen();
+      }
+    } else {
+      document.exitFullscreen();
+    }
+    this.isFullScreen = !this.isFullScreen;
+  }
+  setLanguage(event: any) {
+    this.langStoreValue = event.target.value;
+    this.translate.setLanguage(event.target.value);
+  }
+  mobileMenuSidebarOpen(event: Event, className: string) {
+    const hasClass = (event.target as HTMLInputElement).classList.contains(
+      className
+    );
+    if (hasClass) {
+      this.renderer.removeClass(this.document.body, className);
+    } else {
+      this.renderer.addClass(this.document.body, className);
+    }
+  }
+  callSidemenuCollapse() {
+    const hasClass = this.document.body.classList.contains('side-closed');
+    if (hasClass) {
+      this.renderer.removeClass(this.document.body, 'side-closed');
+      this.renderer.removeClass(this.document.body, 'submenu-closed');
+      localStorage.setItem('collapsed_menu', 'false');
+      this.isOpenSidebar = true; // Sidebar is open
+    } else {
+      this.renderer.addClass(this.document.body, 'side-closed');
+      this.renderer.addClass(this.document.body, 'submenu-closed');
+      localStorage.setItem('collapsed_menu', 'true');
+      this.isOpenSidebar = false; // Sidebar is closed
+    }
+  }
+  logout() {
+    interface OuterObject {
+      id: any;
+    }
+    const storedDataString: string | null = localStorage.getItem('userLogs');
+    const data: OuterObject =
+      storedDataString !== null ? JSON.parse(storedDataString) : {};
+    let data1 = {
+      id: data.id,
+    };
+
+    this.authService.logout1(data1).subscribe((res) => {
+      if (res) {
+      }
+    });
+    this.subs.sink = this.authService.logout().subscribe((res) => {
+      if (!res.success) {
+        let userType = JSON.parse(localStorage.getItem('user_data')!).user.type;
+        if (
+          userType == AppConstants.ADMIN_USERTYPE ||
+          AppConstants.ADMIN_ROLE ||
+          userType == AppConstants.INSTRUCTOR_ROLE
+        ) {
+          this.router.navigate(['/authentication/TMS/signin']);
+          let subdomain = localStorage.getItem('subdomain');
+          if (subdomain && subdomain !== 'undefined') {
+            this.commonService.navigateWithCompanyName(
+              subdomain,
+              'authentication/TMS/signin'
+            );
+          } else {
+            this.router.navigate(['/authentication/TMS/signin']);
+          }
+        } else if (userType == AppConstants.STUDENT_ROLE) {
+          let subdomain = localStorage.getItem('subdomain');
+          if (subdomain && subdomain !== 'undefined') {
+            this.commonService.navigateWithCompanyName(
+              subdomain,
+              'authentication/LMS/signin'
+            );
+          } else {
+            this.router.navigate(['/authentication/LMS/signin']);
+          }
+        } else {
+          let subdomain = localStorage.getItem('subdomain');
+          if (subdomain && subdomain !== 'undefined') {
+            this.commonService.navigateWithCompanyName(
+              subdomain,
+              'authentication/TMS/signin'
+            );
+          } else {
+            this.router.navigate(['/authentication/TMS/signin']);
+          }
+        }
+        localStorage.clear();
+      }
+    });
+  }
+  updateLogoForStudent() {
+    let userType = JSON.parse(localStorage.getItem('user_data')!).user.type;
+    if (
+      userType === AppConstants.ADMIN_ROLE ||
+      userType === AppConstants.INSTRUCTOR_ROLE
+    ) {
+      this.isAdmin = true;
+      const logoSpan = document.querySelector('.logo-name');
+      if (logoSpan) {
+        logoSpan.textContent = 'TMS';
+      }
+    } else if (userType === AppConstants.STUDENT_ROLE) {
+      const logoSpan = document.querySelector('.logo-name');
+    }
+  }
+  checkViewSettings(role: any): boolean {
+    if (this.settingsItems) {
+      if (this.settingsItems.length > 0) {
+        return true; 
+      }
+      return role ? AppConstants.ALLTHREEROLES.includes(role) : false; 
+    }
+    
+    return false; 
+  }
+
+  getIconName(title: string): string {
+    const iconMap: { [key: string]: string } = {
+      'Manage Users': 'people',
+      'Customize': 'tune',
+      'Configuration': 'settings',
+      'Integration': 'link',
+      'Security': 'security',
+      'Automation': 'auto_awesome'
+    };
+    return iconMap[title] || 'settings';
+  }
+
+  getIconColorClass(title: string): string {
+    const colorMap: { [key: string]: string } = {
+      'Manage Users': 'icon-blue',
+      'Customize': 'icon-orange',
+      'Configuration': 'icon-purple',
+      'Integration': 'icon-blue',
+      'Security': 'icon-red',
+      'Automation': 'icon-green'
+    };
+    return colorMap[title] || 'icon-blue';
+  }
+
+  getDescription(menu: any): string {
+    const descriptionMap: { [key: string]: string } = {
+      'Manage Users': 'User management',
+      'Customize': 'Customize settings',
+      'Configuration': 'System configuration',
+      'Integration': 'Third-party integrations',
+      'Security': 'Security settings',
+      'Automation': 'Automation rules'
+    };
+    
+    // Return mapped description or use first child title if available
+    if (descriptionMap[menu.title]) {
+      return descriptionMap[menu.title];
+    }
+    
+    if (menu.children && menu.children.length > 0) {
+      return menu.children[0].title || 'Settings';
+    }
+    
+    return 'Settings';
+  }
+
+  toggleSettingsDrawer(): void {
+    this.isSettingsDrawerOpen = !this.isSettingsDrawerOpen;
+    if (this.isSettingsDrawerOpen) {
+      this.renderer.addClass(this.document.body, 'settings-drawer-open');
+    } else {
+      this.renderer.removeClass(this.document.body, 'settings-drawer-open');
+    }
+  }
+
+  closeSettingsDrawer(): void {
+    this.isSettingsDrawerOpen = false;
+    this.renderer.removeClass(this.document.body, 'settings-drawer-open');
+  }
+
+  navigateToSettings(menu: any): void {
+    this.closeSettingsDrawer();
+    if (menu.children && menu.children.length > 0) {
+      this.router.navigate([menu.id, menu.children[0].id]);
+    } else {
+      this.router.navigate([menu.id]);
+    }
+  }
+    
+}

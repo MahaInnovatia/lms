@@ -1,0 +1,424 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="breadscrum.title"
+        [items]="breadscrum.items"
+        [active_item]="breadscrum.active"
+      >
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="materialTableHeader">
+            <div class="right" >
+              <ul class="tbl-export-btn">
+                <li>
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-search-box">
+                  <label for="search-input"
+                    ><i class="material-icons search-icon">search</i></label
+                  >
+                  <input
+                    *ngIf="tab == 0"
+                    placeholder="Search"
+                    type="text"
+                    #filter
+                    class="browser-default search-field text"
+                    aria-label="Search box"
+                    [(ngModel)]="filterName"
+                    (input)="performSearch()"
+                  />
+                  <input
+                    *ngIf="tab == 1"
+                    placeholder="Search"
+                    type="text"
+                    #filter
+                    class="browser-default search-field text"
+                    aria-label="Search box"
+                    [(ngModel)]="filterName"
+                    (input)="performSearch()"
+                  />
+                  <input
+                    *ngIf="tab == 2"
+                    placeholder="Search"
+                    type="text"
+                    #filter
+                    class="browser-default search-field text"
+                    aria-label="Search box"
+                    [(ngModel)]="filterName"
+                    (input)="performSearch()"
+                  />
+                  <input
+                    *ngIf="tab == 3"
+                    placeholder="Search"
+                    type="text"
+                    #filter
+                    class="browser-default search-field text"
+                    aria-label="Search box"
+                    [(ngModel)]="filterName"
+                    (input)="performSearch()"
+                  />
+                  <input
+                  *ngIf="tab == 4"
+                  placeholder="Search"
+                  type="text"
+                  #filter
+                  class="browser-default search-field text"
+                  aria-label="Search box"
+                  [(ngModel)]="filterName"
+                  (input)="performSearch()"
+                />
+                </li>
+              </ul>
+            </li>
+          </ul>
+            </div>
+          </div>
+
+          <mat-tab-group (selectedTabChange)="tabChanged($event)">
+            <mat-tab  *ngIf="allCourses">
+              <ng-template mat-tab-label>
+            <div class="course mx-4">All Courses</div>
+              </ng-template>
+              <div class="body">
+                <div *ngIf="totalCourseItems > 0" class="row">
+                  <div class="col-md-3" *ngFor="let data of activeCourses">
+                    <div class="course-card course-card-blog">
+                      <div
+                        class="course-card-image"
+                      >
+                      <div class="feeType-ribbon">
+                        <h6 class="feeType">{{ data?.feeType | titlecase }}</h6>
+                      </div>
+                        <img
+                          class="img"
+                          [src]="
+                            data?.image_link ||
+                            '../../../assets/noimage.jpg'
+                          "
+                          alt="Image"
+                        />
+                      </div>
+                      <div class="blog-table">
+                        <div class="post-user mt-3">
+                          <h6 class="mb-xs mt-xs title">
+                            {{ data?.title}}
+                          </h6>
+                          <p class="text-muted">
+                            <time
+                              >{{ data?.department }} Department</time
+                            >
+                          </p>
+                        </div>
+                        <!-- <p class="text-default">
+                          {{ data?.course_detailed_description | truncate: 40 }}
+                        </p> -->
+                        
+                        <!-- <p class="text-size">
+                          {{ data?.sessionStartDate | date: 'MMM dd, yyyy' }} - {{ data?.sessionEndDate | date: 'MMM dd, yyyy' }}
+                        </p> -->
+                        <!-- <p class="text-default" [innerHTML]="(data?.courseId?.course_detailed_description | truncate: 40)"></p> -->
+                        <!-- <div class="text-center mb-3">
+                         
+                        </div> -->
+                        <button id="submit" class="btn btn-primary show-interest-button" color="primary" (click)="showIntresr(data)">
+                        Send Enquiry
+                      </button>
+                      </div>
+                    </div>
+                   
+                  </div>
+                  
+                </div>
+                <div *ngIf="totalCourseItems == 0">
+                  No Courses related to your department
+                </div>
+              </div>
+              <mat-paginator
+                class="paginator rounded-5"
+                #paginator
+                [length]="totalCourseItems"
+                (page)="activePageSizeChange($event)"
+                [pageSizeOptions]="pageSizeArr"
+                aria-label="select pagination option"
+              >
+              </mat-paginator>
+            </mat-tab>
+
+            <mat-tab *ngIf="allBatches">
+              <ng-template mat-tab-label>
+                <div class="course mx-4">My Batches</div>
+              </ng-template>
+              <div class="body">
+                <div *ngIf="totalItems > 0" class="row">
+                  <div class="col-md-3" *ngFor="let data of classesData">
+                    <div class="course-card course-card-blog">
+                      <div
+                        class="course-card-image"
+                        style="cursor: pointer"
+                        [routerLink]="['/student/view-course/', data?.id]"
+                      >
+                      <div class="feeType-ribbon">
+                        <h6 class="feeType">{{ data?.courseId?.feeType | titlecase }}</h6>
+                      </div>
+                        <img
+                          class="img"
+                          [src]="
+                            data?.courseId?.image_link ||
+                            '../../../assets/noimage.jpg'
+                          "
+                          alt="Image"
+                        />
+                      </div>
+                      <div class="blog-table">
+                        <div class="post-user mt-3">
+                          <h6 class="mb-xs mt-xs title">
+                            {{ data?.courseId?.title | truncate : 45 }}
+                          </h6>
+                          <p class="text-muted">
+                            <time
+                              >{{ data?.department }} Department</time
+                            >
+                          </p>
+                          <p class="text-size">
+                            {{ data?.sessions[0]?.sessionStartDate | date: 'MMM dd, yyyy' }} - {{ data?.sessions[0]?.sessionEndDate | date: 'MMM dd, yyyy' }}
+                          </p>
+                        </div>
+                        <p class="text-default1">
+                          {{ data?.courseId?.course_detailed_description | truncate: 40 }}
+                        </p>
+                        <!-- <p class="text-default" [innerHTML]="(data?.courseId?.course_detailed_description | truncate: 40)"></p> -->
+                        <div class="text-center mb-3">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="totalItems == 0">
+                  No Courses related to your department
+                </div>
+              </div>
+              <mat-paginator
+                class="paginator rounded-5"
+                #paginator
+                [length]="totalItems"
+                (page)="pageSizeChange($event)"
+                [pageSizeOptions]="pageSizeArr"
+                aria-label="select pagination option"
+              >
+              </mat-paginator>
+            </mat-tab>
+            <mat-tab *ngIf="register">
+              <ng-template mat-tab-label>
+                Registered
+              </ng-template>
+              <div class="body">
+                <div class="row">
+                  <div
+                    class="col-md-3"
+                    *ngFor="let data of studentRegisteredClasses"
+                  >
+                    <div class="course-card course-card-blog">
+                      <div
+                        class="course-card-image"
+                        style="cursor: pointer"
+                        [routerLink]="[
+                          '/student/view-course/',
+                          data?.classId?.id
+                        ]"
+                      >
+                      <div class="feeType-ribbon">
+                        <h6 class="feeType">{{ data?.courseId?.feeType | titlecase }}</h6>
+                      </div>
+                        <img
+                          class="img"
+                          [src]="
+                            data?.courseId?.image_link ||
+                            '../../../assets/noimage.jpg'
+                          "
+                          alt="Image"
+                        />
+                      </div>
+
+                      <div class="blog-table">
+                        <div class="post-user mt-3">
+                          <h6 class="mb-xs mt-xs title">
+                            {{ data.courseId.title | truncate : 45 }}
+                          </h6>
+                          <p class="text-muted">
+                            <time>{{ data?.courseId?.courseCode }} </time>
+                          </p>
+                        </div>
+                        <h6>{{ data?.courseId?.training_hours }}Hours</h6>
+                        <p
+                          class="text-default1"
+                          [innerHTML]="
+                            data?.courseId?.course_detailed_description
+                              | bulletPoints
+                              | truncate : 40
+                          "
+                        ></p>
+                        <div class="text-center mb-3">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-paginator
+                class="paginator rounded-5"
+                #paginator
+                [length]="totalRegisteredItems"
+                (page)="pageStudentRegisteredSizeChange($event)"
+                [pageSizeOptions]="pageSizeArr"
+                aria-label="select pagination option"
+              >
+              </mat-paginator>
+            </mat-tab>
+            <mat-tab *ngIf="approve">
+              <ng-template mat-tab-label>
+                Approved
+              </ng-template>
+              <div class="body">
+                <div class="row">
+                  <div
+                    class="col-md-3"
+                    *ngFor="let data of studentApprovedClasses"
+                  >
+                    <div class="course-card course-card-blog">
+                      <div
+                  
+                        class="course-card-image"
+                        style="cursor: pointer"
+                        [routerLink]="[
+                          '/student/view-course/',
+                          data?.classId?.id
+                        ]"
+                      >
+                      <div class="feeType-ribbon">
+                        <h6 class="feeType">{{ data?.courseId?.feeType | titlecase }}</h6>
+                      </div>
+                        <img
+                          class="img"
+                          [src]="
+                            data?.courseId?.image_link ||
+                            '../../../assets/noimage.jpg'
+                          "
+                          alt="Image"
+                        />
+                      </div>
+
+                      <div class="blog-table">
+                        <div class="post-user mt-3">
+                          <h6 class="mb-xs mt-xs title">
+                            {{ data?.courseId?.title | truncate : 45 }}
+                          </h6>
+                          <p class="text-muted">
+                            <time>{{ data?.courseId?.courseCode }} </time>
+                          </p>
+                        </div>
+                        <h6>{{ data?.courseId?.training_hours }}Hours</h6>
+                        <p
+                          class="text-default1"
+                          [innerHTML]="
+                            data?.courseId?.course_detailed_description
+                              | bulletPoints
+                              | truncate : 40
+                          "
+                        ></p>
+                        <div class="text-center mb-3">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-paginator
+                class="paginator rounded-5"
+                #paginator
+                [length]="totalApprovedItems"
+                (page)="pageStudentApprovedSizeChange($event)"
+                [pageSizeOptions]="pageSizeArr"
+                aria-label="select pagination option"
+              >
+              </mat-paginator>
+            </mat-tab>
+            <mat-tab *ngIf="complete">
+              <ng-template mat-tab-label>
+                Completed
+              </ng-template>
+              <div class="body">
+                <div class="row">
+                  <ng-container *ngFor="let data of studentCompletedClasses">
+                  <div
+                    class="col-md-3"
+                    *ngIf="data.courseType
+                    !== 'direct'"
+                  >
+                    <div class="course-card course-card-blog">
+                      <div
+                        class="course-card-image"
+                        style="cursor: pointer"
+                        [routerLink]="[
+                          '/student/view-course/',
+                          data?.classId?.id
+                        ]"
+                      >
+                      <div class="feeType-ribbon">
+                        <h6 class="feeType">{{ data?.courseId?.feeType | titlecase }}</h6>
+                      </div>
+                        <img
+                          class="img"
+                          [src]="
+                            data?.courseId?.image_link ||
+                            '../../../assets/noimage.jpg'
+                          "
+                          alt="Image"
+                        />
+                      </div>
+
+                      <div class="blog-table">
+                        <div class="post-user mt-3">
+                          <h6 class="mb-xs mt-xs title">
+                            {{ data?.courseId?.title | truncate : 45 }}
+                          </h6>
+                          <p class="text-muted">
+                            <time>{{ data?.courseId?.courseCode }} </time>
+                          </p>
+                        </div>
+                        <h6>{{ data?.courseId?.training_hours }}Hours</h6>
+                        <p
+                          class="text-default1"
+                          [innerHTML]="
+                            data?.courseId?.course_detailed_description
+                              | bulletPoints
+                              | truncate : 40
+                          "
+                        ></p>
+                        <div class="text-center mb-3">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </ng-container>
+                </div>
+              </div>
+              <mat-paginator
+                class="paginator rounded-5"
+                #paginator
+                [length]="totalCompletedItems"
+                (page)="pageStudentCompletedSizeChange($event)"
+                [pageSizeOptions]="pageSizeArr"
+                aria-label="select pagination option"
+              >
+              </mat-paginator>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

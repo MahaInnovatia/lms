@@ -1,0 +1,70 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadcrumbs">
+      <!-- breadcrumb -->
+      <app-static-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-static-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+
+          </div>
+          <form [formGroup]="announcementForm">
+            <!-- <h3>{{ viewUrl ? 'View Announcement' : editUrl ? 'Update Announcement' : 'Create Announcement'}}</h3> -->
+
+            <div class="body m-4">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <label>Title <span class="mandatory">&nbsp;*</span></label>
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <!-- <mat-label>Course Name</mat-label> -->
+
+                    <input matInput type="text" id="name" formControlName="subject" class="form-control" [readonly]="viewUrl == true" required>
+                    <mat-error *ngIf="announcementForm.get('subject')?.hasError('required')">
+                      Enter Title
+                    </mat-error>
+                    <mat-error
+                      *ngIf="announcementForm.get('subject')?.hasError('pattern') && announcementForm.get('subject')?.touched">
+                      Enter a valid Title
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <label>Announcement For<span class="mandatory">&nbsp;*</span></label>
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-select multiple formControlName="announcementFor" required>
+                      <mat-option value={{users.typeName}}  *ngFor="let users of userTypeNames">{{users.typeName}}</mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="announcementForm.get('announcementFor')?.hasError('required') ||announcementForm.get('announcementFor')?.touched">
+                      Select Announcement For
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5" *ngIf="labelStatusCheck('Course Detailed Description')">
+                  <label>Course Detailed Description</label>
+                  <angular-editor placeholder="Enter text..." formControlName="details" [config]="config"></angular-editor>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-10">
+                  <button mat-raised-button  id="back" (click)="cancel()">Back</button>
+                </div>
+                <div class="col-md-2">
+                  <button mat-raised-button *ngIf="!editUrl"  id="submit" (click)="saveAnnouncement()">Create</button>
+                  <button mat-raised-button *ngIf="editUrl"  id="submit" (click)="saveAnnouncement()">Update</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

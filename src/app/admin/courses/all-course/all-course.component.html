@@ -1,0 +1,497 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" >
+      <!-- breadcrumb -->
+      <app-breadcrumb >
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <i class="material-icons-two-tone psr-3">list_alt</i>
+              List View
+            </ng-template>
+            <div class="mt-4">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card">
+                    <div class="materialTableHeader">
+                      <div class="right">
+                        <ul class="tbl-export-btn ">
+                          <li class="tbl-header-btn">
+                            <div class="m-l-10" (click)="openFilterCard();" matTooltip="Filters">
+                              <i id="filterIcon" class="material-icons"
+                                style="color: red; cursor: pointer;">filter_list</i>
+                            </div>
+                          </li>
+                          <li>
+                            <ul class="header-buttons-left ms-0">
+                              <li class="tbl-search-box">
+                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                                  aria-label="Search box" [(ngModel)]="filterName" (input)="performSearch()" />
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <ul class="tbl-export-btn ">
+                              <!-- here is adding radio button -->
+                              <li class="tbl-header-btn">
+                                <div class="m-l-10" matTooltip="ADD" *ngIf="create">
+                                  <button mat-raised-button id="submit" (click)="openCourseDialog()">Create</button>
+                                </div>
+                                                
+                              </li>
+                              
+                              
+
+
+                              <!-- <li class="tbl-header-btn">
+                                <div class="m-l-10" matTooltip="ADD" >
+                                  
+                                  <button mat-raised-button  id="submit" (click)="getAllTpCourses()"><span class="custom-button-padding">Get SSG Courses</span></button>
+                                </div>
+    
+                              </li> -->
+                              
+                            <!-- <li>
+                              <div class="upload-btn m-l-10" matTooltip="Bulk Upload">
+                                <input type="file" (change)="onBulkUpload($event)" accept=".xls,.xlsx" />
+                              </div>
+                            </li> -->
+                            <li>
+                              <span style="font-weight: bold;font-size:medium;">Import</span>
+                            </li>
+                            <li>
+                            <label><span ><a href="assets/SampleCourseFile.xlsx" target="_blank"> <img src="assets/excel.svg" alt="" /></a> </span></label>
+                          </li>
+                          <li>
+                            <div class="upload-btn " matTooltip="Bulk Upload">
+                              <input 
+                                type="file" 
+                                (change)="onBulkUpload($event)" 
+                                (click)="onFileInputClick()" 
+                                accept=".xls,.xlsx" 
+                                class="file-input"
+                              />
+                              <span *ngIf="showNoFileChosen">No file chosen</span>
+                            </div>
+                          </li>
+                          <li>
+                            <span style="font-weight: bold;">Export</span>
+                          </li>
+
+                          <li>
+                            <div class="export-button m-l-10" matTooltip="XLSX">
+                              <img src="assets/excel.svg" alt="" (click)="exportExcel()" />
+                            </div>
+                          </li>
+                          <li>
+                            <div class="export-button m-l-10" matTooltip="PDF">
+                              <img src="assets/pdf (1).svg" alt="" (click)="generatePdf()" />
+                            </div>
+                          </li>
+                            </ul>
+                          </li>
+                          </ul>
+                      </div>
+                    </div>
+                    
+                    <div class="body overflow-auto">
+                      <div class="card" *ngIf="isFilter">
+                        <div class="row m-3">
+                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 hide-on-mobile" >
+                            <img src="assets/images/icons/filter.png"
+                              style="height: 80px; width: 80px;margin-top: 30px;">
+                          </div>
+                          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                            <form [formGroup]="filterForm">
+                              <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Course</mat-label>
+                                    <mat-select (selectionChange)="onSelectionChange($event,'course')"
+                                      formControlName="course" multiple>
+                                      <mat-option *ngFor="let title of courseList" [value]="title.title"> {{title.title
+                                        | titlecase}} </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Creator</mat-label>
+                                    <mat-select (selectionChange)="onSelectionChange($event,'creator')"
+                                      formControlName="creator" multiple>
+                                      <mat-option *ngFor="let user of users" [value]="user.name"> {{user.name |
+                                        titlecase}} </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Vendor</mat-label>
+                                    <mat-select (selectionChange)="onSelectionChange($event,'vendor')"
+                                      formControlName="vendor" multiple>
+                                      <mat-option *ngFor="let vendor of vendors" [value]="vendor.vendor">
+                                        {{vendor.vendor | titlecase}} </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div> -->
+                                <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Course Type</mat-label>
+                                    <mat-select (selectionChange)="onSelectionChange($event,'selectedOptionValue')"
+                                      formControlName="selectedOptionValue" multiple>
+                                      <mat-option *ngFor="let vendor of vendors" [value]="vendor.selectedOptionValue">
+                                        {{vendor.vendor | titlecase}} </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div> -->
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Course Type</mat-label>
+                                    <mat-select (selectionChange)="onSelectionChange($event,'selectedOptionValue')"
+                                      formControlName="selectedOptionValue" multiple>
+                                      <mat-option value="LearningAndTutorial"> Learning And Tutorial</mat-option>
+                                      <mat-option value="OnlyExam"> OnlyExam</mat-option>
+                                      <mat-option value="AssessmentAndExam"> Assessment And Exam</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Status</mat-label>
+                                    <mat-select (selectionChange)="onSelectionChange($event,'status')"
+                                      formControlName="status" multiple>
+                                      <mat-option value="active"> Approved</mat-option>
+                                      <mat-option value="inactive"> Pending</mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-8 mt-2 d-flex justify-content-end no-justify-mobile">
+                                  <button mat-raised-button id="submit" (click)="applyFilter()">Apply</button>
+                                  <button mat-raised-button id="back" (click)="clearFilter()">Clear</button>
+
+                                </div>
+
+                              </div>
+                            </form>
+
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="responsive_table">
+                        <table mat-table [dataSource]="courseData" matSort class="mat-cell advance-table">
+                          <ng-container matColumnDef="name">
+                            <mat-header-cell *matHeaderCellDef >Course
+                            </mat-header-cell>
+                            <mat-cell  *matCellDef="let row"
+                              (click)="view ? viewCourse(row.id) : null"><span class="mobile-label">Course:</span>
+                              <span class="name">{{ row.title ? (row.title | titlecase) : '--' }}</span>
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="code">
+                            <mat-header-cell *matHeaderCellDef >Course Code
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"><span
+                                class="mobile-label">Course Code:</span> {{row.courseCode ? (row.courseCode) : "--"}}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="creator">
+                            <mat-header-cell *matHeaderCellDef >Creator</mat-header-cell>
+                            <mat-cell *matCellDef="let row" [class.name]="isCreator"
+                              (click)="view ? viewCourse(row.id) : null">
+                              <span class="mobile-label">Creator:</span> {{row.creator ? (row.creator) : "--"}}
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Days">
+                            <mat-header-cell *matHeaderCellDef >Days
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Days:</span>{{row.course_duration_in_days ||0}} {{
+                              (row.course_duration_in_days === 1) ? 'Day' : 'Days' }}
+                            </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Training Hours">
+                            <mat-header-cell *matHeaderCellDef >Hours
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Traning Hours:</span>{{row.training_hours || 0}} Hours
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="Fee Type">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Fee Type
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Fee Type:</span>{{row?.feeType ? (row?.feeType | titlecase) : "--"}}
+                            </mat-cell>
+                          </ng-container>
+                          <!-- <ng-container matColumnDef="Vendor">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Expiry Date
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Expiry Date</span>{{row.sessionEndDate ? (row.sessionEndDate | date) : "--"}}
+                            </mat-cell>
+                          </ng-container>  -->
+                          <ng-container matColumnDef="approval">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Approval required
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">approval:</span>{{row.approval ? (row.approval) : "--"}}
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="Users">
+                            <mat-header-cell *matHeaderCellDef 
+                              class="compulsory-count-header">{{commonRoles?.STUDENT_ROLE}}
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"
+                              [routerLink]="['/admin/courses/student-courses/',row.title,row.id]"> <span
+                                class="mobile-label">{{commonRoles?.STUDENT_ROLE}}:</span>
+                              <button mat-icon-button class="tbl-action-btn">
+                                <app-feather-icons [icon]="'eye'" [class]="'tbl-fav-view'"></app-feather-icons>
+                              </button>
+                            </mat-cell>
+                          </ng-container>                          
+                          <!-- <ng-container matColumnDef="startDate">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Exam type
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Exam type:</span><span>{{row.examType ?
+                                (row.examType) : "--"}}</span>
+                            </mat-cell>
+                          </ng-container>  -->
+                          <!-- <ng-container matColumnDef="examType">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Exam Type
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Start Date:</span><span>{{row.examType | titlecase}}</span>
+                            </mat-cell>
+                          </ng-container> -->
+                          <ng-container matColumnDef="selectedOptionValue">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Course Type
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">Start Date:</span><span>{{row?.selectedOptionValue?.replace('And', ' & ')}}</span>
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="endDate">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header">Expiry Date
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"> <span
+                                class="mobile-label">End Date:</span><span>{{row?.sessionEndDate ? (row.sessionEndDate | date) : "--"}}</span>
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef  class="compulsory-count-header"
+                              style="width: 400px;">Status
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" class="pr-0"><span
+                              class="mobile-label">Status:</span>
+
+                              <span
+                                [class]="row?.status === 'active' ? 'badge badge-solid-green' : row?.status === 'inactive' ? 'badge badge-solid-red' : ''">
+                                <span
+                                  [class]="row?.status === 'active' ? 'status-dot' : row?.status === 'inactive' ? 'status-red' : ''"></span>
+                                {{row.status ==='active'? 'Approved':' Pending' | titlecase}}</span>
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="Fees">
+                            <mat-header-cell *matHeaderCellDef class="payment-cell1">Fee
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row" (click)="view ? viewCourse(row.id) : null"
+                              > <span class="mobile-label">Fee:</span><span class="amount">$ {{row.fee
+                              ||0}} .00</span>
+                            </mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="displayedColumns">
+                          </mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;" [style.cursor]="'pointer'"
+                            matRipple>
+                          </mat-row>
+                        </table>
+
+                        <div *ngIf="!courseData || courseData.length === 0" class="text-center py-3 no-data-text">
+                          No data found
+                        </div>
+
+                        <mat-paginator class="paginator rounded-5" #paginator [length]="totalItems"
+                          (page)="pageSizeChange($event)" [pageSizeOptions]="pageSizeArr"
+                          aria-label="select pagination option">
+                        </mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab class="grid">
+            <ng-template mat-tab-label>
+              <i class="material-icons-two-tone psr-3">grid_on</i>
+              <!-- <i class="material-icons-two-tone psr-3">list_alt</i> -->
+              Grid View
+            </ng-template>
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="materialTableHeader">
+                    <div class="">
+                      <ul class="tbl-export-btn mt-2">
+                        <li>
+                          <ul class="header-buttons-left ms-0">
+                            <li class="tbl-search-box">
+                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                              <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                                aria-label="Search box" [(ngModel)]="searchTerm" (input)="performSearch()" />
+                            </li>
+                          </ul>
+                        </li>
+                        </ul>
+                        </div>
+                        <div class="right">
+                          <ul class="tbl-export-btn">
+                            <!-- <li class="tbl-header-btn">
+                              <div class="m-l-10" matTooltip="ADD" [routerLink]="['/admin/courses/add-course']">
+                                <button mat-raised-button id="submit">Create</button>
+                              </div>
+                            </li> -->
+                            <li class="tbl-header-btn">
+                              <div class="m-l-10" matTooltip="ADD" *ngIf="create">
+                                <button mat-raised-button id="submit" (click)="openCourseDialog()">Create</button>
+                              </div>
+                          
+                            </li>
+                            <li>
+                              <span style="font-weight: bold;font-size:medium;">Import</span>
+                            </li>
+                            <li>
+                            <span ><a href="assets/SampleCourseFile.xlsx" target="_blank"> <img src="assets/excel.svg" alt="" /></a> </span>
+                          </li>
+                          
+                          </ul>
+                        </div>
+                        <div class="">
+                          <ul class="tbl-export-btn">
+                            <li>
+                              <div class="upload-btn m-l-10" matTooltip="Bulk Upload">
+                                <input 
+                                  type="file" 
+                                  (change)="onBulkUpload($event)" 
+                                  (click)="onFileInputClick()" 
+                                  accept=".xls,.xlsx" 
+                                  class="file-input"
+                                />
+                                <span *ngIf="showNoFileChosen">No file chosen</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      <div class="">
+                        <ul class="tbl-export-btn">
+                          <li>
+                            <span style="font-weight: bold;">Export as</span>
+                          </li>
+                      
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="XLSX" (click)="exportExcel()">
+                            <img src="assets/excel.svg" alt="" />
+                          </div>
+                        </li>
+                        <li>
+                          <div class="export-button m-l-10" matTooltip="PDF" (click)="generatePdf()">
+                            <img src="assets/pdf (1).svg" alt="" />
+                          </div>
+                        </li>
+                        </ul>
+                      </div>
+                  </div>
+                  <div class="body">
+                    <div class="row">
+                      <div class="col-md-3" *ngFor="let data of courseData">
+                        <div class="course-card course-card-blog" style="cursor: pointer; height: 300px;"
+                          (click)=viewCourse(data.id)>
+                          <div class="course-card-image" style="height: 125px;">
+                            <img class="img" src="{{data.image_link || 'assets/noimage.jpg'}}">
+                          </div>
+                          <div class="blog-table">
+                            <div class="post-user mt-3">
+                              <h6 class="mb-xs mt-xs title"> {{data.title |truncate : 25}}</h6>
+                              <p class="text-muted"><time>{{data.training_hours}} hours</time></p>
+                            </div>
+                            <div class="col">
+                              <p class="course-card-description"
+                                [innerHTML]="data?.course_detailed_description | truncate:30">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-paginator class="paginator rounded-5" #paginator [length]="totalItems"
+                    (page)="pageSizeChange($event)" [pageSizeOptions]="pageSizeArr"
+                    aria-label="select pagination option">
+                  </mat-paginator>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+</div> -->
+
+<div *ngIf="isLoading" class="overlay">
+  <mat-spinner class="centered-spinner" diameter="50"></mat-spinner>
+</div>
+</section>
+
+<ng-template #courseScenariosDialog let-dialogRef="dialogRef" let-data>
+  <div class="row mt-5 mx-3 my-3">
+    <div class="col-4">
+        <div class="card login" [class.selected]="selectedScenario === 'LearningAndTutorial'"
+            (click)="selectScenario('LearningAndTutorial')">
+            <h5 class="mt-3" style="text-align: center;">Learning & Tutorial</h5>
+            <p class="p-3">Enables {{commonRoles?.STUDENT_ROLE}} to read and understand course content, complete tutorials, and get the certifications.</p>
+            <div class="selected-overlay">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card login" [class.selected]="selectedScenario === 'OnlyExam'"
+            (click)="selectScenario('OnlyExam')">
+            <h5 class="mt-3" style="text-align: center;">Only Exam</h5>
+            <p class="p-3">Allows {{commonRoles?.STUDENT_ROLE}} to take the exam directly and receive a certificate without going through the learning materials.</p>
+
+            <div class="selected-overlay">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+      <div class="card login" [class.selected]="selectedScenario === 'AssessmentAndExam'"
+          (click)="selectScenario('AssessmentAndExam')">
+         <h5 class="mt-3" style="text-align: center; ">Assessment & Exam</h5>
+         <p class="p-3">Enables {{commonRoles?.STUDENT_ROLE}} to study all course materials, complete multiple assessments (practical tests), and take a final exam to get a certificate.</p>
+          <div class="selected-overlay">
+              <i class="fas fa-check"></i>
+          </div>
+      </div>
+  </div>
+</div>
+ 
+  <div mat-dialog-actions style="float:right">
+    <button mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button id="submit"(click)="navigateToCreate(dialogRef)">Create</button>
+
+  </div>
+  </ng-template>

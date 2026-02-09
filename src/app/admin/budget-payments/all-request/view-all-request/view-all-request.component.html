@@ -1,0 +1,174 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <h2>View Request</h2>
+          </div>
+          <div class="body">
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>User Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ userName | titlecase}}</p>
+              </div>
+              <div class="col-3">
+                <h6>Email</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ email }}</p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Course Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ courseName | titlecase}}</p>
+              </div>
+              <div class="col-3">
+                <h6>Course Cost</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ courseCost }}</p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Course TimeLine</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ coursetimeline}}</p>
+              </div>
+              <div class="col-3">
+                <h6>Department</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ departmentName }}</p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Designation</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ designationName | titlecase}}</p>
+              </div>
+              <div class="col-3">
+                <h6>Vendor Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ vendorName }}</p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Employee Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ employeeName | titlecase}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>RO Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ roName | titlecase}}</p>
+              </div>
+              <div class="col-3">
+                <h6>RO Approval</h6>
+              </div>
+              <div class="col-3">
+                <p>
+                  <span
+                    [class]="roApproval === 'Approved' ? 'badge badge-solid-green' : roApproval === 'Pending' ? 'badge badge-solid-orange' :  (roApproval === 'Rejected' ? 'badge badge-solid-red' : '') ">
+                    <span
+                      [class]="roApproval === 'Approved' ? 'status-dot' : roApproval === 'Pending' ? 'status-orange' :  (roApproval === 'Rejected' ? 'status-red' : '') "></span>
+                    {{roApproval }}
+                  </span>
+                </p>
+
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Director Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ directorName | titlecase}}</p>
+              </div>
+              <div class="col-3">
+                <h6>Director Approval</h6>
+              </div>
+              <div class="col-3">
+                <p><span
+                    [class]="directorApproval === 'Approved' ? 'badge badge-solid-green' : directorApproval === 'Pending' ? 'badge badge-solid-orange' :  (directorApproval === 'Rejected' ? 'badge badge-solid-red' : '') ">
+                    <span
+                      [class]="directorApproval === 'Approved' ? 'status-dot' :directorApproval === 'Pending' ? 'status-orange' :  (directorApproval === 'Rejected' ? 'status-red' : '') "></span>
+                    {{directorApproval }}
+                  </span></p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Training Admin Name</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ trainingadminName | titlecase}}</p>
+              </div>
+              <div class="col-3">
+                <h6>TrainingAdmin Approval</h6>
+              </div>
+              <div class="col-3">
+                <p><span
+                    [class]="trainingadminApproval === 'Approved' ? 'badge badge-solid-green' : trainingadminApproval === 'Pending' ? 'badge badge-solid-orange' :  (trainingadminApproval === 'Rejected' ? 'badge badge-solid-red' : '') ">
+                    <span
+                      [class]="trainingadminApproval === 'Approved' ? 'status-dot' : trainingadminApproval === 'Pending' ? 'status-orange' :  (trainingadminApproval === 'Rejected' ? 'status-red' : '') "></span>
+                    {{trainingadminApproval }}
+                  </span></p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>RO Reason</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ RoReason}}</p>
+              </div>
+              <div class="col-3">
+                <h6>Director Reason</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ directorReason }}</p>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-3">
+                <h6>Training Admin Reason</h6>
+              </div>
+              <div class="col-3">
+                <p>{{ TAreasons}}</p>
+              </div>
+
+            </div>
+          </div>
+          <div class="row mx-2">
+            <div class="col-md-8">
+                <button mat-raised-button id="back"
+                    [routerLink]="['/admin/budgets/all-requests']">Back</button>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
