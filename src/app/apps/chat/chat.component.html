@@ -1,0 +1,66 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="card">
+          <div class="chat">
+            <div class="chat-header clearfix">
+              <div class="chat-about">
+                <div class="chat-with">{{user}}</div>
+                
+              </div>
+              <button style="float: right;" mat-icon-button class="col-red" (click)="delete()" >
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+            <ng-scrollbar style="height: 600px" visibility="hover">
+              <div class="chat-history" id="chat-conversation">
+                <ul *ngFor="let chat of source">
+                  <li class="clearfix" *ngIf="chat.type === 'user'">
+                    <div class="message-data text-end">
+                      <span  class="message-data-name">{{chat.role}}</span>
+                      &nbsp; &nbsp;
+                      <span class="message-data-time">{{chat.date | date}}
+                      </span>
+
+
+                    </div>
+                    <div class="message other-message float-end"> {{chat.text}} </div>
+                  </li>
+                  <li *ngIf="chat.type === 'bot'">
+                    <div class="message-data">
+                      <span class="message-data-name">Bot</span>
+                      <span class="message-data-time">{{chat.date | date}}</span>
+                    </div>
+                    <div class="message my-message">
+                      <p>{{chat.text }}</p>
+                      <div class="row">
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </ng-scrollbar>
+            <div class="chat-message clearfix">
+              <div class="row mt-4 chat-upload">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button class="btn-space" mat-raised-button color="warn" (click)="cancel()">
+                    Cancel 
+                  </button>
+                  <button type="button" mat-raised-button  id="submit" (click)="update()">
+                    Resolved
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

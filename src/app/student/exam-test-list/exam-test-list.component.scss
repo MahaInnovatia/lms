@@ -1,0 +1,23 @@
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #f11541;
+    border-radius: 50%; 
+    display: inline-block;
+    margin-right: 5px; 
+  }
+  .success-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #198754;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .download{
+    background: none;
+    border: none;
+  }
+  .fs-15 {
+    font-size: 15px !important;
+  }

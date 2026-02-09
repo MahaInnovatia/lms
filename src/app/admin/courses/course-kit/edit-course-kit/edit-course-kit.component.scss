@@ -1,0 +1,140 @@
+
+
+.thumbnail-img {
+    height: 250px;
+    width: 600px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+.error{
+  padding-left: 20px;
+}
+
+#cancel {
+    margin-left: 50px;
+}
+.file-drop-area {
+    border: 1px dashed #7c7db3;
+    border-radius: 15px;
+    position: relative;
+    margin-top: 5px;
+    transition: 0.2s;
+  }
+  .file-drop-area button{
+    border-radius: 12px;
+  }
+  .file{
+   text-align: center;
+  }
+  .file-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    opacity: 0;
+  }
+  // .file-msg {
+  //   margin-left: 20px;
+  //   vertical-align: middle;
+  //   font-size: 12px;
+  //   font-weight: 500;
+  // }
+  .file-msg {
+    margin-left: 20px;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    display: inline-block;
+  }
+  h5{
+    padding-top: 10px;
+  }
+
+.file-drop-area1 {
+  border: 1px dashed #7c7db3;
+  border-radius: 15px;
+  position: relative;
+  max-width: 100%;
+  margin-top: 0px;
+  transition: 0.2s;
+}
+.file-drop-area button{
+  border-radius: 12px;
+}
+.file1{
+ text-align: center;
+}
+.btn{
+  margin-top: 6px;
+  height: 22px;
+}
+.file-input1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 60%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+// .file-msg1 {
+//   margin-left: 20px;
+//   vertical-align: middle;
+//   font-size: 12px;
+//   font-weight: 500;
+// }
+.file-msg1 {
+  display: inline-block;
+  margin-left: 20px;
+  vertical-align: middle;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.file-drop-area1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-progress-spinner {
+  position: absolute;
+  top: -20px; /* Adjust this value to control how far above the button the spinner appears */
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  color: #ff4081; /* This sets a more highlighted color, you can adjust it as needed */
+}
+
+// .file1 {
+//   margin-top: 50px; /* Add some top margin to the file1 div to accommodate the spinner */
+// }
+
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label-container label {
+  margin-bottom: 0;
+}
+
+.label-container .btn {
+  padding: 0;
+  background: none;
+  border: none;
+  margin-top: -15px;
+}
+#cancel {
+  margin-left: 25px;
+}

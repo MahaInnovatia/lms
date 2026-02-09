@@ -1,0 +1,125 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+          <div class="body">
+            <app-email-sidebar></app-email-sidebar>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="card">
+          <div class="boxs mail_listing">
+              <section class="mail-list inbox-body no-pad">
+                <div class="mail-sender">
+                  <div class="mail-heading">
+                    <h4 class="vew-mail-header">
+                      <b>{{emailDetails?.subject}}</b>
+                    </h4>
+                  </div>
+                  <hr>
+                  <div *ngFor="let mail of filteredMails" >
+                  <div  class="d-flex mb-4">
+                    <a href="#" class="table-img m-r-15">
+                      <img alt="" src="{{mail?.fromProfile}}">
+                    </a>
+                    <div class="flex-grow-1">
+                      <span class="date float-end">{{mail?.date | date}} {{mail?.time}}</span>
+                      <h6 class="text-primary">{{mail?.fromName}} ( {{mail?.from}} )</h6>
+                      <small class="text-muted">to: {{mail?.to}}, cc:{{mail?.cc}}</small>
+                    </div>
+                  </div>
+                <div class="view-mail">
+                  <p [innerHTML]="mail?.content"></p>
+                </div>
+                <div *ngIf="mail.attachment" class="attachment-mail">
+                  <p>
+                    <span>
+                      <i class="fa fa-paperclip"></i> Attachments </span>
+                  </p>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <a  href="{{mail?.attachment}}" target="_blank">
+                        <img class="img-thumbnail img-responsive" alt="attachment" src="{{mail?.attachment}}">
+                      </a>
+                      <a class="name" href="{{mail?.attachment}}" target="_blank"> {{uploadedAttachment}}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              </div>
+              </div>
+
+              <div class="replyBox m-t-20">
+                <p  *ngIf="!showReplyAllForm && !showReplyForm"class="p-b-20">
+                  Click here to
+                  <a type="button" (click)="toggleReplyForm()"><span class="reply">Reply</span></a> or 
+                  <a type="button" (click)="toggleReplyAllForm()"><span class="reply">Reply all</span></a>
+                </p>
+                <div *ngIf="showReplyForm">
+                  <form [formGroup]="replyForm" >
+                    <mat-form-field class="example-full-width to-field" appearance="outline">
+                      <mat-label>TO</mat-label>
+                      <input formControlName="to" matInput id="email_address">
+                      <button mat-button class="cc-button" (click)="toggleCCField()">CC</button>
+                    </mat-form-field>                    
+                    <div *ngIf="showCCField" class="form-line">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>CC</mat-label>
+                        <input formControlName="cc" matInput id="cc_email_address">
+                      </mat-form-field>
+                    </div>
+                    <ckeditor  formControlName="content"[editor]="Editor"></ckeditor>
+                    <div class="file-drop-area">
+                      <div class="file">
+                      <button mat-raised-button color="primary">Choose File                      
+                        <input formControlName="attachment" (change)="onFileUpload($event)" class="file-input" type="file">
+                      </button>
+                      <span class="file-msg"><h5>{{uploadedAttachment ? uploadedAttachment : 'Drag and Drop File Here' }}</h5></span>
+                      </div>
+                    </div><br>
+                    <button type="submit" (click)="sendReply()" class="btn btn-primary mt-2">Send Reply</button>
+                    <mat-icon type="button" class="float-end del" (click)="toggleReplyForm()">delete</mat-icon>
+                  </form>
+                </div>
+                <div *ngIf="showReplyAllForm">
+                  <form [formGroup]="replyForm" >
+                    <mat-form-field class="example-full-width to-field" appearance="outline">
+                      <mat-label>TO</mat-label>
+                      <input formControlName="to" matInput id="email_address">
+                      <button mat-button class="cc-button" (click)="toggleCCField()">CC</button>
+                    </mat-form-field>                    
+                    <div *ngIf="showCCField" class="form-line">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>CC</mat-label>
+                        <input formControlName="cc" matInput id="cc_email_address">
+                      </mat-form-field>
+                    </div>
+                    <ckeditor  formControlName="content"[editor]="Editor"></ckeditor>
+                    <div class="file-drop-area">
+                      <div class="file">
+                      <button mat-raised-button color="primary">Choose File                      
+                        <input formControlName="attachment" (change)="onFileUpload($event)" class="file-input" type="file">
+                      </button>
+                      <span class="file-msg"><h5>{{uploadedAttachment ? uploadedAttachment : 'Drag and Drop File Here' }}</h5></span>
+                      </div>
+                    </div><br>
+                    <button type="submit"  (click)="replyAll()"class="btn btn-primary mt-2">Send Reply</button>
+                    <mat-icon type="button" class="float-end del" (click)="toggleReplyAllForm()">delete</mat-icon>
+                  </form>
+                </div>
+
+              </div>              </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

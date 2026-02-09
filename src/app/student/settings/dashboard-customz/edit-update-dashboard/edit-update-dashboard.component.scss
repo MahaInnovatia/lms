@@ -1,0 +1,44 @@
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    max-width: 100%; 
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: center; /* Centers text */
+    align-items: center;
+    width: 100%;
+    padding: 10px; /* Adjust padding for better spacing */
+  }
+
+  .component {
+    margin-bottom: 2px;
+  }
+  
+  .mat-cell {
+    vertical-align: top;
+  }
+  mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+    padding-left: 24px; 
+   }
+   @media (max-width: 600px) {
+     mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+       padding-left: 15px;
+     }
+     }

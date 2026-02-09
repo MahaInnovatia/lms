@@ -1,0 +1,149 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="breadscrum.title"
+        [items]="breadscrum.items"
+        [active_item]="breadscrum.active"
+      >
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-12">
+        <div class="card">
+          <div class="m-b-20">
+            <div class="contact-grid">
+              <div class="profile-header bg-dark">
+                <div class="user-name">{{ aboutData.name }}</div>
+                <div class="name-center">{{ aboutData.type | titlecase }}</div>
+              </div>
+              <img
+                src="{{ aboutData.avatar || 'assets/profile.png' }}"
+                class="user-img"
+                alt=""
+              />
+              <p>
+                {{ aboutData.country_name }}
+              </p>
+              <div>
+                <span class="phone">
+                  <i class="material-icons">phone</i
+                  >{{ aboutData.mobile }}</span
+                >
+              </div>
+              <button
+                type="button"
+                mat-raised-button
+                color="warn"
+                style="width: 100%; margin-bottom: -20px"
+                [routerLink]="['/student/settings/all-staff']"
+              >
+                Back to all staff
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 col-md-12">
+        <div class="card">
+          <div class="card-container">
+            <button class="icons" alt="Edit" (click)="editCall(aboutData.id)">
+              <app-feather-icons
+                [icon]="'edit'"
+                [class]="'tbl-fav-edit'"
+              ></app-feather-icons>
+            </button>
+            <button
+              class="icons"
+              alt="Delete"
+              mat-menu-item
+              (click)="deleteItem(aboutData)"
+            >
+              <app-feather-icons
+                [icon]="'trash-2'"
+                [class]="'tbl-fav-delete'"
+              ></app-feather-icons>
+            </button>
+          </div>
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                Details
+              </ng-template>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="project_widget">
+                  <div class="body">
+                    <div class="row">
+                      <div class="col-md-4 col-6 b-r">
+                        <strong>Full Name</strong>
+                        <br />
+                        <p>{{ aboutData.name }}</p>
+                      </div>
+                      <div class="col-md-4 col-6 b-r">
+                        <strong>Mobile</strong>
+                        <br />
+                        <p>{{ aboutData.mobile }}</p>
+                      </div>
+                      <div class="col-md-4 col-6 b-r">
+                        <strong>Email</strong>
+                        <br />
+                        <p>{{ aboutData.email }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="project_widget">
+                  <div class="body">
+                    <div class="row">
+                      <div class="col-md-4 col-6">
+                        <strong>Education</strong>
+                        <br />
+                        <p >{{ aboutData?.qualification }}</p>
+                      </div>
+                      <div class="col-md-4 col-6 b-r">
+                        <strong>Gender</strong>
+                        <br />
+                        <p >
+                          {{ aboutData?.gender | titlecase }}
+                        </p>
+                      </div>
+                      <div class="col-md-4 col-6 b-r">
+                        <strong>Date of birth</strong>
+                        <br />
+                        <p>{{ aboutData?.dob | date }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="project_widget">
+                  <div class="body">
+                    <div class="row">
+                      <div class="col-md-4 col-6 b-r">
+                        <strong>Department</strong>
+                        <br />
+                        <p>{{ aboutData?.department }}</p>
+                      </div>
+                      <div class="col-md-4 col-6">
+                        <strong>Registration Date</strong>
+                        <br />
+                        <p>
+                          {{ aboutData?.joiningDate | date }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

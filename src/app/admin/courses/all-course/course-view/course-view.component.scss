@@ -1,0 +1,113 @@
+.font-color {
+    color: #4f4f4f;
+}
+
+.size {
+    font-size: 16px;
+}
+$green--success: #4eb36c;
+
+.checkmark {
+    .check {
+        border-width: 0px 3px 3px 0;
+        border-color: $green--success;
+        border-style: solid;
+        box-sizing: content-box;
+        display: block;
+        height: 24px;
+        margin: 0 auto;
+        transform: rotate(49deg) translateY(-1px) translateX(0px);
+        width: 8px;
+    
+      }
+  
+
+}
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #198754;
+    border-radius: 50%; // To make it a circle
+    display: inline-block;
+    margin-right: 5px; // Space between dot and text
+}
+.status-red {
+    width: 8px;
+    height: 8px;
+    background-color: #f11541;
+    border-radius: 50%; // To make it a circle
+    display: inline-block;
+    margin-right: 5px; // Space between dot and text
+}
+
+h5{
+    color:#575757
+}
+
+.btn-right{
+    margin-right: 53px;
+}
+
+.border-class {
+    margin: 3px;
+}
+.bg-c-green{
+    border-radius: 5px;
+    padding: 3px;
+  }
+
+  .bg-icon{
+    border: 1px solid #5f5fca;
+    border-radius: 50%;
+  }
+
+.image-link{
+    width: 100%;
+    height: 250px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.img-w{
+    height: 20px;
+    margin-right: 25px;
+    }
+
+    .card .selected-overlay {
+        display: none; 
+      }
+      .login{
+        border: 2px solid black;
+        border-radius: 10px;
+        width:100%;
+        height: 170px;
+        display: flex;
+        cursor: pointer;
+      }
+      .login:hover{
+        border: 2px solid #2497d1;;
+        
+      }
+      
+      .card.selected {
+        border-color: #2497d1; 
+        box-shadow: 0 0 5px rgba(22, 164, 225, 0.5);
+      }
+      
+      .card.selected .selected-overlay {
+        display: block; 
+      }
+      
+      .selected-overlay {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+      }
+      
+      .selected-overlay i {
+        color: white; 
+        font-size: 10px;
+        background-color: #2497d1; 
+        padding: 5px;
+        border-radius: 50%; 
+      }
+      

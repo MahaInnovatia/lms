@@ -1,0 +1,74 @@
+
+.example-radio-button {
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+
+
+.mandatory {
+    color: red;
+}
+p {
+    font-family: Lato;
+  }
+
+  ngb-rating {
+    color: rgb(253, 204, 13);
+    font-size: 80px;
+  }
+
+  .star {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    color: #d3d3d3;
+  }
+  .full {
+    color: #FDCC0D;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #FDCC0D;
+  }
+ 
+
+
+  .mandatory {
+    color: red;
+  }
+
+  .number{
+    cursor: pointer;
+  }
+
+  .highlight{
+    background-color: #706d6d;
+    color: #fff;
+  }
+  .session{
+    display: flex;
+  }
+  .mat-mdc-radio-button.mat-accent {
+    --mdc-radio-selected-focus-icon-color: #3BB143;
+    --mdc-radio-selected-hover-icon-color: #3BB143;
+    --mdc-radio-selected-icon-color: #3BB143;
+    --mdc-radio-selected-pressed-icon-color: #3BB143;
+    --mat-radio-ripple-color: #000;
+    --mat-radio-checked-ripple-color: #3BB143;
+
+  }
+  .card-container {
+    position: relative;
+    display: flex;
+    justify-content: flex-end; 
+  }
+  
+  .icons{
+    width: 10%;
+      margin: 10px;
+      border: none;
+      background: transparent;
+  }

@@ -1,0 +1,124 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <!-- breadcrumb -->
+      <app-static-breadcrumb
+        [title]="breadscrum.title"
+        [items]="breadscrum.items"
+        [active_item]="breadscrum.active"
+      >
+      </app-static-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card" style="height: fit-content">
+          <div class="row m-3">
+            <form [formGroup]="sideMenuForm">
+              <div formArrayName="sidemenu">
+                <div
+                  *ngFor="let side of sidemenu.controls; let i = index"
+                  [formGroupName]="i"
+                >
+                  <label
+                    >Menu {{ i + 1
+                    }}<span class="mandatory">&nbsp;*</span></label
+                  >
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                      <label
+                        >Title <span class="mandatory">&nbsp;*</span></label
+                      >
+                      <mat-form-field
+                        class="example-full-width mb-3"
+                        appearance="outline"
+                      >
+                        <input
+                          type="text"
+                          matInput
+                          formControlName="title"
+                          placeholder="Enter Title"
+                        />
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                      <label>Icon <span class="mandatory">&nbsp;*</span></label>
+                      <div class="file-drop-area">
+                          <div class="file">
+                            <button mat-raised-button color="primary">
+                              Choose file
+                              <input
+                                class="file-input"
+                                (change)="onFileUpload($event, i)"
+                                type="file"
+                              />
+                            </button>
+                            <span *ngIf="uploadedImages[i]" class="file-msg mt-1"
+                              > {{uploadedImages[i] ? uploadedImages[i] :'Drag and Drop File Here' }}</span
+                            >
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div formArrayName="submenu">
+                    <ng-container *ngIf="getSubmenu(i).controls.length > 0">
+                      <label>SubMenu <span class="mandatory">&nbsp;*</span></label>
+                    </ng-container>
+                    <div class="row">
+                      <div
+                        class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2"
+                        *ngFor="
+                          let sub of getSubmenu(i).controls;
+                          let j = index
+                        "
+                        [formGroupName]="j"
+                      >
+                        <label class="mt-2"
+                          >Title<span class="mandatory">&nbsp;*</span></label
+                        >
+
+                        <mat-form-field
+                          class="example-full-width mb-3"
+                          appearance="outline"
+                        >
+                          <input
+                            type="text"
+                            matInput
+                            [formControlName]="'title'"
+                            placeholder="Enter Title"
+                          />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="row body">
+              <div class="col-md-10">
+                <button
+                  mat-raised-button
+                  id="back"
+                  [routerLink]="['/student/settings/customize/sidemenu']"
+                >
+                  Back
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button
+                  class="btn-space"
+                  mat-raised-button
+                  (click)="update()"
+                  type="submit"
+                  id="submit"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

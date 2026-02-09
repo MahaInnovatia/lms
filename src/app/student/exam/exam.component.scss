@@ -1,0 +1,40 @@
+svg {
+    position: absolute;
+    fill: #000;
+    background-color: #d3cdcd;
+    margin-top: -15px;
+    margin-left: -15px;
+    border-radius: 10px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+// modal-box styling
+::ng-deep .mat-mdc-menu-content {
+        margin: 0;
+        padding: 8px 20px;
+        border-radius: 10px;
+        list-style-type: none;
+       
+}
+// modal-box curving
+::ng-deep .mat-mdc-menu-panel{
+    --mat-menu-container-shape: 12px;
+}
+.menu-text{
+    padding-left: 20px;
+}
+
+.img-w{
+    width: 16%;
+    }
+    .spinner-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000; /* Ensure it appears above other content */
+      }
+
+      .request{
+        width: 35vw;
+      }

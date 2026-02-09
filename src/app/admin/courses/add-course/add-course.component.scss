@@ -1,0 +1,155 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+::ng-deep.mat-stepper-label-position-bottom .mat-horizontal-stepper-header-container {
+  width: fit-content;
+  margin: 0 auto;
+}
+::ng-deep .mat-stepper-horizontal-line {
+flex: none !important;
+}
+label{
+font-size: 16px;
+font-weight: 500;
+}
+.thumbnail-img{
+  height:250px;
+  width:600px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+#next {
+  margin-left: 30px;
+}
+@media only screen and (max-width: 912px) and (min-width: 280px) {
+  #next,#submit {
+    margin-left: 15px;
+  }
+}
+@media only screen and (max-width: 912px) and (min-width: 280px) {
+  #save {
+    margin-left: 15px;
+  }
+}
+#draft{
+  margin-left: 20px;
+  border: none;
+  width: 150px;
+  height: 35px;
+  color: #FFF;
+}
+
+.label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label-container label {
+  margin-bottom: 0;
+}
+
+.label-container .btn {
+  padding: 0;
+  background: none;
+  border: none;
+  margin-top: -15px;
+}
+#cancel {
+  margin-left: 25px;
+}
+
+
+
+.mandatory{
+  color: red;
+}
+
+::ng-deep.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before { 
+  border-top-width: 3px!important;
+  border-top-color: #6777ef;
+}
+
+::ng-deep.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after {
+  border-top-width: 3px!important;
+  border-top-color: #6777ef;
+}
+::ng-deep.mat-stepper-horizontal-line {
+  border-top-width: 3px!important;
+  border-top-color: #6777ef;
+}
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #6777ef; 
+}
+
+// ckeditor styling
+:host ::ng-deep .ck-editor__editable_inline {
+  --mdc-outlined-text-field-container-shape : 12px;
+  min-height: 150px;
+}
+::ng-deep .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  border-radius: var(--ck-border-radius);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+::ng-deep .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar, .ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+  border-radius: var(--ck-border-radius);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+//file-upload styling
+.file-drop-area {
+  border: 1px dashed #7c7db3;
+  border-radius: 15px;
+  position: relative;
+  margin-top: 5px;
+  transition: 0.2s;
+}
+.file{
+ text-align: center;
+}
+.file-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+.file-msg {
+  margin-left: 20px;
+  vertical-align: middle;
+  font-size: 12px;
+  font-weight: 500;
+}
+h5{
+  padding-top: 10px;
+}
+
+.btn{
+  margin-top: 6px;
+  height: 22px;
+}
+
+#editor {
+  font-size: 16px;
+  font-style: italic;
+  padding: 10px;
+}
+::ng-deep .angular-editor-textarea{
+  border-radius: 12px;
+}
+#date{
+  height: 56px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(173, 177, 177);
+  border-radius: 12px;
+  font-size: 16px;
+  font-style: italic;
+  padding: 10px;
+}

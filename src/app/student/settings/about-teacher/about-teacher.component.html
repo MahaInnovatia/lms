@@ -1,0 +1,313 @@
+<section class="content">
+  <div class="content-block">
+    <!-- <div class="block-header" *ngFor="let breadscrum of breadscrums">
+      <app-breadcrumb
+        [title]="breadscrum.title"
+        [items]="breadscrum.items"
+        [active_item]="breadscrum.active"
+      >
+      </app-breadcrumb>
+    </div> -->
+    <div class="block-header"  *ngFor="let breadscrum of breadcrumbs">
+      <app-static-breadcrumb
+      [title]="breadscrum.title"
+      [items]="breadscrum.items"
+      [active_item]="breadscrum.active"
+    >
+    </app-static-breadcrumb>
+  </div>
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-12">
+        <div class="card">
+          <div class="m-b-20">
+            <div class="contact-grid">
+              <div class="profile-header bg-dark">
+                <div class="user-name">{{ aboutData?.name }}</div>
+                <div class="name-center">
+                  {{ aboutData?.department }} Department
+                </div>
+              </div>
+              <img
+                src="{{ aboutData?.avatar || 'assets/profile.png' }}"
+                class="user-img"
+                alt=""
+              />
+              <p>
+                {{ aboutData?.country_name }}
+              </p>
+              <div>
+                <span class="phone">
+                  <i class="material-icons">phone</i
+                  >{{ aboutData?.mobile }}</span
+                >
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <h5 class="col-green">{{ dataSource2.length }}</h5>
+                  <b>Program Lectures</b>
+                </div>
+                <div class="col-6">
+                  <h5 class="col-green">{{ dataSource1.length }}</h5>
+                  <b>Course Lectures</b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <mat-tab-group mat-align-tabs="start">
+            <mat-tab label="About">
+              <div class="p-4">
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item">
+                    <b>Gender </b>
+                    <div class="profile-desc-item float-end">
+                      {{ aboutData?.gender | titlecase }}
+                    </div>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Date of birth</b>
+                    <div class="profile-desc-item float-end">
+                      {{ aboutData?.dob | date }}
+                    </div>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Department</b>
+                    <div class="profile-desc-item float-end">
+                      {{ aboutData?.department }}
+                    </div>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Qualification</b>
+                    <div class="profile-desc-item float-end">
+                      {{ aboutData?.qualifications[0]?.description | titlecase}}
+                    </div>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Registration Date</b>
+                    <div class="profile-desc-item float-end">
+                      {{ aboutData?.joiningDate | date }}
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+           (click)="cancel()"
+          >
+            Back to all {{commonRoles?.INSTRUCTOR_ROLE}}s
+          </button>
+        </div>
+      </div>
+
+      <div class="col-lg-8 col-md-12">
+        <div class="card">
+          <div class="card-container">
+            <button *ngIf="isEdit"
+              class="icons"
+              alt="Edit"
+              [routerLink]="['/student/settings/edit-instructor', aboutData.id]"
+            >
+              <app-feather-icons
+                [icon]="'edit'"
+                [class]="'tbl-fav-edit'"
+              ></app-feather-icons>
+            </button>
+            <button *ngIf="isDelete"
+              class="icons"
+              alt="Delete"
+              mat-menu-item
+              (click)="deleteItem(aboutData)"
+            >
+              <app-feather-icons
+                [icon]="'trash-2'"
+                [class]="'tbl-fav-delete'"
+              ></app-feather-icons>
+            </button>
+            <div *ngIf="!aboutData?.isLogin">
+              <button
+                mat-menu-item
+                (click)="confirmItem(aboutData)"
+                class="align-items-center"
+              >
+                <img class="img-w" src="/assets/approve.svg" alt="approve" />
+              </button>
+            </div>
+            <div class="mt-1" *ngIf="aboutData?.isLogin">
+              <button
+                mat-menu-item
+                (click)="deactiveconfirmItem(aboutData)"
+                class="align-items-center"
+              >
+                <img class="img-w" src="/assets/deactivate.png" alt="deactivate"/>
+              </button>
+            </div>
+          </div>
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                Details
+              </ng-template>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="project_widget">
+                  <div class="body">
+                    <div class="row">
+                      <div class="col-md-3 col-6 b-r">
+                        <strong>Full Name</strong>
+                        <br />
+                        <p>
+                          {{ aboutData?.name + aboutData?.last_name }}
+                        </p>
+                      </div>
+                      <div class="col-md-3 col-6 b-r">
+                        <strong>Mobile</strong>
+                        <br />
+                        <p>{{ aboutData?.mobile }}</p>
+                      </div>
+                      <div class="col-md-3 col-6 b-r">
+                        <strong>Email</strong>
+                        <br />
+                        <p>{{ aboutData?.email }}</p>
+                      </div>
+                      <div class="col-md-3 col-6">
+                        <strong>Location</strong>
+                        <br />
+                        <p>
+                          {{ aboutData?.country_name }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="header mt-3">
+                  <h2>Program Lectures</h2>
+                </div>
+                <div class="table-wrapper">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Program Name</th>
+                          <th>{{commonRoles?.INSTRUCTOR_ROLE}} Fee</th>
+                          <th>Class</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="dataSource2.length === 0">
+                          <td colspan="2" class="text-center">No records</td>
+                        </tr>
+                        <tr
+                          style="cursor: pointer"
+                          *ngFor="let data of dataSource2"
+                        >
+                          <td>{{ data?.programName }}</td>
+                          <td>$ {{ data?.instructorCost || 0}}.00</td>
+                          <td
+                           
+                          >
+                            <div class="status-container">
+                              <span
+                              [class]=" data.classDeliveryType === 'online' ? 'badge badge-solid-green' :  data.classDeliveryType === 'offline' ? 'badge badge-solid-red' : ''">
+                              <span
+                                [class]=" data.classDeliveryType === 'online' ? 'status-dot' :  data.classDeliveryType === 'offline' ? 'status-red' : ''"></span>
+                              {{ data.classDeliveryType ==='online'? 'Online':'Offline' | titlecase}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="header mt-3">
+                    <h2>Program Lectures</h2>
+                </div>
+                <div class="table-wrapper">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-start">Program Name</th>
+                                    <!-- <th class="text-center ">{{commonRoles?.INSTRUCTOR_ROLE}} Fee</th> -->
+                                    <th class="text-center">Class</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngIf="dataSource2.length === 0">
+                                    <td colspan="3" class="text-center">No records</td>
+                                </tr>
+                                <tr style="cursor: pointer" *ngFor="let data of dataSource2">
+                                    <td class="text-start">{{ data?.programName }}</td>
+                                    <!-- <td class="text-end payment-align">$ {{ data?.instructorCost || 0}}.00</td> -->
+                                    <td class="text-center">
+                                        <div class="status-container">
+                                            <span [class]="data.classDeliveryType === 'online' ? 'badge badge-solid-green' : data.classDeliveryType === 'offline' ? 'badge badge-solid-red' : ''">
+                                                <span [class]="data.classDeliveryType === 'online' ? 'status-dot' : data.classDeliveryType === 'offline' ? 'status-red' : ''"></span>
+                                                {{ data.classDeliveryType ==='online' ? 'Online':'Offline' | titlecase }}
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+
+              <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="header mt-3">
+                  <h2>Course Lectures</h2>
+                </div>
+                <div class="table-wrapper">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th class="text-start">Course Name</th>
+                          <!-- <th class="text-start">{{commonRoles?.INSTRUCTOR_ROLE}} Fee</th> -->
+                          <th class="text-center">Class</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="dataSource1.length === 0">
+                          <td colspan="2" class="text-center">No records</td>
+                        </tr>
+                        <tr
+                          style="cursor: pointer"
+                          *ngFor="let data of dataSource1"
+                        >
+                          <td class="text-start">{{ data?.courseName }}</td>
+                          <!-- <td class="text-end payment-align">$ {{ data?.instructorCost || 0}}.00</td> -->
+                          <td
+                          class="text-center"
+                          >
+                            <div class="status-container">
+                              <span
+                              [class]=" data.classDeliveryType === 'online' ? 'badge badge-solid-green' :  data.classDeliveryType === 'offline' ? 'badge badge-solid-red' : ''">
+                              <span
+                                [class]=" data.classDeliveryType === 'online' ? 'status-dot' :  data.classDeliveryType === 'offline' ? 'status-red' : ''"></span>
+                              {{ data.classDeliveryType ==='online'? 'Online':'Offline' | titlecase}}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

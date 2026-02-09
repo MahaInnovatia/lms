@@ -1,0 +1,170 @@
+.navbar-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    img {
+      height: 20px; // Adjust size as needed
+      width: auto;
+      margin-top: 25px; // Space between image and text
+      margin-bottom: 5px;
+    }
+
+    .media-title {
+      display: none;
+      font-weight: 500;
+      &.show-title {
+        display: block;
+      }
+    }
+  }
+}
+
+select{
+  width: fit-content;
+  height: 51px;
+  background: transparent;
+  color: black;
+  border: none;
+  padding: 0px 10px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+
+select:hover {
+  background: rgba(226, 227, 230, 0.829);
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.mat-list {
+text-align: left;
+border: none;
+}
+.align-left{
+text-align: left;
+}
+
+
+::ng-deep .mat-mdc-menu-panel{
+border-radius: 15px!important;
+max-width: 550px !important;
+}
+.menu-row {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+justify-content: center;
+}
+
+
+
+
+
+.gmail{
+margin-top: 8px;
+}
+
+
+.mat-badge-medium .mat-badge-content {
+width: 20px !important;
+height: 20px !important;
+line-height: 22px !important;
+}
+
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+top: -4px !important;
+}
+
+//new
+
+
+
+
+.shortcut-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr); // 2 items per row
+gap: 16px;
+padding: 12px;
+min-width: 300px; // prevents menu from being too narrow
+}
+
+.shortcut-card {
+background-color: #f9f9f9;
+border-radius: 12px;
+padding: 16px;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+cursor: pointer;
+transition: transform 0.2s ease;
+}
+
+.shortcut-card:hover {
+transform: translateY(-2px);
+}
+
+.icon-wrapper {
+width: 56px;
+height: 56px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 10px;
+}
+
+.menu-title {
+font-size: 14px;
+font-weight: 600;
+color: #1c1c1c;
+margin: 0;
+}
+
+
+// .dot {
+//   position: absolute;
+//   top: 1px;
+//   right: 1px;
+//   width: 4px;  /* super small dot */
+//   height: 4px;
+//   background-color: #007bff;
+//   border-radius: 50%;
+//   z-index: 2;
+// }
+
+// .ping {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   width: 100%;
+//   height: 100%;
+//   background-color: #007bff;
+//   border-radius: 50%;
+//   transform: translate(-50%, -50%);
+//   animation: ping-animation 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+//   opacity: 0.4;
+//   z-index: 1;
+// }
+
+// @keyframes ping-animation {
+//   0% {
+//     transform: translate(-50%, -50%) scale(1);
+//     opacity: 0.5;
+//   }
+//   75% {
+//     transform: translate(-50%, -50%) scale(6);
+//     opacity: 0;
+//   }
+//   100% {
+//     transform: translate(-50%, -50%) scale(6);
+//     opacity: 0;
+//   }
+// }

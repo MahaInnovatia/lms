@@ -1,0 +1,62 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" *ngFor="let breadscrum of breadcrumbs">
+            <!-- breadcrumb -->
+            <app-static-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+            </app-static-breadcrumb>
+        </div>
+        <div class="row clearfix p-2">
+            <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="card" style="height: fit-content;">
+                    <div class="p-4">
+                        <div class="card-container">
+                            <button class="icons" alt="Edit" *ngIf="isEdit" [routerLink]="['/student/settings/edit-announcement',aboutData1.id]" mat-menu-item>
+                                <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                            </button>
+                            <button class="icons" alt="Delete" *ngIf="isDelete" (click)="deleteAnnouncement(aboutData1._id)" mat-menu-item>
+                                <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                            </button>
+                        </div>
+
+                        <div class="row m-2">
+                            <div class="col-4">
+                                <h6>Title</h6>
+                            </div>
+                            <div class="col-6">
+                                <p>{{aboutData1?.subject | capitalizeFirstLetter}}</p>
+                            </div>
+                        </div>
+                            <div class="row m-2">
+                                <div class="col-4">
+                                    <h6>Role</h6>
+                                </div>
+                                <div class="col-6">
+                                    <p [innerHTML]="aboutData1.announcementFor | bulletPoints"></p>
+                                </div>
+                            </div>
+                            <div class="row mt-2 mx-2">
+                                <h6>Description</h6>
+                                <p
+                                class="text-default"
+                                [innerHTML]="
+                                  
+                                  getSafeHtml(aboutData1?.details)
+                                    
+                                "
+                              ></p>
+                                <!-- <p [innerHTML]="aboutData1.details | bulletPoints"></p> -->
+                            </div>
+                        <h2 class="text-end"><span></span></h2>
+                        <p class="m-b-0"></p>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-8 mx-3 mb-4">
+                            <button mat-raised-button id="back"
+                                [routerLink]="['/student/settings/automation/announcement']">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

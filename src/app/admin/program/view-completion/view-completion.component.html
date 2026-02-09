@@ -1,0 +1,277 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header" *ngFor="let breadscrum of breadscrums">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="breadscrum.title" [items]="breadscrum.items" [active_item]="breadscrum.active">
+            </app-breadcrumb>
+        </div>
+
+
+
+        <div class="row clearfix p-2">
+            <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="info-box7  order-info-box7 bg-white">
+                    <div class="info-box7-block">
+                        <div class="card-container">
+                            <div class="card">
+                                <mat-tab-group>
+                                    <mat-tab>
+                                        <ng-template mat-tab-label>
+                                            Details
+                                        </ng-template>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="project_widget">
+                                                <div class="header">
+                                                    <h2>{{commonRoles.STUDENT_ROLE}} Details</h2>
+                                                </div>
+                                                <div class="body">
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>{{commonRoles.STUDENT_ROLE}}</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>{{response?.studentId?.name | titlecase}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <h6>Gender</h6>
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <p>{{response.studentId?.gender | titlecase}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Mobile</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>{{response.studentId?.mobile}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <h6>Email</h6>
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <p>{{response?.studentId?.email}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>City</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>{{response.studentId?.city_name | titlecase}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <h6>Country</h6>
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <p>{{response.studentId?.country_name |
+                                                                            titlecase}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Qualification</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>{{response.studentId?.qualification }}</p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <h6>Department</h6>
+                                                                    </div>
+                                                                    <div class="col-7">
+                                                                        <p>{{response.studentId?.department |
+                                                                            titlecase}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="header">
+                                                    <h2>Program Details</h2>
+                                                </div>
+                                                <div class="body">
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Program</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>{{response.programId.title | titlecase}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Program Code</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <p>{{response.programId?.courseCode}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Duration</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>{{response.programId?.duration }} Days</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Program Fee</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <p> $ {{response.programId?.courseFee}}.00</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <!-- <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>{{commonRoles?.INSTRUCTOR_ROLE}} Fee</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <p>$ {{response.classId?.instructorCost }}.00
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="col-xl-6 col-sm-12">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Registered</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-5 col-sm-12">
+                                                                        <p>{{response.registeredOn | date}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <!-- </div>
+                                                    <div class="row"> -->
+                                                        <div class="col-xl-6 col-sm-12" *ngIf="!isApproved">
+                                                            <div class="px-2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-sm-12">
+                                                                        <h6>Completed</h6>
+                                                                    </div>
+                                                                    <div class="col-xl-5 col-sm-12 ">
+                                                                        <p>{{response.updatedAt | date }}</p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </mat-tab>
+
+                                    <!-- <mat-tab *ngIf="!isApproved">
+                                        <ng-template mat-tab-label>
+                                            Score Card
+                                        </ng-template>
+                                    </mat-tab> -->
+                                </mat-tab-group>
+                            </div>
+
+                        </div>
+
+
+
+                        <h2 class="text-end"><span></span></h2>
+                        <p class="m-b-0"></p>
+                    </div>
+                    <div class="row mx-3">
+                        <div class="col-md-10 mb-3">
+                            <button *ngIf="!isApproved" mat-raised-button id="back"
+                                [routerLink]="['/admin/program/student-program/program-completed-program']">Back</button>
+                            <button *ngIf="isApproved" mat-raised-button id="back"
+                                [routerLink]="['/admin/program/student-program/registered-approved-program']">Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
